@@ -45,6 +45,10 @@
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                     Dashboard
                 </a>
+                <a href="{{ route('preview') }}" target="_blank" rel="noopener" class="admin-nav-link">
+                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    Preview Website
+                </a>
             </div>
 
             {{-- Settings --}}

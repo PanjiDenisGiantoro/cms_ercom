@@ -2,231 +2,298 @@
 @section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
 
-@section('content')
-
-{{-- Stats Row 1: Content --}}
-<div class="admin-stats-grid">
-
-    <div class="admin-stat-card" style="animation-delay:0.04s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#4a9da8,#2d7a85)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+@section('topbar-actions')
+    <div style="display:flex;align-items:center;gap:10px;">
+        <div class="avatar-stack">
+            @php($avatarColors = ['linear-gradient(135deg,#a78bfa,#7c3aed)','linear-gradient(135deg,#f59e0b,#d97706)','linear-gradient(135deg,#34d399,#059669)'])
+            @foreach ($users as $i => $user)
+                <div class="av" style="background:{{ $avatarColors[$i % 3] }}">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
+            @endforeach
         </div>
-        <div class="admin-stat-label">Portfolio</div>
-        <div class="admin-stat-value">{{ $stats['portfolio'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">{{ $stats['portfolio_published'] }} published</div>
+        <span class="member-count">{{ $stats['users'] }} pengguna</span>
     </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.08s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-        </div>
-        <div class="admin-stat-label">Service Categories</div>
-        <div class="admin-stat-value">{{ $stats['services'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">kategori layanan</div>
-    </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.12s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        </div>
-        <div class="admin-stat-label">Testimonials</div>
-        <div class="admin-stat-value">{{ $stats['testimonials'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">ulasan klien</div>
-    </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.16s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
-        <div class="admin-stat-label">Partners</div>
-        <div class="admin-stat-value">{{ $stats['partners'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">mitra perusahaan</div>
-    </div>
-
-</div>
-
-{{-- Stats Row 2 --}}
-<div class="admin-stats-grid-secondary">
-
-    <div class="admin-stat-card" style="animation-delay:0.2s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="admin-stat-label">Team</div>
-        <div class="admin-stat-value">{{ $stats['team'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">anggota tim</div>
-    </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.24s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        </div>
-        <div class="admin-stat-label">Stats Entries</div>
-        <div class="admin-stat-value">{{ $stats['stats'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">angka statistik</div>
-    </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.28s">
-        <div class="admin-stat-icon" style="background:linear-gradient(135deg,#2d3f55,#4a5f75)">
-            <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
-        <div class="admin-stat-label">Users</div>
-        <div class="admin-stat-value">{{ $stats['users'] }}</div>
-        <div style="font-size:11px;color:#8896a8;margin-top:4px">admin & editor</div>
-    </div>
-
-    <div class="admin-stat-card" style="animation-delay:0.32s;background:linear-gradient(135deg,#f8fafc,#f1f5f9);border:1.5px dashed #cbd5e1;box-shadow:none;">
-        <div style="font-size:12px;font-weight:600;color:#94a3b8;margin-bottom:8px">Sistem</div>
-        <div style="font-size:11px;color:#64748b;line-height:1.6">
-            Laravel v13 · PHP 8.4<br>
-            <span style="color:#10b981">● Online</span>
-        </div>
-    </div>
-
-</div>
-
-{{-- Two column layout: Quick Access + Recent Portfolio --}}
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
-
-    {{-- Quick Access --}}
-    <div>
-        <div style="font-size:12px;font-weight:700;color:#8896a8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px">Settings</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-
-            <a href="{{ route('admin.hero.edit') }}" class="admin-section-card" style="animation-delay:0.06s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#4a9da8,#2d7a85)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                </div>
-                <div><div class="admin-section-title">Hero</div><div class="admin-section-desc">Headline & CTA</div></div>
-            </a>
-
-            <a href="{{ route('admin.about.edit') }}" class="admin-section-card" style="animation-delay:0.08s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                </div>
-                <div><div class="admin-section-title">About</div><div class="admin-section-desc">Deskripsi & video</div></div>
-            </a>
-
-            <a href="{{ route('admin.cta-banner.edit') }}" class="admin-section-card" style="animation-delay:0.1s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                </div>
-                <div><div class="admin-section-title">CTA Banner</div><div class="admin-section-desc">Headline & tombol</div></div>
-            </a>
-
-            <a href="{{ route('admin.footer.edit') }}" class="admin-section-card" style="animation-delay:0.12s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><line x1="3" y1="18" x2="21" y2="18"/><path d="M4 14h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v8a1 1 0 001 1z"/></svg>
-                </div>
-                <div><div class="admin-section-title">Footer</div><div class="admin-section-desc">Kontak & sosmed</div></div>
-            </a>
-
-            <a href="{{ route('admin.seo.edit') }}" class="admin-section-card" style="animation-delay:0.14s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                </div>
-                <div><div class="admin-section-title">SEO</div><div class="admin-section-desc">Meta & tracking</div></div>
-            </a>
-
-        </div>
-
-        <div style="font-size:12px;font-weight:700;color:#8896a8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px">Content</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-
-            <a href="{{ route('admin.services.index') }}" class="admin-section-card" style="animation-delay:0.16s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-                </div>
-                <div><div class="admin-section-title">Services</div><div class="admin-section-desc">{{ $stats['services'] }} kategori</div></div>
-            </a>
-
-            <a href="{{ route('admin.portfolio.index') }}" class="admin-section-card" style="animation-delay:0.18s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#4a9da8,#2d7a85)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                </div>
-                <div><div class="admin-section-title">Portfolio</div><div class="admin-section-desc">{{ $stats['portfolio'] }} project</div></div>
-            </a>
-
-            <a href="{{ route('admin.stats.index') }}" class="admin-section-card" style="animation-delay:0.2s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                </div>
-                <div><div class="admin-section-title">Stats</div><div class="admin-section-desc">{{ $stats['stats'] }} item</div></div>
-            </a>
-
-            <a href="{{ route('admin.testimonials.index') }}" class="admin-section-card" style="animation-delay:0.22s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                </div>
-                <div><div class="admin-section-title">Testimonials</div><div class="admin-section-desc">{{ $stats['testimonials'] }} ulasan</div></div>
-            </a>
-
-            <a href="{{ route('admin.partners.index') }}" class="admin-section-card" style="animation-delay:0.24s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-                </div>
-                <div><div class="admin-section-title">Partners</div><div class="admin-section-desc">{{ $stats['partners'] }} mitra</div></div>
-            </a>
-
-            <a href="{{ route('admin.team.index') }}" class="admin-section-card" style="animation-delay:0.26s">
-                <div class="admin-section-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                </div>
-                <div><div class="admin-section-title">Team</div><div class="admin-section-desc">{{ $stats['team'] }} anggota</div></div>
-            </a>
-
-        </div>
-    </div>
-
-    {{-- Recent Portfolio --}}
-    <div>
-        <div style="font-size:12px;font-weight:700;color:#8896a8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px">Portfolio Terbaru</div>
-        <div class="cms-card" style="padding:0;overflow:hidden">
-            @forelse($recentPortfolio as $p)
-                <div style="display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid #f1f5f9">
-                    @if($p->cover_image)
-                        <img src="{{ Storage::url($p->cover_image) }}" style="width:52px;height:36px;object-fit:cover;border-radius:8px;flex-shrink:0" alt="">
-                    @else
-                        <div style="width:52px;height:36px;background:#f1f5f9;border-radius:8px;flex-shrink:0"></div>
-                    @endif
-                    <div style="flex:1;min-width:0">
-                        <div style="font-size:13px;font-weight:600;color:#1a2332;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ $p->project_title }}</div>
-                        <div style="font-size:11px;color:#8896a8;margin-top:2px">{{ $p->serviceCategory?->name ?? '—' }} · {{ $p->project_date?->format('M Y') ?? '—' }}</div>
-                    </div>
-                    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
-                        <span class="cms-badge {{ $p->is_published ? 'cms-badge-green' : 'cms-badge-gray' }}" style="font-size:10px">{{ $p->is_published ? 'Live' : 'Draft' }}</span>
-                        <a href="{{ route('admin.portfolio.edit', $p) }}" style="font-size:11px;color:#4a9da8;text-decoration:none;font-weight:500">Edit</a>
-                    </div>
-                </div>
-            @empty
-                <div style="padding:32px;text-align:center;color:#8896a8;font-size:13px">Belum ada portfolio.</div>
-            @endforelse
-            <div style="padding:12px 18px;border-top:1px solid #f1f5f9">
-                <a href="{{ route('admin.portfolio.index') }}" style="font-size:12px;font-weight:600;color:#4a9da8;text-decoration:none">Lihat semua portfolio →</a>
-            </div>
-        </div>
-
-        {{-- System Info --}}
-        <div style="font-size:12px;font-weight:700;color:#8896a8;letter-spacing:.06em;text-transform:uppercase;margin:20px 0 12px">System</div>
-        <div class="cms-card" style="padding:16px 18px">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                <a href="{{ route('admin.users.index') }}" class="admin-section-card" style="padding:14px;animation-delay:0.28s">
-                    <div class="admin-section-icon" style="background:linear-gradient(135deg,#2d3f55,#4a5f75);width:34px;height:34px;border-radius:9px">
-                        <svg viewBox="0 0 24 24" stroke-width="2" style="width:16px;height:16px"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                    </div>
-                    <div><div class="admin-section-title">Users</div><div class="admin-section-desc">{{ $stats['users'] }} akun</div></div>
-                </a>
-                <div style="background:#f8fafc;border-radius:10px;padding:14px;border:1px solid #f1f5f9">
-                    <div style="font-size:11px;font-weight:600;color:#64748b;margin-bottom:6px">Versi</div>
-                    <div style="font-size:11px;color:#94a3b8;line-height:1.7">
-                        Laravel 13<br>PHP 8.4<br>
-                        <span style="color:#10b981;font-weight:500">● Aktif</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
-
 @endsection
+
+@section('content')
+<div class="dash-grid" style="padding:0">
+
+    {{-- ── HERO CARD: TOTAL PORTFOLIO ── --}}
+    <div class="hero-card">
+        <div class="hero-label">Total Portfolio</div>
+        <div class="hero-number">
+            <span class="count-up" data-target="{{ $stats['portfolio'] }}">0</span>
+        </div>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="rgba(255,255,255,0.9)">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <div>
+                    <div class="hero-stat-label">Published</div>
+                    <div class="hero-stat-val">{{ $stats['portfolio_published'] }}</div>
+                </div>
+            </div>
+            <div class="hero-stat">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="rgba(255,255,255,0.9)">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <div>
+                    <div class="hero-stat-label">Draft</div>
+                    <div class="hero-stat-val">{{ $stats['portfolio_draft'] }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-illustration" aria-hidden="true">
+            <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="90" cy="168" rx="22" ry="5" fill="rgba(0,0,0,0.1)"/>
+                <rect x="74" y="144" width="32" height="26" rx="4" fill="#8B7355" opacity="0.65"/>
+                <path d="M90 142 Q73 117 82 98 Q100 118 90 142Z" fill="#5a9e6f" opacity="0.85"/>
+                <path d="M90 130 Q112 112 108 93 Q90 110 90 130Z" fill="#4a8e5f" opacity="0.8"/>
+                <rect x="46" y="107" width="88" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
+                <rect x="49" y="115" width="6" height="36" rx="3" fill="rgba(255,255,255,0.3)"/>
+                <rect x="125" y="115" width="6" height="36" rx="3" fill="rgba(255,255,255,0.3)"/>
+                <rect x="56" y="74" width="68" height="35" rx="6" fill="rgba(255,255,255,0.35)"/>
+                <ellipse cx="90" cy="59" rx="15" ry="17" fill="rgba(255,220,185,0.92)"/>
+                <path d="M75 53 Q76 39 90 41 Q104 39 105 53 Q100 44 90 46 Q80 44 75 53Z" fill="rgba(50,30,10,0.65)"/>
+                <path d="M68 99 Q70 78 90 78 Q110 78 112 99 Q105 104 90 105 Q75 104 68 99Z" fill="rgba(200,150,110,0.7)"/>
+                <rect x="54" y="104" width="72" height="6" rx="2" fill="rgba(255,255,255,0.5)"/>
+                <rect x="59" y="85" width="62" height="21" rx="3" fill="rgba(255,255,255,0.42)"/>
+                <rect x="61" y="87" width="58" height="17" rx="2" fill="rgba(74,157,168,0.28)"/>
+                <circle cx="142" cy="44" r="16" fill="rgba(255,255,255,0.28)" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/>
+                <ellipse cx="142" cy="44" rx="9" ry="16" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+                <line x1="126" y1="44" x2="158" y2="44" stroke="rgba(255,255,255,0.45)" stroke-width="1.5"/>
+                <line x1="128" y1="36" x2="156" y2="36" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                <line x1="128" y1="52" x2="156" y2="52" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+                <path d="M72 90 Q63 97 61 104" stroke="rgba(255,220,185,0.9)" stroke-width="7" stroke-linecap="round" fill="none"/>
+                <path d="M108 90 Q122 85 136 59" stroke="rgba(255,220,185,0.9)" stroke-width="7" stroke-linecap="round" fill="none"/>
+            </svg>
+        </div>
+
+        <a href="{{ route('admin.portfolio.index') }}" class="view-btn">
+            Lihat Semua Portfolio
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+
+    {{-- ── PUBLISH RATE CARD ── --}}
+    <div class="pop-card">
+        <div class="pop-label">Tingkat Publikasi</div>
+        <div class="pop-number-row">
+            <div class="pop-number">
+                <span class="count-up" data-target="{{ $stats['publish_rate'] }}">0</span>%
+            </div>
+            @if ($stats['portfolio_draft'] > 0)
+                <div class="pop-badge" style="color:#d97706;background:rgba(217,119,6,0.12)">{{ $stats['portfolio_draft'] }} draft</div>
+            @else
+                <div class="pop-badge">✓ Lengkap</div>
+            @endif
+        </div>
+
+        <div class="gauge-wrap">
+            <svg class="gauge-svg" viewBox="0 0 78 78">
+                <circle cx="39" cy="39" r="31" fill="none" stroke="#f0d9d0" stroke-width="6"
+                    stroke-linecap="round" stroke-dasharray="137 57"/>
+                <circle id="gaugeArc" cx="39" cy="39" r="31" fill="none" stroke="#e8a868" stroke-width="6"
+                    stroke-linecap="round" stroke-dasharray="0 194"/>
+                <circle cx="39" cy="8" r="5" fill="#e8a868"/>
+            </svg>
+        </div>
+
+        <p class="pop-desc">
+            @if ($stats['portfolio_draft'] > 0)
+                {{ $stats['portfolio_draft'] }} portfolio masih berstatus draft.
+                <strong>Publikasikan</strong> agar tampil di website.
+            @else
+                Semua portfolio sudah dipublikasikan.
+                <strong>Pertahankan</strong> kualitas konten Anda!
+            @endif
+        </p>
+
+        <a href="{{ route('admin.portfolio.index') }}" class="learn-row" style="text-decoration:none">
+            <div class="learn-icon">
+                <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="white" stroke-width="2"/><path d="M3 9h18M9 21V9" stroke="white" stroke-width="2"/></svg>
+            </div>
+            <p class="learn-text">Kelola dan publikasikan portfolio agar tampil di halaman utama website.</p>
+            <div class="learn-arrow">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"/>
+                </svg>
+            </div>
+        </a>
+    </div>
+
+    {{-- ── RINGKASAN KONTEN (BAR CHART) ── --}}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Ringkasan Konten</span>
+            <div class="card-icon-btn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="finance-row">
+            <div class="dollar-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="width:18px;height:18px">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+            </div>
+            <div>
+                <div class="finance-amount">
+                    <span class="count-up" data-target="{{ $totalContent }}">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="finance-sub">Total Item Konten CMS</div>
+
+        <div class="bar-chart">
+            @foreach ($content as $i => $item)
+                <div class="bar-col">
+                    <div class="bar {{ $item['active'] ? 'bar--active' : '' }}"
+                         style="height:{{ $item['height'] }}px;animation-delay:{{ 0.3 + $i * 0.1 }}s"></div>
+                    <span class="bar-lbl">{{ $item['label'] }}</span>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- ── TIM KAMI ── --}}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Tim Kami</span>
+            <a href="{{ route('admin.team.index') }}" class="card-icon-btn" style="text-decoration:none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+            </a>
+        </div>
+
+        @php($teamColors = ['linear-gradient(135deg,#4a9da8,#2d7a85)','linear-gradient(135deg,#8b5cf6,#6d28d9)','linear-gradient(135deg,#f59e0b,#d97706)','linear-gradient(135deg,#10b981,#059669)'])
+
+        @forelse ($teamMembers as $i => $member)
+            <div class="performer-item">
+                @if ($member->photo)
+                    <img src="{{ Storage::url($member->photo) }}" class="performer-av" style="object-fit:cover" alt="">
+                @else
+                    <div class="performer-av" style="background:{{ $teamColors[$i % 4] }}">{{ strtoupper(substr($member->name, 0, 1)) }}</div>
+                @endif
+                <div class="performer-info">
+                    <div class="performer-name">{{ $member->name }}</div>
+                    <div class="performer-status">
+                        <span class="status-dot status-dot--online"></span>
+                        {{ $member->position }}
+                    </div>
+                </div>
+                <a href="{{ route('admin.team.edit', $member) }}" style="font-size:12px;font-weight:600;color:#4a9da8;text-decoration:none;flex-shrink:0">Edit</a>
+            </div>
+        @empty
+            <div style="padding:24px 0;text-align:center;color:#8896a8;font-size:13px">Belum ada anggota tim.</div>
+        @endforelse
+    </div>
+
+    {{-- ── PORTFOLIO TERBARU ── --}}
+    <div class="card">
+        <div class="card-header">
+            <span class="card-title">Portfolio Terbaru</span>
+            <a href="{{ route('admin.portfolio.index') }}" class="card-icon-btn" style="text-decoration:none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+
+        @forelse ($recentPortfolio as $p)
+            <div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #f1f5f9">
+                @if ($p->cover_image)
+                    <img src="{{ Storage::url($p->cover_image) }}" style="width:42px;height:42px;object-fit:cover;border-radius:10px;flex-shrink:0" alt="">
+                @else
+                    <div style="width:42px;height:42px;background:#f1f5f9;border-radius:10px;flex-shrink:0"></div>
+                @endif
+                <div style="flex:1;min-width:0">
+                    <div class="performer-name">{{ $p->project_title }}</div>
+                    <div class="performer-status">{{ $p->category?->name ?? '—' }} · {{ $p->project_date?->format('M Y') ?? '—' }}</div>
+                </div>
+                <span class="cms-badge {{ $p->is_published ? 'cms-badge-green' : 'cms-badge-gray' }}" style="font-size:10px;flex-shrink:0">{{ $p->is_published ? 'Live' : 'Draft' }}</span>
+            </div>
+        @empty
+            <div style="padding:24px 0;text-align:center;color:#8896a8;font-size:13px">Belum ada portfolio.</div>
+        @endforelse
+    </div>
+
+    {{-- ── LOWONGAN KARIR ── --}}
+    <div class="card" style="grid-column:1 / -1;animation:fadeInUp 0.55s 0.35s ease both">
+        <div class="card-header">
+            <span class="card-title">Lowongan Karir</span>
+            <a href="{{ route('admin.careers.index') }}" class="card-icon-btn" style="text-decoration:none">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+        </div>
+
+        <div style="display:flex;gap:32px;margin-bottom:14px">
+            <div>
+                <div class="finance-amount"><span class="count-up" data-target="{{ $stats['careers'] }}">0</span></div>
+                <div class="finance-sub" style="margin-bottom:0">Lowongan Aktif</div>
+            </div>
+            <div>
+                <div class="finance-amount"><span class="count-up" data-target="{{ $stats['applications'] }}">0</span></div>
+                <div class="finance-sub" style="margin-bottom:0">Total Pelamar</div>
+            </div>
+        </div>
+
+        @forelse ($careers as $career)
+            <div style="display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #f1f5f9">
+                <div class="performer-av" style="background:linear-gradient(135deg,#2d3f55,#4a5f75)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="width:16px;height:16px"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                    <div class="performer-name">{{ $career->title }}</div>
+                    <div class="performer-status">{{ $career->employment_type }} · {{ $career->location }}</div>
+                </div>
+                <span class="cms-badge cms-badge-blue" style="font-size:10px;flex-shrink:0">{{ $career->applications_count }} pelamar</span>
+            </div>
+        @empty
+            <div style="padding:24px 0;text-align:center;color:#8896a8;font-size:13px">Belum ada lowongan aktif.</div>
+        @endforelse
+    </div>
+
+</div>
+@endsection
+
+@push('scripts')
+<script>
+function countUp(el, target, duration = 1200) {
+    const start = performance.now();
+    const isFloat = String(target).includes('.');
+    function step(now) {
+        const p    = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        const val  = target * ease;
+        el.textContent = isFloat
+            ? val.toFixed(1)
+            : Math.floor(val).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+function animateGauge(rate) {
+    const arc   = document.getElementById('gaugeArc');
+    const total = 194;
+    const max   = 137;
+    const filled = (rate / 100) * max;
+    let cur = 0;
+    const tick = () => {
+        cur = Math.min(cur + 2.5, filled);
+        arc.setAttribute('stroke-dasharray', `${cur} ${total - cur}`);
+        if (cur < filled) requestAnimationFrame(tick);
+    };
+    setTimeout(() => requestAnimationFrame(tick), 500);
+}
+
+window.addEventListener('load', () => {
+    document.querySelectorAll('.count-up').forEach(el => {
+        setTimeout(() => countUp(el, parseFloat(el.dataset.target)), 300);
+    });
+    animateGauge({{ $stats['publish_rate'] }});
+});
+</script>
+@endpush

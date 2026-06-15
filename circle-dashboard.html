@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Circle Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #e8ecf0;
+    --sidebar-bg: #2c3e50;
+    --card-bg: #ffffff;
+    --teal: #4a9da8;
+    --teal-light: #6bbcc6;
+    --coral: #e8a898;
+    --coral-bg: #fdf0ec;
+    --text-dark: #1a2332;
+    --text-mid: #4a5568;
+    --text-soft: #8896a8;
+    --accent-blue: #3b82f6;
+    --accent-orange: #f59e0b;
+    --green: #22c55e;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
+    --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font: 'DM Sans', sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* ─── OUTER WRAPPER ─── */
+  .app {
+    width: 100%;
+    max-width: 1180px;
+    height: 740px;
+    background: #dce2e8;
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255,255,255,0.6);
+    display: flex;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    width: 80px;
+    background: #2d3f55;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+    gap: 0;
+    flex-shrink: 0;
+    border-radius: 0;
+  }
+
+  .sidebar-logo {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #4a9da8 0%, #2d7a85 100%);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(74,157,168,0.4);
+  }
+
+  .sidebar-logo svg { width: 24px; height: 24px; }
+
+  .sidebar-brand {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.5px;
+    margin-bottom: 36px;
+  }
+
+  .nav-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 8px;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .nav-item svg { width: 20px; height: 20px; }
+  .nav-item span { font-size: 9px; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+
+  .nav-item:hover { background: rgba(255,255,255,0.05); }
+
+  .nav-item.active {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .nav-item.active::left {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 28px;
+    background: var(--teal-light);
+    border-radius: 0 2px 2px 0;
+  }
+
+  .nav-item.active svg, .nav-item.active span { color: #fff; opacity: 1; }
+  .nav-item.active svg { stroke: #fff !important; }
+  .nav-item.active span { color: #fff !important; }
+  .nav-item:not(.active) svg { stroke: rgba(255,255,255,0.4) !important; }
+
+  .nav-item.active-pill {
+    position: relative;
+  }
+
+  .active-indicator {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 28px;
+    background: var(--teal-light);
+    border-radius: 0 3px 3px 0;
+  }
+
+  .sidebar-bottom {
+    margin-top: auto;
+  }
+
+  .avatar-sm {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  .avatar-sm img, .avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 50%;
+  }
+
+  /* ─── MAIN ─── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    height: 64px;
+    background: var(--card-bg);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    flex-shrink: 0;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #e2e8f0;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .back-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .back-btn svg { width: 14px; height: 14px; stroke: currentColor; }
+
+  .nav-tabs { display: flex; gap: 4px; margin-left: 24px; }
+
+  .nav-tab {
+    padding: 6px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-soft);
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-tab:hover { color: var(--text-dark); }
+
+  .nav-tab.active {
+    color: var(--text-dark);
+    font-weight: 600;
+    background: #f1f5f9;
+  }
+
+  .topbar-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .members-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .avatar-stack {
+    display: flex;
+    direction: rtl;
+  }
+
+  .avatar-stack .av {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-left: -8px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .member-count {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-mid);
+  }
+
+  /* ─── CONTENT ─── */
+  .content {
+    flex: 1;
+    padding: 24px 28px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    align-content: start;
+  }
+
+  /* ─── HERO CARD (visits) ─── */
+  .hero-card {
+    grid-column: 1 / 3;
+    background: linear-gradient(135deg, #5ab3bf 0%, #7ecdd6 40%, #a8dde4 70%, #d4a574 100%);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(74,157,168,0.25);
+    animation: fadeInUp 0.6s 0.1s ease both;
+    min-height: 200px;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    border-radius: inherit;
+  }
+
+  .hero-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .hero-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 72px;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 20px;
+  }
+
+  .hero-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .hero-stat svg { width: 16px; height: 16px; stroke: rgba(255,255,255,0.9); }
+
+  .hero-stat-info { display: flex; flex-direction: column; }
+  .hero-stat-label { font-size: 10px; color: rgba(255,255,255,0.75); font-weight: 500; letter-spacing: 0.3px; }
+  .hero-stat-val { font-size: 15px; font-weight: 700; color: #fff; }
+
+  .view-btn {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    color: #fff;
+    font-family: var(--font);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 11px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .view-btn:hover { background: rgba(255,255,255,0.35); transform: translateX(2px); }
+  .view-btn svg { width: 14px; height: 14px; }
+
+  /* Illustration */
+  .hero-illustration {
+    position: absolute;
+    right: 160px;
+    bottom: 0;
+    width: 180px;
+    height: 180px;
+    opacity: 0.9;
+  }
+
+  /* ─── POPULARITY CARD ─── */
+  .popularity-card {
+    grid-column: 3;
+    grid-row: 1;
+    background: var(--coral-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.6s 0.15s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .popularity-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%);
+    border-radius: inherit;
+  }
+
+  .pop-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+  }
+
+  .pop-number-row {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .pop-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 60px;
+    color: var(--text-dark);
+    line-height: 1;
+  }
+
+  .pop-badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    background: rgba(34,197,94,0.1);
+    padding: 2px 7px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  /* Gauge */
+  .gauge-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+  }
+
+  .gauge-svg { width: 80px; height: 80px; transform: rotate(-120deg); }
+
+  .pop-desc {
+    font-size: 12px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .pop-desc strong { color: var(--text-dark); font-weight: 600; }
+
+  .learn-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .learn-icon {
+    width: 32px; height: 32px;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .learn-icon svg { width: 14px; height: 14px; stroke: #fff; }
+  .learn-text { font-size: 11px; color: var(--text-mid); line-height: 1.4; flex: 1; }
+
+  /* ─── FINANCE CARD ─── */
+  .finance-card {
+    grid-column: 1;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.6s 0.2s ease both;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+  }
+
+  .finance-amount-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .dollar-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #4a9da8, #2d7a85);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .finance-amount {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .finance-sublabel {
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-bottom: 16px;
+  }
+
+  /* Bar Chart */
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 80px;
+    margin-bottom: 8px;
+  }
+
+  .bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .bar {
+    width: 100%;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bar::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 40%;
+    background: rgba(255,255,255,0.15);
+    border-radius: 4px 4px 0 0;
+  }
+
+  .bar:hover { filter: brightness(1.1); transform: scaleY(1.05); transform-origin: bottom; }
+
+  .bar-label { font-size: 9px; font-weight: 500; color: var(--text-soft); letter-spacing: 0.3px; }
+
+  /* ─── TOP PERFORMERS ─── */
+  .performers-card {
+    grid-column: 2;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.6s 0.25s ease both;
+  }
+
+  .performer-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    transition: all 0.2s;
+    cursor: pointer;
+    border-radius: 8px;
+    padding-left: 4px;
+  }
+  .performer-item:last-child { border-bottom: none; }
+  .performer-item:hover { background: #f8fafc; padding-left: 10px; }
+
+  .performer-av {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 13px; font-weight: 600;
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .performer-info { flex: 1; }
+  .performer-name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+
+  .performer-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-top: 2px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+
+  .performer-score {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  /* ─── MAP CARD ─── */
+  .map-card {
+    grid-column: 3;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 0.6s 0.3s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .map-container {
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(135deg, #dce8f0 0%, #c8dce8 100%);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 12px;
+  }
+
+  /* SVG world map dots */
+  .map-svg { width: 100%; height: 100%; opacity: 0.5; }
+
+  .map-pin {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .map-pin:hover { transform: scale(1.1); }
+
+  .pin-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .pin-pulse {
+    position: absolute;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid;
+    top: -6px; left: -6px;
+    animation: pulse 2s ease infinite;
+    opacity: 0;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.5); opacity: 0.6; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  .map-label {
+    margin-top: 4px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+  }
+
+  .map-label-sub {
+    font-size: 9px;
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  .content::-webkit-scrollbar { width: 4px; }
+  .content::-webkit-scrollbar-track { background: transparent; }
+  .content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+  /* ─── BAR ANIMATION ─── */
+  @keyframes growBar {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to   { transform: scaleY(1); transform-origin: bottom; }
+  }
+
+  .bar { animation: growBar 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+  .bar:nth-child(1) { animation-delay: 0.3s; }
+  .bar:nth-child(2) { animation-delay: 0.4s; }
+  .bar:nth-child(3) { animation-delay: 0.5s; }
+  .bar:nth-child(4) { animation-delay: 0.6s; }
+  .bar:nth-child(5) { animation-delay: 0.7s; }
+  .bar:nth-child(6) { animation-delay: 0.8s; }
+
+  /* Counter animation */
+  .count-up { display: inline-block; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .app { height: auto; }
+    .content { grid-template-columns: 1fr 1fr; }
+    .hero-card { grid-column: 1 / 3; }
+    .popularity-card { grid-column: 1 / 3; }
+    .map-card { grid-column: 1 / 3; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/>
+        <circle cx="4" cy="12" r="1.5" fill="white" stroke="none"/>
+        <circle cx="20" cy="12" r="1.5" fill="white" stroke="none"/>
+      </svg>
+    </div>
+    <span class="sidebar-brand">Circle</span>
+
+    <nav style="width:100%;display:flex;flex-direction:column;gap:4px;">
+      <div class="nav-item" onclick="setNav(this)">
+        <div class="active-indicator" style="display:none"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Rate</span>
+      </div>
+
+      <div class="nav-item active" onclick="setNav(this)">
+        <div class="active-indicator" style="background:var(--teal-light);"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        <span>Overview</span>
+      </div>
+
+      <div class="nav-item" onclick="setNav(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+          <polyline points="14,2 14,8 20,8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10,9 9,9 8,9"/>
+        </svg>
+        <span>Reports</span>
+      </div>
+
+      <div class="nav-item" onclick="setNav(this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/>
+        </svg>
+        <span>Settings</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-bottom" style="padding:16px 0;">
+      <div class="avatar-sm">
+        <div class="avatar-placeholder" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">P</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="back-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </button>
+
+      <nav class="nav-tabs">
+        <div class="nav-tab active">DASHBOARD</div>
+        <div class="nav-tab">INSIGHTS</div>
+        <div class="nav-tab">CHANNELS</div>
+      </nav>
+
+      <div class="topbar-right">
+        <div class="members-group">
+          <div class="avatar-stack">
+            <div class="av" style="background:linear-gradient(135deg,#a78bfa,#7c3aed)">A</div>
+            <div class="av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">B</div>
+            <div class="av" style="background:linear-gradient(135deg,#34d399,#059669)">C</div>
+          </div>
+          <span class="member-count">12 members</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT GRID -->
+    <div class="content">
+
+      <!-- HERO VISITS CARD -->
+      <div class="hero-card">
+        <div class="hero-label">Visits for today</div>
+        <div class="hero-number"><span class="count-up" data-target="824">0</span></div>
+
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div class="hero-stat-info">
+              <span class="hero-stat-label">Popularity</span>
+              <span class="hero-stat-val">93</span>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div class="hero-stat-info">
+              <span class="hero-stat-label">General rate</span>
+              <span class="hero-stat-val">4.7</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inline SVG Illustration -->
+        <div class="hero-illustration">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Plant pot -->
+            <ellipse cx="100" cy="185" rx="25" ry="6" fill="rgba(0,0,0,0.1)"/>
+            <rect x="82" y="160" width="36" height="28" rx="4" fill="#8B7355" opacity="0.7"/>
+            <path d="M78 162 h44" stroke="rgba(0,0,0,0.2)" stroke-width="2"/>
+            <!-- Plant leaves -->
+            <path d="M100 158 Q80 130 90 110 Q110 130 100 158Z" fill="#5a9e6f" opacity="0.8"/>
+            <path d="M100 145 Q125 125 120 105 Q100 122 100 145Z" fill="#4a8e5f" opacity="0.8"/>
+            <!-- Chair -->
+            <rect x="55" y="120" width="90" height="8" rx="4" fill="rgba(255,255,255,0.4)"/>
+            <rect x="58" y="128" width="6" height="40" rx="3" fill="rgba(255,255,255,0.3)"/>
+            <rect x="136" y="128" width="6" height="40" rx="3" fill="rgba(255,255,255,0.3)"/>
+            <rect x="65" y="85" width="70" height="38" rx="6" fill="rgba(255,255,255,0.35)"/>
+            <!-- Person body -->
+            <ellipse cx="100" cy="68" rx="16" ry="18" fill="rgba(255,220,185,0.9)"/>
+            <!-- Hair -->
+            <path d="M84 62 Q85 46 100 48 Q115 46 116 62 Q110 52 100 54 Q90 52 84 62Z" fill="rgba(60,40,20,0.7)"/>
+            <!-- Body/shirt -->
+            <path d="M78 110 Q80 88 100 88 Q120 88 122 110 Q115 115 100 116 Q85 115 78 110Z" fill="rgba(210,160,120,0.7)"/>
+            <!-- Laptop -->
+            <rect x="62" y="116" width="76" height="6" rx="2" fill="rgba(255,255,255,0.5)"/>
+            <rect x="68" y="96" width="64" height="22" rx="3" fill="rgba(255,255,255,0.4)"/>
+            <rect x="70" y="98" width="60" height="18" rx="2" fill="rgba(74,157,168,0.3)"/>
+            <!-- Globe -->
+            <circle cx="155" cy="52" r="18" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+            <ellipse cx="155" cy="52" rx="10" ry="18" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            <line x1="137" y1="52" x2="173" y2="52" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            <line x1="140" y1="43" x2="170" y2="43" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <line x1="140" y1="61" x2="170" y2="61" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+            <!-- Arms -->
+            <path d="M80 100 Q70 108 68 116" stroke="rgba(255,220,185,0.9)" stroke-width="8" stroke-linecap="round" fill="none"/>
+            <path d="M120 100 Q135 95 148 68" stroke="rgba(255,220,185,0.9)" stroke-width="8" stroke-linecap="round" fill="none"/>
+          </svg>
+        </div>
+
+        <button class="view-btn">
+          VIEW FULL STATISTIC
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <!-- POPULARITY CARD -->
+      <div class="popularity-card">
+        <div class="pop-label">Popularity rate</div>
+        <div class="pop-number-row">
+          <div class="pop-number"><span class="count-up" data-target="87">0</span></div>
+          <div class="pop-badge">↑2</div>
+        </div>
+
+        <!-- Gauge SVG -->
+        <div class="gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="32" fill="none" stroke="#f0d9d0" stroke-width="6" stroke-linecap="round"
+              stroke-dasharray="140 62" />
+            <circle cx="40" cy="40" r="32" fill="none" stroke="#e8a868" stroke-width="6" stroke-linecap="round"
+              stroke-dasharray="105 97"
+              style="animation: gaugeIn 1.2s 0.5s ease both; stroke-dasharray: 0 202;" id="gaugeArc"/>
+            <circle cx="40" cy="8" r="5" fill="#e8a868" />
+          </svg>
+        </div>
+
+        <p class="pop-desc">Your Rate has increased because of your recent update activity. <strong>Keep moving</strong> forward and get more points!</p>
+
+        <div class="learn-row">
+          <div class="learn-icon">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="white" stroke-width="2" fill="none"/></svg>
+          </div>
+          <p class="learn-text">Learn insights how to manage all aspects of your startup.</p>
+          <div style="width:28px;height:28px;background:linear-gradient(135deg,#f59e0b,#ef4444);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><polyline points="9 18 15 12 9 6" stroke="white" stroke-width="2.5"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINANCE CARD -->
+      <div class="finance-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <div class="card-title">Finance Performance</div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+
+        <div class="finance-amount-row">
+          <div class="dollar-icon">$</div>
+          <div>
+            <div class="finance-amount"><span class="count-up" data-target="12841">0</span></div>
+            <div class="finance-sublabel">Monthly Income</div>
+          </div>
+        </div>
+
+        <div class="bar-chart" id="barChart">
+          <!-- bars injected by JS -->
+        </div>
+
+        <div style="display:flex;justify-content:space-between;">
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">DEC</span>
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">JAN</span>
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">FEB</span>
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">MAR</span>
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">APR</span>
+          <span style="font-size:9px;color:var(--text-soft);font-weight:500">MAY</span>
+        </div>
+      </div>
+
+      <!-- TOP PERFORMERS -->
+      <div class="performers-card">
+        <div class="card-title">TOP performers</div>
+
+        <div id="performersList">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- MAP CARD -->
+      <div class="map-card">
+        <div class="card-title">Targeting by region</div>
+        <div class="map-container">
+          <!-- Simplified dot map -->
+          <svg class="map-svg" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+            <!-- Dots representing continents -->
+            <g fill="#8ba8be" opacity="0.5">
+              <!-- North America -->
+              <circle cx="60" cy="55" r="2"/><circle cx="70" cy="50" r="2"/><circle cx="55" cy="65" r="2"/>
+              <circle cx="75" cy="60" r="2"/><circle cx="65" cy="70" r="2"/><circle cx="80" cy="55" r="2"/>
+              <circle cx="50" cy="58" r="2"/><circle cx="85" cy="65" r="2"/><circle cx="62" cy="78" r="2"/>
+              <!-- Europe -->
+              <circle cx="145" cy="42" r="2"/><circle cx="152" cy="38" r="2"/><circle cx="158" cy="45" r="2"/>
+              <circle cx="148" cy="50" r="2"/><circle cx="155" cy="52" r="2"/><circle cx="162" cy="42" r="2"/>
+              <circle cx="168" cy="48" r="2"/><circle cx="140" cy="48" r="2"/>
+              <!-- Asia -->
+              <circle cx="195" cy="45" r="2"/><circle cx="205" cy="40" r="2"/><circle cx="215" cy="48" r="2"/>
+              <circle cx="225" cy="42" r="2"/><circle cx="220" cy="58" r="2"/><circle cx="200" cy="58" r="2"/>
+              <circle cx="210" cy="65" r="2"/><circle cx="230" cy="55" r="2"/><circle cx="235" cy="65" r="2"/>
+              <!-- South America -->
+              <circle cx="95" cy="95" r="2"/><circle cx="100" cy="105" r="2"/><circle cx="90" cy="110" r="2"/>
+              <circle cx="105" cy="115" r="2"/><circle cx="95" cy="120" r="2"/>
+              <!-- Africa -->
+              <circle cx="155" cy="82" r="2"/><circle cx="162" cy="90" r="2"/><circle cx="155" cy="100" r="2"/>
+              <circle cx="168" cy="98" r="2"/><circle cx="162" cy="108" r="2"/>
+              <!-- Australia -->
+              <circle cx="235" cy="100" r="2"/><circle cx="245" cy="105" r="2"/><circle cx="240" cy="115" r="2"/>
+              <circle cx="250" cy="112" r="2"/>
+            </g>
+          </svg>
+
+          <!-- Poland pin -->
+          <div class="map-pin" style="left:52%;top:22%">
+            <div style="position:relative">
+              <div class="pin-dot" style="background:#4a9da8;"></div>
+              <div class="pin-pulse" style="border-color:#4a9da8;"></div>
+            </div>
+            <div class="map-label">
+              Poland
+              <div class="map-label-sub">23.03% · 4.7</div>
+            </div>
+          </div>
+
+          <!-- USA pin -->
+          <div class="map-pin" style="left:22%;top:38%">
+            <div style="position:relative">
+              <div class="pin-dot" style="background:#f59e0b;"></div>
+              <div class="pin-pulse" style="border-color:#f59e0b;"></div>
+            </div>
+          </div>
+
+          <!-- Asia pin -->
+          <div class="map-pin" style="left:72%;top:35%">
+            <div style="position:relative">
+              <div class="pin-dot" style="background:#a78bfa;"></div>
+              <div class="pin-pulse" style="border-color:#a78bfa;animation-delay:0.5s"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- .content -->
+  </main>
+</div>
+
+<script>
+// ─── Bar Chart ───────────────────────────────────────────
+const barData = [
+  { h: 55, color: '#a8d5db', active: false },
+  { h: 40, color: '#a8d5db', active: false },
+  { h: 65, color: '#4a9da8', active: true },
+  { h: 50, color: '#a8d5db', active: false },
+  { h: 72, color: '#4a9da8', active: false },
+  { h: 58, color: '#a8d5db', active: false },
+];
+
+const chartEl = document.getElementById('barChart');
+barData.forEach((d, i) => {
+  const grp = document.createElement('div');
+  grp.className = 'bar-group';
+  const bar = document.createElement('div');
+  bar.className = 'bar';
+  bar.style.height = d.h + 'px';
+  bar.style.background = d.active
+    ? 'linear-gradient(to top, #2d7a85, #4a9da8)'
+    : 'linear-gradient(to top, #c8dde2, #ddeef2)';
+  bar.style.animationDelay = (0.3 + i * 0.1) + 's';
+  grp.appendChild(bar);
+  chartEl.appendChild(grp);
+});
+
+// ─── Performers ──────────────────────────────────────────
+const performers = [
+  { name: 'Bessie Cooper', status: 'Online', score: 4.3, bg: 'linear-gradient(135deg,#f59e0b,#d97706)', initial: 'B', ago: '' },
+  { name: 'Albert Flores',  status: 'Online', score: 4.7, bg: 'linear-gradient(135deg,#a78bfa,#7c3aed)', initial: 'A', ago: '' },
+  { name: 'Guy Hawkins',    status: '4 minutes ago', score: 4.4, bg: 'linear-gradient(135deg,#34d399,#059669)', initial: 'G', ago: '4 min' },
+];
+
+const listEl = document.getElementById('performersList');
+performers.forEach(p => {
+  const item = document.createElement('div');
+  item.className = 'performer-item';
+  item.innerHTML = `
+    <div class="performer-av" style="background:${p.bg}">${p.initial}</div>
+    <div class="performer-info">
+      <div class="performer-name">${p.name}</div>
+      <div class="performer-status">
+        <div class="status-dot" style="background:${p.status === 'Online' ? '#22c55e' : '#94a3b8'}"></div>
+        ${p.status}
+      </div>
+    </div>
+    <div class="performer-score">${p.score}</div>
+  `;
+  listEl.appendChild(item);
+});
+
+// ─── Nav active ──────────────────────────────────────────
+function setNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── Count up animation ──────────────────────────────────
+function countUp(el, target, duration = 1200) {
+  const start = performance.now();
+  const isDecimal = String(target).includes('.');
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = target * ease;
+    el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val).toLocaleString();
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ─── Gauge animation ─────────────────────────────────────
+function animateGauge() {
+  const arc = document.getElementById('gaugeArc');
+  const total = 201;
+  const filled = (87 / 100) * 140;
+  let current = 0;
+  const step = () => {
+    current = Math.min(current + 3, filled);
+    arc.setAttribute('stroke-dasharray', `${current} ${total - current}`);
+    if (current < filled) requestAnimationFrame(step);
+  };
+  setTimeout(() => requestAnimationFrame(step), 600);
+}
+
+// ─── Init on load ────────────────────────────────────────
+window.addEventListener('load', () => {
+  document.querySelectorAll('.count-up').forEach(el => {
+    const target = parseFloat(el.dataset.target);
+    setTimeout(() => countUp(el, target), 400);
+  });
+  animateGauge();
+});
+</script>
+</body>
+</html>

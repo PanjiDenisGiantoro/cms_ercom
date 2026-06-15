@@ -3,11 +3,14 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PreviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/preview', [PreviewController::class, 'index'])->name('preview');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
