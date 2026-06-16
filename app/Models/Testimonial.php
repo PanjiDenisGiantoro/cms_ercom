@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Testimonial extends Model
 {
@@ -13,4 +15,11 @@ class Testimonial extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    protected $appends = ['photo_url'];
+
+    protected function photoUrl(): Attribute
+    {
+        return Attribute::get(fn () => $this->photo ? Storage::url($this->photo) : null);
+    }
 }

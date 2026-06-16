@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Portfolio extends Model
@@ -19,6 +21,13 @@ class Portfolio extends Model
         'is_published' => 'boolean',
         'is_featured' => 'boolean',
     ];
+
+    protected $appends = ['cover_image_url'];
+
+    protected function coverImageUrl(): Attribute
+    {
+        return Attribute::get(fn () => $this->cover_image ? Storage::url($this->cover_image) : null);
+    }
 
     protected static function boot(): void
     {

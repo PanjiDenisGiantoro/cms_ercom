@@ -11,6 +11,7 @@ use App\Models\NavbarSetting;
 use App\Models\Partner;
 use App\Models\SeoSetting;
 use App\Models\ServiceCategory;
+use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
 use App\Models\TeamSetting;
@@ -43,12 +44,13 @@ class SectionController extends Controller
 
     public function services(): JsonResponse
     {
-        return response()->json(
-            ServiceCategory::with(['items.subItems'])
+        return response()->json([
+            'settings' => ServiceSetting::instance(),
+            'categories' => ServiceCategory::with(['items.subItems'])
                 ->where('is_active', true)
                 ->orderBy('order')
-                ->get()
-        );
+                ->get(),
+        ]);
     }
 
     public function ctaBanner(): JsonResponse
