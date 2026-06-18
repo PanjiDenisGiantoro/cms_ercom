@@ -15,11 +15,11 @@
         <div class="cms-card-title">Konten About</div>
         <div class="cms-field">
             <label class="cms-label">Headline</label>
-            <textarea name="headline" rows="2" class="cms-input">{{ old('headline', $about->headline) }}</textarea>
+            <textarea name="headline" rows="2" class="cms-input ckeditor-minimal">{{ old('headline', $about->headline) }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi</label>
-            <textarea name="description" rows="5" class="cms-input">{{ old('description', $about->description) }}</textarea>
+            <textarea name="description" rows="5" class="cms-input ckeditor">{{ old('description', $about->description) }}</textarea>
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

@@ -967,21 +967,27 @@ footer{
 
   <div class="hero-content">
     <div class="hero-tag">PR &amp; Strategic Communication Agency</div>
-    <h1 class="hero-h1">
+    <div class="hero-h1">
       @php
-        $heroHeadline = $hero->headline ?: "We are Building Trust.\nDriving Impact.";
-        $heroHighlight = $hero->highlighted_word ?: ($hero->headline ? null : 'Trust.');
-        $heroHeadlineHtml = nl2br(e($heroHeadline));
-        if ($heroHighlight) {
-            $escHighlight = e($heroHighlight);
-            $heroHeadlineHtml = str_replace($escHighlight, '<span class="trust">'.$escHighlight.'</span>', $heroHeadlineHtml);
+        $heroHighlight = $hero->highlighted_word ? strip_tags($hero->highlighted_word) : null;
+        if ($hero->headline) {
+            $heroHeadlineHtml = $hero->headline;
+            if ($heroHighlight) {
+                $heroHeadlineHtml = str_replace(
+                    $heroHighlight,
+                    '<span class="trust">'.$heroHighlight.'</span>',
+                    $heroHeadlineHtml
+                );
+            }
+        } else {
+            $heroHeadlineHtml = '<p>We are Building <span class="trust">Trust.</span><br>Driving Impact.</p>';
         }
       @endphp
       {!! $heroHeadlineHtml !!}
-    </h1>
-    <p class="hero-desc">
-      {{ $hero->subheadline ?: 'We help businesses communicate with confidence through strategic PR and communication solutions. ER Communication partners with brands to strengthen reputation and drive meaningful impact.' }}
-    </p>
+    </div>
+    <div class="hero-desc">
+      {!! $hero->subheadline ?: 'We help businesses communicate with confidence through strategic PR and communication solutions. ER Communication partners with brands to strengthen reputation and drive meaningful impact.' !!}
+    </div>
     @if($hero->cta_text)
       <a href="{{ $hero->cta_url ?: '#contact' }}" class="hero-cta">
         {{ $hero->cta_text }}
@@ -1008,8 +1014,8 @@ footer{
       <!-- left text -->
       <div class="rv">
         <div class="s-tag">About Us</div>
-        <h2 class="s-h2">{{ $about->headline ?: "We're the pioneer of the PR automotive industry" }}</h2>
-        <p class="s-body">{{ $about->description ?: 'ER Communication is one of leading agency in Indonesia and we specialize in consumer lifestyle. We combine strategy, creativity, and media intelligence to deliver campaigns that truly resonate.' }}</p>
+        <div class="s-h2">{!! $about->headline ?: "We're the pioneer of the PR automotive industry" !!}</div>
+        <div class="s-body">{!! $about->description ?: 'ER Communication is one of leading agency in Indonesia and we specialize in consumer lifestyle. We combine strategy, creativity, and media intelligence to deliver campaigns that truly resonate.' !!}</div>
         @if($about->year_established)
           <div class="about-est">Est. {{ $about->year_established }}</div>
         @endif
@@ -1156,9 +1162,9 @@ footer{
   <div class="testi-glow"></div>
   <div class="wrap">
     <div class="testi-quote-mark">"</div>
-    <p class="testi-text rv">
-      {{ $testimonial?->testimonial_text ?? "I imagine we can change the world, one head, one face or one body at a time. We think outside the lines of our craft." }}
-    </p>
+    <div class="testi-text rv">
+      {!! $testimonial?->testimonial_text ?? "I imagine we can change the world, one head, one face or one body at a time. We think outside the lines of our craft." !!}
+    </div>
     <div class="testi-author rv rv1">
       <div class="testi-av">
         @if($testimonial?->photo)
@@ -1356,9 +1362,9 @@ footer{
   <div class="wrap">
     <div class="port-header rv">
       <div class="s-tag">Portfolio &amp; Services</div>
-      <h2 class="s-h2">{{ $serviceSetting->headline ?: 'See our Portfolio and Services' }}</h2>
+      <div class="s-h2">{!! $serviceSetting->headline ?: 'See our Portfolio and Services' !!}</div>
       @if($serviceSetting->subtext)
-        <p class="s-body">{{ $serviceSetting->subtext }}</p>
+        <div class="s-body">{!! $serviceSetting->subtext !!}</div>
       @endif
     </div>
     <div class="port-grid">
@@ -1377,7 +1383,7 @@ footer{
           <div class="port-body">
             <div class="port-title">{{ $portfolio->project_title }}</div>
             @if($portfolio->description)
-              <p class="port-desc">{{ \Illuminate\Support\Str::limit($portfolio->description, 110) }}</p>
+              <p class="port-desc">{{ \Illuminate\Support\Str::limit(strip_tags($portfolio->description), 110) }}</p>
             @endif
             <a href="{{ $portfolio->project_url ?: '#contact' }}" class="port-link" @if($portfolio->project_url) target="_blank" rel="noopener" @endif>
               See More
@@ -1442,7 +1448,7 @@ footer{
         @if($ctaBanner->available_status)
           <div class="cta-banner-status">{{ $ctaBanner->available_status }}</div>
         @endif
-        <h2 class="s-h2">{{ $ctaBanner->headline ?: "Let's build a campaign that earns trust." }}</h2>
+        <div class="s-h2">{!! $ctaBanner->headline ?: "Let's build a campaign that earns trust." !!}</div>
         <p class="cta-banner-sub">{{ $ctaBanner->subtext ?: 'Tell us about your brand and goals — our strategists will get back to you within one business day with a tailored approach.' }}</p>
         @if(!empty($ctaBanner->team_avatars))
           <div class="cta-banner-avatars">
@@ -1469,9 +1475,9 @@ footer{
       <!-- left -->
       <div class="rv">
         <div class="s-tag">Contact</div>
-        <h2 class="s-h2" style="font-size:clamp(22px,2.8vw,32px);margin-bottom:16px">
-          {{ $footer->cta_headline ?: 'Ready to contact us for professional PR support?' }}
-        </h2>
+        <div class="s-h2" style="font-size:clamp(22px,2.8vw,32px);margin-bottom:16px">
+          {!! $footer->cta_headline ?: 'Ready to contact us for professional PR support?' !!}
+        </div>
         <p>If you require assistance with PR matters but would like to speak with the appropriate team, please do not hesitate to fill this form and check stocks and company details.</p>
 
         <!-- Map -->

@@ -16,12 +16,12 @@
         <div class="cms-card-title">Header Halaman Services</div>
         <div class="cms-field">
             <label class="cms-label">Label</label>
-            <input type="text" name="headline" value="{{ old('headline', $setting->headline) }}" class="cms-input" placeholder="We're the pioneer of the PR automotive industry">
+            <textarea name="headline" class="cms-input ckeditor-minimal">{{ old('headline', $setting->headline) }}</textarea>
             @error('headline')<span class="cms-error">{{ $message }}</span>@enderror
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Sub Label</label>
-            <textarea name="subtext" rows="3" class="cms-input" placeholder="Deskripsi singkat...">{{ old('subtext', $setting->subtext) }}</textarea>
+            <textarea name="subtext" rows="3" class="cms-input ckeditor">{{ old('subtext', $setting->subtext) }}</textarea>
             @error('subtext')<span class="cms-error">{{ $message }}</span>@enderror
         </div>
     </div>

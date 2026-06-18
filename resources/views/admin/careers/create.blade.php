@@ -35,7 +35,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Spesifikasi</label>
-            <textarea name="description" rows="6" class="cms-input" placeholder="Deskripsi pekerjaan, kualifikasi, requirements...">{{ old('description') }}</textarea>
+            <textarea name="description" rows="6" class="cms-input ckeditor">{{ old('description') }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">

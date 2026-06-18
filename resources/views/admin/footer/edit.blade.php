@@ -15,7 +15,7 @@
         <div class="cms-card-title">CTA & Kontak</div>
         <div class="cms-field">
             <label class="cms-label">CTA Headline</label>
-            <input type="text" name="cta_headline" value="{{ old('cta_headline', $footer->cta_headline) }}" class="cms-input">
+            <textarea name="cta_headline" class="cms-input ckeditor-minimal">{{ old('cta_headline', $footer->cta_headline) }}</textarea>
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

@@ -24,7 +24,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Teks Testimonial <span class="cms-required">*</span></label>
-            <textarea name="testimonial_text" rows="4" class="cms-input">{{ old('testimonial_text') }}</textarea>
+            <textarea name="testimonial_text" rows="4" class="cms-input ckeditor">{{ old('testimonial_text') }}</textarea>
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

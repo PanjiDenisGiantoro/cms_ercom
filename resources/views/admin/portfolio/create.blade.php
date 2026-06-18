@@ -44,7 +44,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi</label>
-            <textarea name="description" rows="5" class="cms-input">{{ old('description') }}</textarea>
+            <textarea name="description" rows="5" class="cms-input ckeditor">{{ old('description') }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Cover Image</label>

@@ -15,15 +15,15 @@
         <div class="cms-card-title">Teks Hero</div>
         <div class="cms-field">
             <label class="cms-label">Headline</label>
-            <input type="text" name="headline" value="{{ old('headline', $hero->headline) }}" class="cms-input" placeholder="Judul utama halaman">
+            <textarea name="headline" class="cms-input ckeditor-minimal">{{ old('headline', $hero->headline) }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Highlighted Word</label>
-            <input type="text" name="highlighted_word" value="{{ old('highlighted_word', $hero->highlighted_word) }}" class="cms-input" placeholder="Kata yang di-highlight">
+            <textarea name="highlighted_word" class="cms-input ckeditor-minimal">{{ old('highlighted_word', $hero->highlighted_word) }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Subheadline</label>
-            <textarea name="subheadline" rows="3" class="cms-input" placeholder="Deskripsi singkat...">{{ old('subheadline', $hero->subheadline) }}</textarea>
+            <textarea name="subheadline" rows="3" class="cms-input ckeditor">{{ old('subheadline', $hero->subheadline) }}</textarea>
         </div>
     </div>
 
