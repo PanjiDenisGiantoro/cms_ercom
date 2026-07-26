@@ -32,8 +32,11 @@ class CareerController extends Controller
             ->firstOrFail();
 
         $data = $request->validate([
+            'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            'phone' => 'required|string|max:30',
+            'address' => 'required|string|max:255',
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:10240',
         ]);
 
         $data['cv'] = $request->file('cv')->store('career-applications', 'public');

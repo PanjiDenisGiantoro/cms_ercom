@@ -25,9 +25,9 @@ class SectionController extends Controller
         return response()->json(NavbarSetting::instance());
     }
 
-    public function hero(): JsonResponse
+    public function hero(string $type = 'home'): JsonResponse
     {
-        return response()->json(HeroSetting::instance());
+        return response()->json(HeroSetting::instance($type));
     }
 
     public function stats(): JsonResponse

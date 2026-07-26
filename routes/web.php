@@ -83,5 +83,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('careers.applications', Admin\CareerApplicationController::class)->only(['index', 'destroy']);
     Route::get('/careers/{career}/applications/{application}/download', [Admin\CareerApplicationController::class, 'download'])->name('careers.applications.download');
 
+    Route::get('/career-applicants', [Admin\CareerApplicantController::class, 'index'])->name('career-applicants.index');
+    Route::get('/career-applicants/{career_applicant}', [Admin\CareerApplicantController::class, 'show'])->name('career-applicants.show');
+    Route::get('/career-applicants/{career_applicant}/download', [Admin\CareerApplicantController::class, 'download'])->name('career-applicants.download');
+    Route::delete('/career-applicants/{career_applicant}', [Admin\CareerApplicantController::class, 'destroy'])->name('career-applicants.destroy');
+
     Route::resource('users', Admin\UserController::class)->except('show');
 });

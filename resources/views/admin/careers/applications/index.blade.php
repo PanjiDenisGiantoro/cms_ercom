@@ -12,21 +12,20 @@
     <table class="cms-table">
         <thead>
             <tr>
+                <th>Nama</th>
                 <th>Email</th>
                 <th>Tanggal Melamar</th>
-                <th>CV</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @forelse($applications as $application)
                 <tr>
+                    <td><strong>{{ $application->name ?? '—' }}</strong></td>
                     <td>{{ $application->email }}</td>
                     <td>{{ $application->created_at->format('d M Y H:i') }}</td>
-                    <td>
-                        <a href="{{ route('admin.careers.applications.download', [$career, $application]) }}" class="cms-btn cms-btn-sm">Download CV</a>
-                    </td>
                     <td class="cms-actions">
+                        <a href="{{ route('admin.career-applicants.show', $application) }}" class="cms-btn cms-btn-sm">Detail</a>
                         <form method="POST" action="{{ route('admin.careers.applications.destroy', [$career, $application]) }}" onsubmit="return confirm('Hapus lamaran ini?')">
                             @csrf @method('DELETE')
                             <button type="submit" class="cms-btn cms-btn-sm cms-btn-danger">Hapus</button>

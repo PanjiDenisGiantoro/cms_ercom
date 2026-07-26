@@ -128,11 +128,23 @@
                     <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                     Stats
                 </a>
-                <a href="{{ route('admin.careers.index') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.careers*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-                    Career
-                </a>
+                <div class="admin-nav-group {{ request()->routeIs('admin.careers*', 'admin.career-applicants.*') ? 'open' : '' }}">
+                    <button type="button" class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.careers*', 'admin.career-applicants.*') ? 'active' : '' }}" onclick="this.closest('.admin-nav-group').classList.toggle('open')">
+                        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+                        Career
+                        <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="admin-nav-submenu">
+                        <a href="{{ route('admin.careers.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.careers*') ? 'active' : '' }}">
+                            Career
+                        </a>
+                        <a href="{{ route('admin.career-applicants.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.career-applicants.*') ? 'active' : '' }}">
+                            Pelamar
+                        </a>
+                    </div>
+                </div>
                 <a href="{{ route('admin.contacts.index') }}"
                    class="admin-nav-link {{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
