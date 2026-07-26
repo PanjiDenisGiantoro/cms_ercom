@@ -28,11 +28,27 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::get('/navbar', [Admin\NavbarController::class, 'edit'])->name('navbar.edit');
     Route::put('/navbar', [Admin\NavbarController::class, 'update'])->name('navbar.update');
 
-    Route::get('/hero', [Admin\HeroController::class, 'edit'])->name('hero.edit');
-    Route::put('/hero', [Admin\HeroController::class, 'update'])->name('hero.update');
+    Route::resource('hero', Admin\HeroController::class)->except('show');
+
+    Route::resource('highlights', Admin\HighlightController::class)->except('show');
+    Route::resource('contacts', Admin\ContactController::class)->except('show');
+
+    Route::get('/contact-messages', [Admin\ContactMessageController::class, 'index'])->name('contact-messages.index');
+    Route::get('/contact-messages/{contact_message}', [Admin\ContactMessageController::class, 'show'])->name('contact-messages.show');
+    Route::resource('clients', Admin\ClientController::class)->except('show');
+    Route::resource('client-categories', Admin\ClientCategoryController::class)->except('show');
 
     Route::get('/about', [Admin\AboutController::class, 'edit'])->name('about.edit');
     Route::put('/about', [Admin\AboutController::class, 'update'])->name('about.update');
+
+    Route::resource('about-sections', Admin\AboutSectionController::class)->except('show');
+
+    Route::get('/about-section3', [Admin\AboutSection3Controller::class, 'edit'])->name('about-section3.edit');
+    Route::put('/about-section3', [Admin\AboutSection3Controller::class, 'update'])->name('about-section3.update');
+    Route::resource('about-milestones', Admin\AboutMilestoneController::class)->except('show');
+
+    Route::resource('about-section4-items', Admin\AboutSection4ItemController::class)->except('show');
+    Route::resource('about-section4-pages', Admin\AboutSection4PageController::class)->except('show');
 
     Route::get('/cta-banner', [Admin\CtaBannerController::class, 'edit'])->name('cta-banner.edit');
     Route::put('/cta-banner', [Admin\CtaBannerController::class, 'update'])->name('cta-banner.update');
@@ -48,6 +64,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('partners', Admin\PartnerController::class)->except('show');
     Route::resource('team', Admin\TeamController::class)->except('show');
 
+    Route::get('/team-settings', [Admin\TeamSettingController::class, 'edit'])->name('team-settings.edit');
+    Route::put('/team-settings', [Admin\TeamSettingController::class, 'update'])->name('team-settings.update');
+
     Route::get('/service-settings', [Admin\ServiceSettingController::class, 'edit'])->name('service-settings.edit');
     Route::put('/service-settings', [Admin\ServiceSettingController::class, 'update'])->name('service-settings.update');
 
@@ -56,6 +75,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('services.items.sub-items', Admin\ServiceSubItemController::class)->except('show');
 
     Route::resource('portfolio', Admin\PortfolioController::class)->except('show');
+
+    Route::resource('blog', Admin\BlogController::class)->except('show');
+    Route::resource('blog-categories', Admin\BlogCategoryController::class)->except('show');
 
     Route::resource('careers', Admin\CareerController::class)->except('show');
     Route::resource('careers.applications', Admin\CareerApplicationController::class)->only(['index', 'destroy']);

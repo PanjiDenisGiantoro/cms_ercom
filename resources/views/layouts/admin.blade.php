@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
@@ -45,39 +46,45 @@
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                     Dashboard
                 </a>
-                <a href="{{ route('preview') }}" target="_blank" rel="noopener" class="admin-nav-link">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    Preview Website
-                </a>
             </div>
 
             {{-- Settings --}}
             <div class="admin-nav-section">
                 <div class="admin-nav-section-label">Settings</div>
-                <a href="{{ route('admin.navbar.edit') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.navbar.*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                    Navbar
-                </a>
-                <a href="{{ route('admin.hero.edit') }}"
+                <a href="{{ route('admin.hero.index') }}"
                    class="admin-nav-link {{ request()->routeIs('admin.hero.*') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                     Hero
                 </a>
-                <a href="{{ route('admin.about.edit') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.about.*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    About
-                </a>
+                <div class="admin-nav-group {{ request()->routeIs('admin.about.*', 'admin.about-sections.*', 'admin.about-section3.*', 'admin.about-milestones.*', 'admin.about-section4-items.*', 'admin.about-section4-pages.*') ? 'open' : '' }}">
+                    <button type="button" class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.about.*', 'admin.about-sections.*', 'admin.about-section3.*', 'admin.about-milestones.*', 'admin.about-section4-items.*', 'admin.about-section4-pages.*') ? 'active' : '' }}" onclick="this.closest('.admin-nav-group').classList.toggle('open')">
+                        <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                        About
+                        <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="admin-nav-submenu">
+                        <a href="{{ route('admin.about.edit') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.about.edit') ? 'active' : '' }}">
+                            Pengaturan
+                        </a>
+                        <a href="{{ route('admin.about-sections.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.about-sections.*') ? 'active' : '' }}">
+                            Section 2
+                        </a>
+                        <a href="{{ route('admin.about-milestones.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.about-section3.*', 'admin.about-milestones.*') ? 'active' : '' }}">
+                            Section 3
+                        </a>
+                        <a href="{{ route('admin.about-section4-items.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.about-section4-items.*', 'admin.about-section4-pages.*') ? 'active' : '' }}">
+                            Section 4
+                        </a>
+                    </div>
+                </div>
                 <a href="{{ route('admin.cta-banner.edit') }}"
                    class="admin-nav-link {{ request()->routeIs('admin.cta-banner.*') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     CTA Banner
-                </a>
-                <a href="{{ route('admin.footer.edit') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.footer.*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><line x1="3" y1="18" x2="21" y2="18"/><path d="M4 14h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v8a1 1 0 001 1z"/></svg>
-                    Footer
                 </a>
                 <a href="{{ route('admin.seo.edit') }}"
                    class="admin-nav-link {{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
@@ -99,6 +106,23 @@
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
                     Portfolio
                 </a>
+                <div class="admin-nav-group {{ request()->routeIs('admin.blog*', 'admin.blog-categories.*') ? 'open' : '' }}">
+                    <button type="button" class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.blog*', 'admin.blog-categories.*') ? 'active' : '' }}" onclick="this.closest('.admin-nav-group').classList.toggle('open')">
+                        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                        Blog
+                        <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="admin-nav-submenu">
+                        <a href="{{ route('admin.blog.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.blog.*') ? 'active' : '' }}">
+                            Blog
+                        </a>
+                        <a href="{{ route('admin.blog-categories.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}">
+                            Kategori
+                        </a>
+                    </div>
+                </div>
                 <a href="{{ route('admin.stats.index') }}"
                    class="admin-nav-link {{ request()->routeIs('admin.stats*') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -108,6 +132,16 @@
                    class="admin-nav-link {{ request()->routeIs('admin.careers*') ? 'active' : '' }}">
                     <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
                     Career
+                </a>
+                <a href="{{ route('admin.contacts.index') }}"
+                   class="admin-nav-link {{ request()->routeIs('admin.contacts*') ? 'active' : '' }}">
+                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Contact
+                </a>
+                <a href="{{ route('admin.contact-messages.index') }}"
+                   class="admin-nav-link {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}">
+                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    Contact Messages
                 </a>
             </div>
 
@@ -119,16 +153,40 @@
                     <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
                     Testimonials
                 </a>
-                <a href="{{ route('admin.partners.index') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.partners*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                    Partners
-                </a>
-                <a href="{{ route('admin.team.index') }}"
-                   class="admin-nav-link {{ request()->routeIs('admin.team*') ? 'active' : '' }}">
-                    <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    Team
-                </a>
+                <div class="admin-nav-group {{ request()->routeIs('admin.clients*', 'admin.client-categories.*') ? 'open' : '' }}">
+                    <button type="button" class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.clients*', 'admin.client-categories.*') ? 'active' : '' }}" onclick="this.closest('.admin-nav-group').classList.toggle('open')">
+                        <svg viewBox="0 0 24 24" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                        Client
+                        <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="admin-nav-submenu">
+                        <a href="{{ route('admin.clients.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.clients*') ? 'active' : '' }}">
+                            Client
+                        </a>
+                        <a href="{{ route('admin.client-categories.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.client-categories.*') ? 'active' : '' }}">
+                            Kategori
+                        </a>
+                    </div>
+                </div>
+                <div class="admin-nav-group {{ request()->routeIs('admin.team.*', 'admin.team-settings.*') ? 'open' : '' }}">
+                    <button type="button" class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.team.*', 'admin.team-settings.*') ? 'active' : '' }}" onclick="this.closest('.admin-nav-group').classList.toggle('open')">
+                        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Team
+                        <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <div class="admin-nav-submenu">
+                        <a href="{{ route('admin.team-settings.edit') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.team-settings.*') ? 'active' : '' }}">
+                            Config
+                        </a>
+                        <a href="{{ route('admin.team.index') }}"
+                           class="admin-nav-sublink {{ request()->routeIs('admin.team.*') ? 'active' : '' }}">
+                            Team List
+                        </a>
+                    </div>
+                </div>
             </div>
 
             {{-- System --}}
@@ -203,7 +261,7 @@
 </div>
 
 @stack('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/43.3.1/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var minimalToolbar = ['bold', 'italic', '|', 'undo', 'redo'];

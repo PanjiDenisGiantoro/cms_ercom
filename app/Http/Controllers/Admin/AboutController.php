@@ -22,14 +22,7 @@ class AboutController extends Controller
         $data = $request->validate([
             'headline' => 'nullable|string',
             'description' => 'nullable|string',
-            'year_established' => 'nullable|string|max:10',
-            'video_url' => 'nullable|url',
-            'background_image' => 'nullable|image|max:4096',
         ]);
-
-        if ($request->hasFile('background_image')) {
-            $data['background_image'] = $request->file('background_image')->store('about', 'public');
-        }
 
         AboutSetting::instance()->update($data);
 

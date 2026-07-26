@@ -29,7 +29,6 @@ class TestimonialController extends Controller
             'company_role' => 'nullable|string|max:255',
             'photo' => 'nullable|image|max:2048',
             'testimonial_text' => 'required|string',
-            'rating' => 'integer|min:1|max:5',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
@@ -55,7 +54,6 @@ class TestimonialController extends Controller
             'company_role' => 'nullable|string|max:255',
             'photo' => 'nullable|image|max:2048',
             'testimonial_text' => 'required|string',
-            'rating' => 'integer|min:1|max:5',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);

@@ -12,7 +12,7 @@
     <table class="cms-table">
         <thead>
             <tr>
-                <th>Foto</th><th>Nama</th><th>Peran</th><th>Rating</th><th>Order</th><th>Status</th><th></th>
+                <th>Foto</th><th>Nama</th><th>Peran</th><th>Order</th><th>Status</th><th></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,6 @@
                     </td>
                     <td><strong>{{ $t->name }}</strong></td>
                     <td>{{ $t->company_role ?? '—' }}</td>
-                    <td>{{ str_repeat('★', $t->rating) }}</td>
                     <td>{{ $t->order }}</td>
                     <td><span class="cms-badge {{ $t->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $t->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
                     <td class="cms-actions">
@@ -39,7 +38,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="7" class="cms-empty">Belum ada testimonial.</td></tr>
+                <tr><td colspan="6" class="cms-empty">Belum ada testimonial.</td></tr>
             @endforelse
         </tbody>
     </table>

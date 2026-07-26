@@ -857,6 +857,59 @@ html, body {
 
 .admin-nav-link.active svg { opacity: 1; }
 
+.admin-nav-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+}
+
+.admin-nav-caret {
+    width: 12px;
+    height: 12px;
+    margin-left: auto;
+    stroke: currentColor;
+    fill: none;
+    opacity: 0.6;
+    transition: transform 0.15s;
+    flex-shrink: 0;
+}
+
+.admin-nav-group.open .admin-nav-caret { transform: rotate(180deg); }
+
+.admin-nav-submenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease;
+}
+
+.admin-nav-group.open .admin-nav-submenu { max-height: 240px; }
+
+.admin-nav-sublink {
+    display: block;
+    padding: 8px 18px 8px 43px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.admin-nav-sublink:hover {
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.85);
+}
+
+.admin-nav-sublink.active {
+    background: rgba(255,255,255,0.09);
+    color: #fff;
+    border-left-color: #6bbcc6;
+    font-weight: 600;
+}
+
 .admin-sidebar-footer {
     padding: 14px 18px;
     border-top: 1px solid rgba(255,255,255,0.07);

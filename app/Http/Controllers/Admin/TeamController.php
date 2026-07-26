@@ -24,13 +24,7 @@ class TeamController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'photo' => 'nullable|image|max:2048',
-            'order' => 'integer|min:0',
-            'is_active' => 'boolean',
-        ]);
+        $data = $this->validated($request);
 
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('team', 'public');
@@ -48,13 +42,7 @@ class TeamController extends Controller
 
     public function update(Request $request, Team $team): RedirectResponse
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'photo' => 'nullable|image|max:2048',
-            'order' => 'integer|min:0',
-            'is_active' => 'boolean',
-        ]);
+        $data = $this->validated($request);
 
         if ($request->hasFile('photo')) {
             $data['photo'] = $request->file('photo')->store('team', 'public');
@@ -70,5 +58,18 @@ class TeamController extends Controller
         $team->delete();
 
         return back()->with('success', 'Team member deleted.');
+    }
+
+    private function validated(Request $request): array
+    {
+        return $request->validate([
+            'name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'whatsapp' => 'nullable|string|max:30',
+            'email' => 'nullable|email|max:255',
+            'photo' => 'nullable|image|max:2048',
+            'order' => 'integer|min:0',
+            'is_active' => 'boolean',
+        ]);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Team extends Model
 {
-    protected $fillable = ['name', 'position', 'photo', 'order', 'is_active'];
+    protected $fillable = ['name', 'position', 'whatsapp', 'email', 'photo', 'order', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',

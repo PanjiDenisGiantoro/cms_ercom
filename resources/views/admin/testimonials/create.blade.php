@@ -26,15 +26,9 @@
             <label class="cms-label">Teks Testimonial <span class="cms-required">*</span></label>
             <textarea name="testimonial_text" rows="4" class="cms-input ckeditor">{{ old('testimonial_text') }}</textarea>
         </div>
-        <div class="cms-form-row" style="margin-top:14px">
-            <div class="cms-field">
-                <label class="cms-label">Foto</label>
-                <input type="file" name="photo" class="cms-input" accept="image/*">
-            </div>
-            <div class="cms-field">
-                <label class="cms-label">Rating (1–5)</label>
-                <input type="number" name="rating" value="{{ old('rating', 5) }}" class="cms-input" min="1" max="5">
-            </div>
+        <div class="cms-field" style="margin-top:14px">
+            <label class="cms-label">Foto</label>
+            <input type="file" name="photo" class="cms-input" accept="image/*">
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

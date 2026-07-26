@@ -24,6 +24,18 @@
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
+                <label class="cms-label">Whatsapp</label>
+                <input type="text" name="whatsapp" value="{{ old('whatsapp') }}" class="cms-input @error('whatsapp') is-error @enderror" placeholder="6281234567890">
+                @error('whatsapp')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="cms-field">
+                <label class="cms-label">Email</label>
+                <input type="email" name="email" value="{{ old('email') }}" class="cms-input @error('email') is-error @enderror">
+                @error('email')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
                 <label class="cms-label">Foto</label>
                 <input type="file" name="photo" class="cms-input" accept="image/*">
             </div>

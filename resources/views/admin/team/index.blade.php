@@ -4,6 +4,7 @@
 @section('breadcrumb', 'Social Proof / Team')
 
 @section('topbar-actions')
+    <a href="{{ route('admin.team-settings.edit') }}" class="cms-btn">Config</a>
     <a href="{{ route('admin.team.create') }}" class="cms-btn cms-btn-primary">+ Tambah</a>
 @endsection
 
@@ -11,7 +12,7 @@
 <div class="cms-card">
     <table class="cms-table">
         <thead>
-            <tr><th>Foto</th><th>Nama</th><th>Posisi</th><th>Order</th><th>Status</th><th></th></tr>
+            <tr><th>Foto</th><th>Nama</th><th>Posisi</th><th>Whatsapp</th><th>Email</th><th>Order</th><th>Status</th><th></th></tr>
         </thead>
         <tbody>
             @forelse($members as $member)
@@ -25,6 +26,8 @@
                     </td>
                     <td><strong>{{ $member->name }}</strong></td>
                     <td>{{ $member->position }}</td>
+                    <td>{{ $member->whatsapp ?? '—' }}</td>
+                    <td>{{ $member->email ?? '—' }}</td>
                     <td>{{ $member->order }}</td>
                     <td><span class="cms-badge {{ $member->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $member->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
                     <td class="cms-actions">
@@ -36,7 +39,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="cms-empty">Belum ada anggota tim.</td></tr>
+                <tr><td colspan="8" class="cms-empty">Belum ada anggota tim.</td></tr>
             @endforelse
         </tbody>
     </table>

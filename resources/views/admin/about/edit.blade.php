@@ -21,23 +21,6 @@
             <label class="cms-label">Deskripsi</label>
             <textarea name="description" rows="5" class="cms-input ckeditor">{{ old('description', $about->description) }}</textarea>
         </div>
-        <div class="cms-form-row" style="margin-top:14px">
-            <div class="cms-field">
-                <label class="cms-label">Tahun Berdiri</label>
-                <input type="text" name="year_established" value="{{ old('year_established', $about->year_established) }}" class="cms-input" placeholder="2018">
-            </div>
-            <div class="cms-field">
-                <label class="cms-label">Video URL</label>
-                <input type="url" name="video_url" value="{{ old('video_url', $about->video_url) }}" class="cms-input" placeholder="https://youtube.com/...">
-            </div>
-        </div>
-        <div class="cms-field" style="margin-top:14px">
-            <label class="cms-label">Background Image</label>
-            @if($about->background_image)
-                <img src="{{ Storage::url($about->background_image) }}" class="cms-img-preview" alt="Background">
-            @endif
-            <input type="file" name="background_image" class="cms-input" accept="image/*">
-        </div>
     </div>
 
 </form>

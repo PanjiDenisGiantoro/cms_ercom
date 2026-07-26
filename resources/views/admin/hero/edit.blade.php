@@ -1,15 +1,29 @@
 @extends('layouts.admin')
-@section('title', 'Hero')
-@section('page-title', 'Hero')
-@section('breadcrumb', 'Settings / Hero')
+@section('title', 'Edit Hero')
+@section('page-title', 'Edit Hero')
+@section('breadcrumb', 'Content / Hero / Edit')
 
 @section('topbar-actions')
+    <a href="{{ route('admin.hero.index') }}" class="cms-btn">Kembali</a>
     <button form="hero-form" type="submit" class="cms-btn cms-btn-primary">Simpan</button>
 @endsection
 
 @section('content')
-<form id="hero-form" method="POST" action="{{ route('admin.hero.update') }}" enctype="multipart/form-data">
+<form id="hero-form" method="POST" action="{{ route('admin.hero.update', $hero) }}" enctype="multipart/form-data">
     @csrf @method('PUT')
+
+    <div class="cms-card">
+        <div class="cms-card-title">Type</div>
+        <div class="cms-field">
+            <label class="cms-label">Halaman / Section <span class="cms-required">*</span></label>
+            <select name="type" class="cms-input @error('type') is-error @enderror">
+                @foreach($types as $type)
+                    <option value="{{ $type }}" {{ old('type', $hero->type) === $type ? 'selected' : '' }}>{{ ucfirst($type) }}</option>
+                @endforeach
+            </select>
+            @error('type')<span class="cms-error">{{ $message }}</span>@enderror
+        </div>
+    </div>
 
     <div class="cms-card">
         <div class="cms-card-title">Teks Hero</div>
@@ -45,6 +59,19 @@
                 <img src="{{ Storage::url($hero->background_image) }}" class="cms-img-preview" alt="Background">
             @endif
             <input type="file" name="background_image" class="cms-input" accept="image/*">
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
+                <label class="cms-label">Order</label>
+                <input type="number" name="order" value="{{ old('order', $hero->order) }}" class="cms-input" min="0">
+            </div>
+        </div>
+        <div class="cms-field" style="margin-top:14px">
+            <label class="cms-toggle-label">
+                <input type="hidden" name="is_active" value="0">
+                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $hero->is_active) ? 'checked' : '' }}>
+                <span>Aktif</span>
+            </label>
         </div>
     </div>
 
