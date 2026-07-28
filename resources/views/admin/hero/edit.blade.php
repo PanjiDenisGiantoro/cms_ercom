@@ -55,10 +55,8 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Background Image</label>
-            @if($hero->background_image)
-                <img src="{{ Storage::url($hero->background_image) }}" class="cms-img-preview" alt="Background">
-            @endif
-            <input type="file" name="background_image" class="cms-input" accept="image/*">
+            <input type="file" name="background_image" class="cms-input" accept="image/*" data-filepond
+                @if($hero->background_image) data-current-file="{{ Storage::url($hero->background_image) }}" @endif>
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

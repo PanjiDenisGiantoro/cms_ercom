@@ -30,14 +30,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Avatar Images</label>
-                @if($stat->avatar_images)
-                    <div style="display:flex;gap:8px;margin-bottom:8px">
-                        @foreach($stat->avatar_images as $avatar)
-                            <img src="{{ Storage::url($avatar) }}" class="cms-img-preview" alt="Avatar">
-                        @endforeach
-                    </div>
-                @endif
-                <input type="file" name="avatar_images[]" class="cms-input" accept="image/*" multiple>
+                <input type="file" name="avatar_images[]" class="cms-input" accept="image/*" multiple data-filepond
+                    @if($stat->avatar_images) data-current-file="{{ json_encode(array_map(fn($a) => Storage::url($a), $stat->avatar_images)) }}" @endif>
                 <div style="font-size:11px;color:#94a3b8;margin-top:4px">Upload untuk mengganti semua avatar di atas</div>
                 @error('avatar_images.*')<span class="cms-error">{{ $message }}</span>@enderror
             </div>

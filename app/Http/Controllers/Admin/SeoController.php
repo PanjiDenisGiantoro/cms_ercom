@@ -22,16 +22,14 @@ class SeoController extends Controller
         $data = $request->validate([
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
-            'og_image' => 'nullable|image|max:2048',
+            'og_image' => 'nullable',
             'ga_tracking_id' => 'nullable|string|max:50',
             'keywords' => 'nullable|string',
             'custom_script_head' => 'nullable|string',
             'custom_script_body' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('og_image')) {
-            $data['og_image'] = $request->file('og_image')->store('seo', 'public');
-        }
+        $this->applyUpload($data, $request, 'og_image', 'seo');
 
         SeoSetting::instance()->update($data);
 

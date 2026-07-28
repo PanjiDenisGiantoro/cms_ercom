@@ -25,7 +25,8 @@ class HeroSetting extends Model
 
     public static function instance(string $type = 'home'): static
     {
-        return static::firstOrCreate(['type' => $type]);
+        return static::where('type', $type)->where('is_active', true)->first()
+            ?? static::firstOrCreate(['type' => $type]);
     }
 
     protected function backgroundImageUrl(): Attribute

@@ -46,10 +46,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Cover Image</label>
-                @if($blog->cover_image)
-                    <img src="{{ Storage::url($blog->cover_image) }}" class="cms-img-preview" alt="Cover">
-                @endif
-                <input type="file" name="cover_image" class="cms-input" accept="image/*">
+                <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond
+                    @if($blog->cover_image) data-current-file="{{ Storage::url($blog->cover_image) }}" @endif>
                 @error('cover_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

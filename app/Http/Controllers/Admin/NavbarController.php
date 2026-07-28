@@ -20,8 +20,8 @@ class NavbarController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'logo_light' => 'nullable|image|max:2048',
-            'logo_dark' => 'nullable|image|max:2048',
+            'logo_light' => 'nullable',
+            'logo_dark' => 'nullable',
             'menu_items' => 'nullable|array',
             'menu_items.*.label' => 'required|string|max:100',
             'menu_items.*.url' => 'required|string|max:255',
@@ -31,13 +31,8 @@ class NavbarController extends Controller
             'sticky_on_scroll' => 'boolean',
         ]);
 
-        if ($request->hasFile('logo_light')) {
-            $data['logo_light'] = $request->file('logo_light')->store('navbar', 'public');
-        }
-
-        if ($request->hasFile('logo_dark')) {
-            $data['logo_dark'] = $request->file('logo_dark')->store('navbar', 'public');
-        }
+        $this->applyUpload($data, $request, 'logo_light', 'navbar');
+        $this->applyUpload($data, $request, 'logo_dark', 'navbar');
 
         NavbarSetting::instance()->update($data);
 

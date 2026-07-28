@@ -25,8 +25,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Logo</label>
-                <img src="{{ Storage::url($partner->logo_image) }}" class="cms-img-preview" alt="Logo">
-                <input type="file" name="logo_image" class="cms-input" accept="image/*">
+                <input type="file" name="logo_image" class="cms-input" accept="image/*" data-filepond
+                    data-current-file="{{ Storage::url($partner->logo_image) }}">
             </div>
             <div class="cms-field">
                 <label class="cms-label">Order</label>

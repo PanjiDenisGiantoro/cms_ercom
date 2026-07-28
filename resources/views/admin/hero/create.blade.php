@@ -55,7 +55,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Background Image</label>
-            <input type="file" name="background_image" class="cms-input" accept="image/*">
+            <input type="file" name="background_image" class="cms-input" accept="image/*" data-filepond>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">

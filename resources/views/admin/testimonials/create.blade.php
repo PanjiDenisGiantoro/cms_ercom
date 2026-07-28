@@ -28,7 +28,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Foto</label>
-            <input type="file" name="photo" class="cms-input" accept="image/*">
+            <input type="file" name="photo" class="cms-input" accept="image/*" data-filepond>
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">

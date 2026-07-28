@@ -26,13 +26,13 @@ class PartnerController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'logo_image' => 'required|image|max:2048',
+            'logo_image' => 'required',
             'website_url' => 'nullable|url',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        $data['logo_image'] = $request->file('logo_image')->store('partners', 'public');
+        $data['logo_image'] = $this->resolveUpload($request, 'logo_image', 'partners');
 
         Partner::create($data);
 
@@ -48,15 +48,13 @@ class PartnerController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'logo_image' => 'nullable|image|max:2048',
+            'logo_image' => 'nullable',
             'website_url' => 'nullable|url',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('logo_image')) {
-            $data['logo_image'] = $request->file('logo_image')->store('partners', 'public');
-        }
+        $this->applyUpload($data, $request, 'logo_image', 'partners');
 
         $partner->update($data);
 

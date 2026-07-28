@@ -39,10 +39,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Logo</label>
-                @if($client->logo_image)
-                    <img src="{{ Storage::url($client->logo_image) }}" class="cms-img-preview" alt="Logo">
-                @endif
-                <input type="file" name="logo_image" class="cms-input" accept="image/*">
+                <input type="file" name="logo_image" class="cms-input" accept="image/*" data-filepond
+                    @if($client->logo_image) data-current-file="{{ Storage::url($client->logo_image) }}" @endif>
                 @error('logo_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

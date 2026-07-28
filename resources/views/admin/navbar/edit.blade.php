@@ -16,17 +16,13 @@
         <div class="cms-form-row">
             <div class="cms-field">
                 <label class="cms-label">Logo (Light)</label>
-                @if($navbar->logo_light)
-                    <img src="{{ Storage::url($navbar->logo_light) }}" class="cms-img-preview" alt="Logo Light">
-                @endif
-                <input type="file" name="logo_light" class="cms-input" accept="image/*">
+                <input type="file" name="logo_light" class="cms-input" accept="image/*" data-filepond
+                    @if($navbar->logo_light) data-current-file="{{ Storage::url($navbar->logo_light) }}" @endif>
             </div>
             <div class="cms-field">
                 <label class="cms-label">Logo (Dark)</label>
-                @if($navbar->logo_dark)
-                    <img src="{{ Storage::url($navbar->logo_dark) }}" class="cms-img-preview" alt="Logo Dark">
-                @endif
-                <input type="file" name="logo_dark" class="cms-input" accept="image/*">
+                <input type="file" name="logo_dark" class="cms-input" accept="image/*" data-filepond
+                    @if($navbar->logo_dark) data-current-file="{{ Storage::url($navbar->logo_dark) }}" @endif>
             </div>
         </div>
     </div>

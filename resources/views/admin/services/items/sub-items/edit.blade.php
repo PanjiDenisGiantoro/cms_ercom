@@ -24,10 +24,8 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Thumbnail</label>
-            @if($subItem->thumbnail)
-                <img src="{{ Storage::url($subItem->thumbnail) }}" class="cms-img-preview" alt="Thumbnail">
-            @endif
-            <input type="file" name="thumbnail" class="cms-input" accept="image/*">
+            <input type="file" name="thumbnail" class="cms-input" accept="image/*" data-filepond
+                @if($subItem->thumbnail) data-current-file="{{ Storage::url($subItem->thumbnail) }}" @endif>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi</label>

@@ -24,7 +24,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Cover Image</label>
-            <input type="file" name="cover_image" class="cms-input" accept="image/*">
+            <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">

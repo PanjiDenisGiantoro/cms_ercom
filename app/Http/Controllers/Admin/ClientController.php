@@ -28,8 +28,7 @@ class ClientController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-
-        $data['logo_image'] = $request->file('logo_image')->store('clients', 'public');
+        $data['logo_image'] = $this->resolveUpload($request, 'logo_image', 'clients');
 
         Client::create($data);
 
@@ -46,10 +45,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client): RedirectResponse
     {
         $data = $this->validated($request, required: false);
-
-        if ($request->hasFile('logo_image')) {
-            $data['logo_image'] = $request->file('logo_image')->store('clients', 'public');
-        }
+        $this->applyUpload($data, $request, 'logo_image', 'clients');
 
         $client->update($data);
 
@@ -68,7 +64,7 @@ class ClientController extends Controller
         return $request->validate([
             'category_id' => 'nullable|exists:client_categories,id',
             'name' => 'required|string|max:255',
-            'logo_image' => ($required ? 'required' : 'nullable') . '|image|max:2048',
+            'logo_image' => $required ? 'required' : 'nullable',
             'website_url' => 'nullable|url',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',

@@ -47,10 +47,8 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Cover Image</label>
-            @if($portfolio->cover_image)
-                <img src="{{ Storage::url($portfolio->cover_image) }}" class="cms-img-preview" alt="Cover">
-            @endif
-            <input type="file" name="cover_image" class="cms-input" accept="image/*">
+            <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond
+                @if($portfolio->cover_image) data-current-file="{{ Storage::url($portfolio->cover_image) }}" @endif>
         </div>
         <div style="display:flex;gap:24px;margin-top:16px">
             <label class="cms-toggle-label">

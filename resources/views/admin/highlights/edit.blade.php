@@ -25,10 +25,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Icon Image</label>
-                @if($highlight->icon_image)
-                    <img src="{{ Storage::url($highlight->icon_image) }}" class="cms-img-preview" alt="Icon">
-                @endif
-                <input type="file" name="icon_image" class="cms-input" accept="image/*">
+                <input type="file" name="icon_image" class="cms-input" accept="image/*" data-filepond
+                    @if($highlight->icon_image) data-current-file="{{ Storage::url($highlight->icon_image) }}" @endif>
                 @error('icon_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

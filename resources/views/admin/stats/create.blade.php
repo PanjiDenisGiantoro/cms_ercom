@@ -32,7 +32,7 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Avatar Images</label>
-                <input type="file" name="avatar_images[]" class="cms-input" accept="image/*" multiple>
+                <input type="file" name="avatar_images[]" class="cms-input" accept="image/*" multiple data-filepond>
                 @error('avatar_images.*')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

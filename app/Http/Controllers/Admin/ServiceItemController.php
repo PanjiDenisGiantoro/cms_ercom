@@ -27,8 +27,8 @@ class ServiceItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|max:4096',
-            'video_file' => 'nullable|file|mimes:mp4,mov,avi,webm|max:102400',
+            'thumbnail' => 'nullable',
+            'video_file' => 'nullable',
             'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'cta_text' => 'nullable|string|max:100',
@@ -38,13 +38,10 @@ class ServiceItemController extends Controller
         ]);
 
         $data['service_category_id'] = $service->id;
+        $data['thumbnail'] = $this->resolveUpload($request, 'thumbnail', 'services/items');
 
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/items', 'public');
-        }
-
-        if ($request->hasFile('video_file')) {
-            $data['preview_video'] = $request->file('video_file')->store('services/videos', 'public');
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
+            $data['preview_video'] = $videoFile;
         }
 
         unset($data['video_file']);
@@ -63,8 +60,8 @@ class ServiceItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|max:4096',
-            'video_file' => 'nullable|file|mimes:mp4,mov,avi,webm|max:102400',
+            'thumbnail' => 'nullable',
+            'video_file' => 'nullable',
             'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'cta_text' => 'nullable|string|max:100',
@@ -73,12 +70,10 @@ class ServiceItemController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/items', 'public');
-        }
+        $this->applyUpload($data, $request, 'thumbnail', 'services/items');
 
-        if ($request->hasFile('video_file')) {
-            $data['preview_video'] = $request->file('video_file')->store('services/videos', 'public');
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
+            $data['preview_video'] = $videoFile;
         }
 
         unset($data['video_file']);

@@ -29,16 +29,11 @@ class StatsController extends Controller
             'stat_label' => 'required|string|max:100',
             'description' => 'nullable|string',
             'avatar_images' => 'nullable|array',
-            'avatar_images.*' => 'image|max:2048',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('avatar_images')) {
-            $data['avatar_images'] = collect($request->file('avatar_images'))
-                ->map(fn ($file) => $file->store('stats', 'public'))
-                ->all();
-        }
+        $this->applyMultipleUploads($data, $request, 'avatar_images', 'stats');
 
         Stat::create($data);
 
@@ -57,16 +52,11 @@ class StatsController extends Controller
             'stat_label' => 'required|string|max:100',
             'description' => 'nullable|string',
             'avatar_images' => 'nullable|array',
-            'avatar_images.*' => 'image|max:2048',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('avatar_images')) {
-            $data['avatar_images'] = collect($request->file('avatar_images'))
-                ->map(fn ($file) => $file->store('stats', 'public'))
-                ->all();
-        }
+        $this->applyMultipleUploads($data, $request, 'avatar_images', 'stats');
 
         $stat->update($data);
 

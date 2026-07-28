@@ -39,7 +39,7 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Logo <span class="cms-required">*</span></label>
-                <input type="file" name="logo_image" class="cms-input" accept="image/*" required>
+                <input type="file" name="logo_image" class="cms-input" accept="image/*" required data-filepond>
                 @error('logo_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

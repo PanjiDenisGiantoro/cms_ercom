@@ -25,10 +25,7 @@ class HighlightController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('icon_image')) {
-            $data['icon_image'] = $request->file('icon_image')->store('highlights', 'public');
-        }
+        $data['icon_image'] = $this->resolveUpload($request, 'icon_image', 'highlights');
 
         Highlight::create($data);
 
@@ -43,10 +40,7 @@ class HighlightController extends Controller
     public function update(Request $request, Highlight $highlight): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('icon_image')) {
-            $data['icon_image'] = $request->file('icon_image')->store('highlights', 'public');
-        }
+        $this->applyUpload($data, $request, 'icon_image', 'highlights');
 
         $highlight->update($data);
 
@@ -65,7 +59,7 @@ class HighlightController extends Controller
         return $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'icon_image' => 'nullable|image|max:2048',
+            'icon_image' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);

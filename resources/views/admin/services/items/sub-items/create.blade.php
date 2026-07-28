@@ -24,7 +24,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Thumbnail</label>
-            <input type="file" name="thumbnail" class="cms-input" accept="image/*">
+            <input type="file" name="thumbnail" class="cms-input" accept="image/*" data-filepond>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi</label>

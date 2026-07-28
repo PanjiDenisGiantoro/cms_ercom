@@ -25,6 +25,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
 
     Route::get('/', [Admin\DashboardController::class, 'index'])->name('dashboard');
 
+    Route::post('/filepond/process', [Admin\FilePondUploadController::class, 'store'])->name('filepond.process');
+    Route::delete('/filepond/revert', [Admin\FilePondUploadController::class, 'revert'])->name('filepond.revert');
+
     Route::get('/navbar', [Admin\NavbarController::class, 'edit'])->name('navbar.edit');
     Route::put('/navbar', [Admin\NavbarController::class, 'update'])->name('navbar.update');
 

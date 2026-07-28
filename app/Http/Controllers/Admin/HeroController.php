@@ -36,12 +36,13 @@ class HeroController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
+        $data['background_image'] = $this->resolveUpload($request, 'background_image', 'hero');
 
-        if ($request->hasFile('background_image')) {
-            $data['background_image'] = $request->file('background_image')->store('hero', 'public');
+        $hero = HeroSetting::create($data);
+
+        if ($hero->is_active) {
+            $this->deactivateSiblings($hero);
         }
-
-        HeroSetting::create($data);
 
         return redirect()->route('admin.hero.index')->with('success', 'Hero created.');
     }
@@ -54,14 +55,27 @@ class HeroController extends Controller
     public function update(Request $request, HeroSetting $hero): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('background_image')) {
-            $data['background_image'] = $request->file('background_image')->store('hero', 'public');
-        }
+        $this->applyUpload($data, $request, 'background_image', 'hero');
 
         $hero->update($data);
 
+        if ($hero->is_active) {
+            $this->deactivateSiblings($hero);
+        }
+
         return redirect()->route('admin.hero.index')->with('success', 'Hero updated.');
+    }
+
+    /**
+     * Only one Hero can be active per type — activating one deactivates any
+     * other active hero of the same type.
+     */
+    private function deactivateSiblings(HeroSetting $hero): void
+    {
+        HeroSetting::where('type', $hero->type)
+            ->where('id', '!=', $hero->id)
+            ->where('is_active', true)
+            ->update(['is_active' => false]);
     }
 
     public function destroy(HeroSetting $hero): RedirectResponse
@@ -78,7 +92,7 @@ class HeroController extends Controller
             'headline' => 'nullable|string|max:255',
             'highlighted_word' => 'nullable|string|max:100',
             'subheadline' => 'nullable|string',
-            'background_image' => 'nullable|image|max:4096',
+            'background_image' => 'nullable',
             'cta_text' => 'nullable|string|max:100',
             'cta_url' => 'nullable|url',
             'order' => 'integer|min:0',

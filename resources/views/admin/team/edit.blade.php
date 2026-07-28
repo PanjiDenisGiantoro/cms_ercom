@@ -37,10 +37,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Foto</label>
-                @if($team->photo)
-                    <img src="{{ Storage::url($team->photo) }}" class="cms-img-preview" alt="Foto">
-                @endif
-                <input type="file" name="photo" class="cms-input" accept="image/*">
+                <input type="file" name="photo" class="cms-input" accept="image/*" data-filepond
+                    @if($team->photo) data-current-file="{{ Storage::url($team->photo) }}" @endif>
             </div>
             <div class="cms-field">
                 <label class="cms-label">Order</label>

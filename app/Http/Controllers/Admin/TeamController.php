@@ -25,10 +25,7 @@ class TeamController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('team', 'public');
-        }
+        $data['photo'] = $this->resolveUpload($request, 'photo', 'team');
 
         Team::create($data);
 
@@ -43,10 +40,7 @@ class TeamController extends Controller
     public function update(Request $request, Team $team): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('team', 'public');
-        }
+        $this->applyUpload($data, $request, 'photo', 'team');
 
         $team->update($data);
 
@@ -67,7 +61,7 @@ class TeamController extends Controller
             'position' => 'required|string|max:255',
             'whatsapp' => 'nullable|string|max:30',
             'email' => 'nullable|email|max:255',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);

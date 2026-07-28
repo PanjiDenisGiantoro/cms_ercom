@@ -1,1 +1,1 @@
-//
+import './filepond-init';

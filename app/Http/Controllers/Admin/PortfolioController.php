@@ -31,7 +31,7 @@ class PortfolioController extends Controller
         $data = $request->validate([
             'project_title' => 'required|string|max:255',
             'service_category_id' => 'nullable|exists:service_categories,id',
-            'cover_image' => 'nullable|image|max:4096',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'client_name' => 'nullable|string|max:255',
             'project_url' => 'nullable|url',
@@ -41,10 +41,7 @@ class PortfolioController extends Controller
         ]);
 
         $data['slug'] = Str::slug($data['project_title']);
-
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('portfolio', 'public');
-        }
+        $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'portfolio');
 
         Portfolio::create($data);
 
@@ -63,7 +60,7 @@ class PortfolioController extends Controller
         $data = $request->validate([
             'project_title' => 'required|string|max:255',
             'service_category_id' => 'nullable|exists:service_categories,id',
-            'cover_image' => 'nullable|image|max:4096',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'client_name' => 'nullable|string|max:255',
             'project_url' => 'nullable|url',
@@ -72,9 +69,7 @@ class PortfolioController extends Controller
             'is_featured' => 'boolean',
         ]);
 
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('portfolio', 'public');
-        }
+        $this->applyUpload($data, $request, 'cover_image', 'portfolio');
 
         $portfolio->update($data);
 

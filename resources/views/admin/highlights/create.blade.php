@@ -25,7 +25,7 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Icon Image</label>
-                <input type="file" name="icon_image" class="cms-input" accept="image/*">
+                <input type="file" name="icon_image" class="cms-input" accept="image/*" data-filepond>
                 @error('icon_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">

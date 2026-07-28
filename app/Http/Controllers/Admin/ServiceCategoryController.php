@@ -26,14 +26,12 @@ class ServiceCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'cover_image' => 'nullable|image|max:4096',
+            'cover_image' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('services', 'public');
-        }
+        $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'services');
 
         ServiceCategory::create($data);
 
@@ -49,14 +47,12 @@ class ServiceCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'cover_image' => 'nullable|image|max:4096',
+            'cover_image' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('services', 'public');
-        }
+        $this->applyUpload($data, $request, 'cover_image', 'services');
 
         $service->update($data);
 

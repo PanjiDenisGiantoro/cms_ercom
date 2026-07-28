@@ -28,10 +28,8 @@
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">OG Image</label>
-                @if($seo->og_image)
-                    <img src="{{ Storage::url($seo->og_image) }}" class="cms-img-preview" alt="OG Image">
-                @endif
-                <input type="file" name="og_image" class="cms-input" accept="image/*">
+                <input type="file" name="og_image" class="cms-input" accept="image/*" data-filepond
+                    @if($seo->og_image) data-current-file="{{ Storage::url($seo->og_image) }}" @endif>
             </div>
             <div class="cms-field">
                 <label class="cms-label">Google Analytics ID</label>

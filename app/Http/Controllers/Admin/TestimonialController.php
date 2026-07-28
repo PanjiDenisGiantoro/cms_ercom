@@ -27,15 +27,13 @@ class TestimonialController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'company_role' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable',
             'testimonial_text' => 'required|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
-        }
+        $data['photo'] = $this->resolveUpload($request, 'photo', 'testimonials');
 
         Testimonial::create($data);
 
@@ -52,15 +50,13 @@ class TestimonialController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'company_role' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|max:2048',
+            'photo' => 'nullable',
             'testimonial_text' => 'required|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
-        }
+        $this->applyUpload($data, $request, 'photo', 'testimonials');
 
         $testimonial->update($data);
 

@@ -28,17 +28,14 @@ class ServiceSubItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
         $data['service_item_id'] = $item->id;
-
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/sub-items', 'public');
-        }
+        $data['thumbnail'] = $this->resolveUpload($request, 'thumbnail', 'services/sub-items');
 
         $item->subItems()->create($data);
 
@@ -54,15 +51,13 @@ class ServiceSubItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|max:4096',
+            'thumbnail' => 'nullable',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('services/sub-items', 'public');
-        }
+        $this->applyUpload($data, $request, 'thumbnail', 'services/sub-items');
 
         $subItem->update($data);
 

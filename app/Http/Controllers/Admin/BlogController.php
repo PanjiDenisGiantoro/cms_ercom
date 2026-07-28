@@ -28,10 +28,7 @@ class BlogController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('blog', 'public');
-        }
+        $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'blog');
 
         Blog::create($data);
 
@@ -48,10 +45,7 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog): RedirectResponse
     {
         $data = $this->validated($request);
-
-        if ($request->hasFile('cover_image')) {
-            $data['cover_image'] = $request->file('cover_image')->store('blog', 'public');
-        }
+        $this->applyUpload($data, $request, 'cover_image', 'blog');
 
         $blog->update($data);
 
@@ -70,7 +64,7 @@ class BlogController extends Controller
         return $request->validate([
             'blog_category_id' => 'nullable|exists:blog_categories,id',
             'title' => 'required|string|max:255',
-            'cover_image' => 'nullable|image|max:4096',
+            'cover_image' => 'nullable',
             'excerpt' => 'nullable|string',
             'content' => 'nullable|string',
             'author' => 'nullable|string|max:255',
