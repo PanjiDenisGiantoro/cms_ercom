@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FilePondUploadController extends Controller
 {
@@ -23,10 +23,7 @@ class FilePondUploadController extends Controller
         abort_unless($file && $file->isValid(), 422, 'No valid file provided.');
         abort_if($file->getSize() > 100 * 1024 * 1024, 422, 'File too large.');
 
-        $extension = $file->getClientOriginalExtension() ?: $file->extension();
-        $filename = (string) Str::uuid().($extension ? '.'.$extension : '');
-
-        $path = $file->storeAs('tmp-uploads', $filename, 'public');
+        $path = ImageOptimizer::store($file, 'tmp-uploads');
 
         return response($path, 200)->header('Content-Type', 'text/plain');
     }
