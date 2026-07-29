@@ -17,7 +17,7 @@ class HeroController extends Controller
         $heroes = HeroSetting::query()
             ->when($type, fn ($query) => $query->where('type', $type))
             ->orderBy('type')
-            ->orderBy('order')
+            ->orderBy('updated_at', 'desc')
             ->paginate(15)
             ->withQueryString();
 
@@ -88,7 +88,7 @@ class HeroController extends Controller
     private function validated(Request $request): array
     {
         return $request->validate([
-            'type' => 'required|in:' . implode(',', HeroSetting::TYPES),
+            'type' => 'required|in:'.implode(',', HeroSetting::TYPES),
             'headline' => 'nullable|string|max:255',
             'highlighted_word' => 'nullable|string|max:100',
             'subheadline' => 'nullable|string',

@@ -12,7 +12,7 @@ class AboutSection4ItemController extends Controller
 {
     public function index(): View
     {
-        $items = AboutSection4Item::orderBy('order')->paginate(15);
+        $items = AboutSection4Item::orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.about-section4-items.index', compact('items'));
     }

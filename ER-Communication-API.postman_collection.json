@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "ER Communication CMS API",
+    "description": "Public & protected API for the ER Communication CMS (cms_arunika). Base path: {{base_url}}/api/v1. Protected endpoints (career-applications, contact-messages GET/show) require a Sanctum bearer token — generate one with:\n\nphp artisan tinker --execute=\"echo App\\Models\\User::first()->createToken('client-name')->plainTextToken;\"",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "ercom-cms-api-v1"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "api_token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Landing",
+      "item": [
+        {
+          "name": "Landing (all sections at once)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{base_url}}/api/v1/landing", "host": ["{{base_url}}"], "path": ["api", "v1", "landing"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sections",
+      "item": [
+        {
+          "name": "Navbar",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/navbar", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "navbar"] } }
+        },
+        {
+          "name": "Hero (by type)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/sections/hero/home",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "sections", "hero", "home"],
+              "variable": [{ "key": "type", "value": "home", "description": "about | home | highlight | contact | career | service | client | team" }]
+            }
+          }
+        },
+        {
+          "name": "About",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/about", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "about"] } }
+        },
+        {
+          "name": "CTA Banner",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/cta-banner", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "cta-banner"] } }
+        },
+        {
+          "name": "Footer",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/footer", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "footer"] } }
+        },
+        {
+          "name": "SEO",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/seo", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "seo"] } }
+        },
+        {
+          "name": "Stats",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/stats", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "stats"] } }
+        },
+        {
+          "name": "Services",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/services", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "services"] } }
+        },
+        {
+          "name": "Testimonials",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/testimonials", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "testimonials"] } }
+        },
+        {
+          "name": "Partners",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/partners", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "partners"] } }
+        },
+        {
+          "name": "Team (config + members)",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/sections/team", "host": ["{{base_url}}"], "path": ["api", "v1", "sections", "team"] } }
+        }
+      ]
+    },
+    {
+      "name": "About",
+      "item": [
+        {
+          "name": "About Section 2 - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-sections", "host": ["{{base_url}}"], "path": ["api", "v1", "about-sections"] } }
+        },
+        {
+          "name": "About Section 2 - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-sections/1", "host": ["{{base_url}}"], "path": ["api", "v1", "about-sections", "1"] } }
+        },
+        {
+          "name": "About Section 3 (Milestones) - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-milestones", "host": ["{{base_url}}"], "path": ["api", "v1", "about-milestones"] } }
+        },
+        {
+          "name": "About Section 3 (Milestones) - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-milestones/1", "host": ["{{base_url}}"], "path": ["api", "v1", "about-milestones", "1"] } }
+        },
+        {
+          "name": "About Section 4 Items - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-section4-items", "host": ["{{base_url}}"], "path": ["api", "v1", "about-section4-items"] } }
+        },
+        {
+          "name": "About Section 4 Items - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-section4-items/1", "host": ["{{base_url}}"], "path": ["api", "v1", "about-section4-items", "1"] } }
+        },
+        {
+          "name": "About Section 4 Pages - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-section4-pages", "host": ["{{base_url}}"], "path": ["api", "v1", "about-section4-pages"] } }
+        },
+        {
+          "name": "About Section 4 Pages - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/about-section4-pages/1", "host": ["{{base_url}}"], "path": ["api", "v1", "about-section4-pages", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Services & Portfolio",
+      "item": [
+        {
+          "name": "Services - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/services", "host": ["{{base_url}}"], "path": ["api", "v1", "services"] } }
+        },
+        {
+          "name": "Services - Detail (by slug)",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/services/example-slug", "host": ["{{base_url}}"], "path": ["api", "v1", "services", "example-slug"] } }
+        },
+        {
+          "name": "Portfolio - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/portfolio", "host": ["{{base_url}}"], "path": ["api", "v1", "portfolio"] } }
+        },
+        {
+          "name": "Portfolio - Detail (by slug)",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/portfolio/example-slug", "host": ["{{base_url}}"], "path": ["api", "v1", "portfolio", "example-slug"] } }
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "item": [
+        {
+          "name": "Blog - List",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/blog?category=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "blog"],
+              "query": [{ "key": "category", "value": "", "description": "optional: filter by blog category slug" }]
+            }
+          }
+        },
+        {
+          "name": "Blog - Detail (by slug)",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/blog/example-slug", "host": ["{{base_url}}"], "path": ["api", "v1", "blog", "example-slug"] } }
+        },
+        {
+          "name": "Blog Categories - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/blog-categories", "host": ["{{base_url}}"], "path": ["api", "v1", "blog-categories"] } }
+        }
+      ]
+    },
+    {
+      "name": "Careers",
+      "item": [
+        {
+          "name": "Careers - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/careers", "host": ["{{base_url}}"], "path": ["api", "v1", "careers"] } }
+        },
+        {
+          "name": "Careers - Detail (by slug)",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/careers/example-slug", "host": ["{{base_url}}"], "path": ["api", "v1", "careers", "example-slug"] } }
+        },
+        {
+          "name": "Careers - Apply",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/api/v1/careers/example-slug/apply", "host": ["{{base_url}}"], "path": ["api", "v1", "careers", "example-slug", "apply"] },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "John Doe", "type": "text" },
+                { "key": "email", "value": "john@example.com", "type": "text" },
+                { "key": "phone", "value": "081234567890", "type": "text" },
+                { "key": "address", "value": "Jakarta, Indonesia", "type": "text" },
+                { "key": "cv", "type": "file", "src": [] }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "item": [
+        {
+          "name": "Testimonials - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/testimonials", "host": ["{{base_url}}"], "path": ["api", "v1", "testimonials"] } }
+        },
+        {
+          "name": "Testimonials - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/testimonials/1", "host": ["{{base_url}}"], "path": ["api", "v1", "testimonials", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Partners",
+      "item": [
+        {
+          "name": "Partners - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/partners", "host": ["{{base_url}}"], "path": ["api", "v1", "partners"] } }
+        },
+        {
+          "name": "Partners - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/partners/1", "host": ["{{base_url}}"], "path": ["api", "v1", "partners", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "item": [
+        {
+          "name": "Team - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/team", "host": ["{{base_url}}"], "path": ["api", "v1", "team"] } }
+        },
+        {
+          "name": "Team - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/team/1", "host": ["{{base_url}}"], "path": ["api", "v1", "team", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Stats",
+      "item": [
+        {
+          "name": "Stats - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/stats", "host": ["{{base_url}}"], "path": ["api", "v1", "stats"] } }
+        },
+        {
+          "name": "Stats - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/stats/1", "host": ["{{base_url}}"], "path": ["api", "v1", "stats", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Client",
+      "item": [
+        {
+          "name": "Clients - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/clients", "host": ["{{base_url}}"], "path": ["api", "v1", "clients"] } }
+        },
+        {
+          "name": "Clients - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/clients/1", "host": ["{{base_url}}"], "path": ["api", "v1", "clients", "1"] } }
+        },
+        {
+          "name": "Client Categories - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/client-categories", "host": ["{{base_url}}"], "path": ["api", "v1", "client-categories"] } }
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Contacts - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/contacts", "host": ["{{base_url}}"], "path": ["api", "v1", "contacts"] } }
+        },
+        {
+          "name": "Contacts - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/contacts/1", "host": ["{{base_url}}"], "path": ["api", "v1", "contacts", "1"] } }
+        },
+        {
+          "name": "Contact Messages - Submit",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{base_url}}/api/v1/contact-messages", "host": ["{{base_url}}"], "path": ["api", "v1", "contact-messages"] },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Doe\",\n  \"business_name\": \"Acme Inc\",\n  \"contact_number\": \"081234567890\",\n  \"email\": \"john@example.com\",\n  \"message\": \"Hi, I'd like to know more about your services.\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Protected (Sanctum token required)",
+      "auth": {
+        "type": "bearer",
+        "bearer": [{ "key": "token", "value": "{{api_token}}", "type": "string" }]
+      },
+      "item": [
+        {
+          "name": "Career Applications - List",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/v1/career-applications?career=",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "career-applications"],
+              "query": [{ "key": "career", "value": "", "description": "optional: filter by career slug" }]
+            }
+          }
+        },
+        {
+          "name": "Career Applications - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/career-applications/1", "host": ["{{base_url}}"], "path": ["api", "v1", "career-applications", "1"] } }
+        },
+        {
+          "name": "Contact Messages - List",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/contact-messages", "host": ["{{base_url}}"], "path": ["api", "v1", "contact-messages"] } }
+        },
+        {
+          "name": "Contact Messages - Detail",
+          "request": { "method": "GET", "url": { "raw": "{{base_url}}/api/v1/contact-messages/1", "host": ["{{base_url}}"], "path": ["api", "v1", "contact-messages", "1"] } }
+        }
+      ]
+    }
+  ]
+}

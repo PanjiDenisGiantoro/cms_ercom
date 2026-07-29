@@ -12,7 +12,7 @@ class StatsController extends Controller
 {
     public function index(): View
     {
-        $stats = Stat::orderBy('order')->paginate(15);
+        $stats = Stat::orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.stats.index', compact('stats'));
     }

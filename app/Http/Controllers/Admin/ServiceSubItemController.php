@@ -14,7 +14,7 @@ class ServiceSubItemController extends Controller
 {
     public function index(ServiceCategory $service, ServiceItem $item): View
     {
-        $subItems = $item->subItems()->orderBy('order')->paginate(15);
+        $subItems = $item->subItems()->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.services.items.sub-items.index', compact('service', 'item', 'subItems'));
     }

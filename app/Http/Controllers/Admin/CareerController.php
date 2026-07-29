@@ -12,7 +12,7 @@ class CareerController extends Controller
 {
     public function index(): View
     {
-        $careers = Career::withCount('applications')->orderBy('order')->paginate(15);
+        $careers = Career::withCount('applications')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.careers.index', compact('careers'));
     }

@@ -9,6 +9,18 @@ use Illuminate\Http\Request;
 
 class ContactMessageController extends Controller
 {
+    public function index(): JsonResponse
+    {
+        $messages = ContactMessage::latest()->paginate(15);
+
+        return response()->json($messages);
+    }
+
+    public function show(ContactMessage $contact_message): JsonResponse
+    {
+        return response()->json($contact_message);
+    }
+
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([

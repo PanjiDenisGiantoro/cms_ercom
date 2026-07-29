@@ -12,7 +12,7 @@ class AboutSectionController extends Controller
 {
     public function index(): View
     {
-        $sections = AboutSection::orderBy('order')->paginate(15);
+        $sections = AboutSection::orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.about-sections.index', compact('sections'));
     }

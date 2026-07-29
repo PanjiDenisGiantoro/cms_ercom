@@ -12,7 +12,7 @@ class BlogCategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = BlogCategory::withCount('blogs')->orderBy('order')->paginate(15);
+        $categories = BlogCategory::withCount('blogs')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.blog-categories.index', compact('categories'));
     }

@@ -12,7 +12,7 @@ class ClientCategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = ClientCategory::withCount('clients')->orderBy('order')->paginate(15);
+        $categories = ClientCategory::withCount('clients')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.client-categories.index', compact('categories'));
     }

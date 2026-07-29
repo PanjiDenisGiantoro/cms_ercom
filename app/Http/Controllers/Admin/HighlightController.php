@@ -12,7 +12,7 @@ class HighlightController extends Controller
 {
     public function index(): View
     {
-        $highlights = Highlight::orderBy('order')->paginate(15);
+        $highlights = Highlight::orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.highlights.index', compact('highlights'));
     }

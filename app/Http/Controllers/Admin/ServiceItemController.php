@@ -13,7 +13,7 @@ class ServiceItemController extends Controller
 {
     public function index(ServiceCategory $service): View
     {
-        $items = $service->items()->withCount('subItems')->orderBy('order')->paginate(15);
+        $items = $service->items()->withCount('subItems')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.services.items.index', compact('service', 'items'));
     }

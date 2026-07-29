@@ -12,7 +12,7 @@ class PartnerController extends Controller
 {
     public function index(): View
     {
-        $partners = Partner::orderBy('order')->paginate(15);
+        $partners = Partner::orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.partners.index', compact('partners'));
     }
