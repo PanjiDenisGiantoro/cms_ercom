@@ -94,7 +94,6 @@ class HeroController extends Controller
             'background_image' => 'nullable',
             'cta_text' => 'nullable|string|max:100',
             'cta_url' => 'nullable|url',
-            'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
     }

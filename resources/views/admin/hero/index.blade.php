@@ -24,7 +24,6 @@
             <tr>
                 <th>Type</th>
                 <th>Headline</th>
-                <th>Order</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -34,7 +33,6 @@
                 <tr>
                     <td><span class="cms-badge cms-badge-blue">{{ ucfirst($hero->type) }}</span></td>
                     <td>{{ Str::limit(strip_tags($hero->headline), 60) }}</td>
-                    <td>{{ $hero->order }}</td>
                     <td><span class="cms-badge {{ $hero->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $hero->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.hero.edit', $hero) }}" class="cms-btn cms-btn-sm">Edit</a>
@@ -45,7 +43,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5" class="cms-empty">Belum ada data hero.</td></tr>
+                <tr><td colspan="4" class="cms-empty">Belum ada data hero.</td></tr>
             @endforelse
         </tbody>
     </table>

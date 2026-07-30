@@ -14,7 +14,7 @@ class HeroSetting extends Model
 
     protected $fillable = [
         'type', 'headline', 'subheadline',
-        'background_image', 'cta_text', 'cta_url', 'order', 'is_active',
+        'background_image', 'cta_text', 'cta_url', 'is_active',
     ];
 
     protected $casts = [

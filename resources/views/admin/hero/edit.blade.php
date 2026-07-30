@@ -54,12 +54,6 @@
             <input type="file" name="background_image" class="cms-input" accept="image/*" data-filepond
                 @if($hero->background_image) data-current-file="{{ Storage::url($hero->background_image) }}" @endif>
         </div>
-        <div class="cms-form-row" style="margin-top:14px">
-            <div class="cms-field">
-                <label class="cms-label">Order</label>
-                <input type="number" name="order" value="{{ old('order', $hero->order) }}" class="cms-input" min="0">
-            </div>
-        </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">
                 <input type="hidden" name="is_active" value="0">
