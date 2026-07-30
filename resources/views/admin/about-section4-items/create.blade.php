@@ -25,7 +25,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi</label>
-            <textarea name="description" rows="4" class="cms-input">{{ old('description') }}</textarea>
+            <textarea name="description" rows="4" class="cms-input ckeditor">{{ old('description') }}</textarea>
             @error('description')<span class="cms-error">{{ $message }}</span>@enderror
         </div>
         <div class="cms-field" style="margin-top:14px">

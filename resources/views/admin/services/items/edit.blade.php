@@ -80,7 +80,7 @@
         {{-- Deskripsi --}}
         <div class="cms-field" style="margin-top:18px">
             <label class="cms-label">Deskripsi</label>
-            <textarea name="description" rows="4" class="cms-input">{{ old('description', $item->description) }}</textarea>
+            <textarea name="description" rows="4" class="cms-input ckeditor">{{ old('description', $item->description) }}</textarea>
         </div>
 
         {{-- CTA --}}

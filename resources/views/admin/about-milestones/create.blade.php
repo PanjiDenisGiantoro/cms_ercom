@@ -30,7 +30,7 @@
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Deskripsi Headline</label>
-            <textarea name="headline_description" rows="3" class="cms-input">{{ old('headline_description') }}</textarea>
+            <textarea name="headline_description" rows="3" class="cms-input ckeditor">{{ old('headline_description') }}</textarea>
             @error('headline_description')<span class="cms-error">{{ $message }}</span>@enderror
         </div>
         <div class="cms-field" style="margin-top:14px">
