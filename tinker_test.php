@@ -1,4 +1,4 @@
-﻿$controller = new App\Http\Controllers\Admin\DashboardController();
+$controller = new App\Http\Controllers\Admin\DashboardController();
 try {
     $view = $controller->index();
     $html = $view->render();

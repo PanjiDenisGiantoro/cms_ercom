@@ -14,10 +14,10 @@ class ServiceController extends Controller
         return response()->json([
             'settings' => ServiceSetting::instance(),
             'data' => ServiceCategory::with(['items' => function ($q) {
-                    $q->where('is_active', true)->orderBy('order');
-                }, 'items.subItems' => function ($q) {
-                    $q->where('is_active', true)->orderBy('order');
-                }])
+                $q->where('is_active', true)->orderBy('order');
+            }, 'items.subItems' => function ($q) {
+                $q->where('is_active', true)->orderBy('order');
+            }])
                 ->where('is_active', true)
                 ->orderBy('order')
                 ->get(),
@@ -27,10 +27,10 @@ class ServiceController extends Controller
     public function show(string $slug): JsonResponse
     {
         $category = ServiceCategory::with(['items' => function ($q) {
-                $q->where('is_active', true)->orderBy('order');
-            }, 'items.subItems' => function ($q) {
-                $q->where('is_active', true)->orderBy('order');
-            }])
+            $q->where('is_active', true)->orderBy('order');
+        }, 'items.subItems' => function ($q) {
+            $q->where('is_active', true)->orderBy('order');
+        }])
             ->where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();
