@@ -14,7 +14,7 @@ class PortfolioController extends Controller
 {
     public function index(): View
     {
-        $portfolios = Portfolio::with('category')->latest()->paginate(15);
+        $portfolios = Portfolio::with('category')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.portfolio.index', compact('portfolios'));
     }

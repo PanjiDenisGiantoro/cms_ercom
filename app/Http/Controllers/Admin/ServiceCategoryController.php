@@ -12,7 +12,7 @@ class ServiceCategoryController extends Controller
 {
     public function index(): View
     {
-        $categories = ServiceCategory::withCount('items')->orderBy('updated_at', 'desc')->paginate(15);
+        $categories = ServiceCategory::withCount('items')->orderBy('order')->paginate(15);
 
         return view('admin.services.index', compact('categories'));
     }

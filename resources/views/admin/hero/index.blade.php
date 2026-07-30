@@ -24,7 +24,10 @@
             <tr>
                 <th>Type</th>
                 <th>Headline</th>
+                <th>Subheadline</th>
                 <th>Status</th>
+                <th>Dibuat</th>
+                <th>Diperbarui</th>
                 <th></th>
             </tr>
         </thead>
@@ -33,7 +36,10 @@
                 <tr>
                     <td><span class="cms-badge cms-badge-blue">{{ ucfirst($hero->type) }}</span></td>
                     <td>{{ Str::limit(strip_tags($hero->headline), 60) }}</td>
+                    <td>{{ Str::limit(strip_tags($hero->subheadline), 60) }}</td>
                     <td><span class="cms-badge {{ $hero->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $hero->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
+                    <td>{{ $hero->created_at->format('d M Y H:i') }}</td>
+                    <td>{{ $hero->updated_at->format('d M Y H:i') }}</td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.hero.edit', $hero) }}" class="cms-btn cms-btn-sm">Edit</a>
                         <form method="POST" action="{{ route('admin.hero.destroy', $hero) }}" onsubmit="return confirm('Hapus hero ini?')">
@@ -43,7 +49,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="4" class="cms-empty">Belum ada data hero.</td></tr>
+                <tr><td colspan="7" class="cms-empty">Belum ada data hero.</td></tr>
             @endforelse
         </tbody>
     </table>

@@ -12,7 +12,7 @@
 <div class="cms-card">
     <table class="cms-table">
         <thead>
-            <tr><th>Cover</th><th>Nama</th><th>Slug</th><th>Order</th><th>Status</th><th></th></tr>
+            <tr><th>Cover</th><th>Nama</th><th>Slug</th><th>Order</th><th>Status</th><th>Dibuat</th><th></th></tr>
         </thead>
         <tbody>
             @forelse($categories as $category)
@@ -28,6 +28,7 @@
                     <td><code style="font-size:12px;color:#6b7280">{{ $category->slug }}</code></td>
                     <td>{{ $category->order }}</td>
                     <td><span class="cms-badge {{ $category->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $category->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
+                    <td>{{ $category->created_at->format('d M Y H:i') }}</td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.services.items.index', $category) }}" class="cms-btn cms-btn-sm cms-badge-blue" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe">Items</a>
                         <a href="{{ route('admin.services.edit', $category) }}" class="cms-btn cms-btn-sm">Edit</a>
@@ -38,7 +39,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="cms-empty">Belum ada kategori layanan.</td></tr>
+                <tr><td colspan="7" class="cms-empty">Belum ada kategori layanan.</td></tr>
             @endforelse
         </tbody>
     </table>

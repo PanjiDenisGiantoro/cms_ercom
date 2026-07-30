@@ -13,7 +13,7 @@ class BlogController extends Controller
 {
     public function index(): View
     {
-        $blogs = Blog::with('category')->latest()->paginate(15);
+        $blogs = Blog::with('category')->orderBy('updated_at', 'desc')->paginate(15);
 
         return view('admin.blog.index', compact('blogs'));
     }

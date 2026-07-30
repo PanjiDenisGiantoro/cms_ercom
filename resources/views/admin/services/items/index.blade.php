@@ -12,7 +12,7 @@
 <div class="cms-card">
     <table class="cms-table">
         <thead>
-            <tr><th>Thumbnail</th><th>Nama</th><th>Order</th><th>Status</th><th></th></tr>
+            <tr><th>Thumbnail</th><th>Nama</th><th>Order</th><th>Status</th><th>Dibuat</th><th></th></tr>
         </thead>
         <tbody>
             @forelse($items as $item)
@@ -27,6 +27,7 @@
                     <td><strong>{{ $item->name }}</strong></td>
                     <td>{{ $item->order }}</td>
                     <td><span class="cms-badge {{ $item->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $item->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
+                    <td>{{ $item->created_at->format('d M Y H:i') }}</td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.services.items.sub-items.index', [$service, $item]) }}" class="cms-btn cms-btn-sm" style="background:#f5f3ff;color:#7c3aed;border-color:#ddd6fe">Sub-items</a>
                         <a href="{{ route('admin.services.items.edit', [$service, $item]) }}" class="cms-btn cms-btn-sm">Edit</a>
@@ -37,7 +38,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5" class="cms-empty">Belum ada item layanan.</td></tr>
+                <tr><td colspan="6" class="cms-empty">Belum ada item layanan.</td></tr>
             @endforelse
         </tbody>
     </table>

@@ -12,7 +12,7 @@
 <div class="cms-card">
     <table class="cms-table">
         <thead>
-            <tr><th>Thumbnail</th><th>Nama</th><th>Order</th><th>Status</th><th></th></tr>
+            <tr><th>Thumbnail</th><th>Nama</th><th>Order</th><th>Status</th><th>Dibuat</th><th></th></tr>
         </thead>
         <tbody>
             @forelse($subItems as $subItem)
@@ -27,6 +27,7 @@
                     <td><strong>{{ $subItem->name }}</strong></td>
                     <td>{{ $subItem->order }}</td>
                     <td><span class="cms-badge {{ $subItem->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $subItem->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
+                    <td>{{ $subItem->created_at->format('d M Y H:i') }}</td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.services.items.sub-items.edit', [$service, $item, $subItem]) }}" class="cms-btn cms-btn-sm">Edit</a>
                         <form method="POST" action="{{ route('admin.services.items.sub-items.destroy', [$service, $item, $subItem]) }}" onsubmit="return confirm('Hapus?')">
@@ -36,7 +37,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="5" class="cms-empty">Belum ada sub-item.</td></tr>
+                <tr><td colspan="6" class="cms-empty">Belum ada sub-item.</td></tr>
             @endforelse
         </tbody>
     </table>

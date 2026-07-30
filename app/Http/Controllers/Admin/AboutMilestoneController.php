@@ -12,7 +12,7 @@ class AboutMilestoneController extends Controller
 {
     public function index(): View
     {
-        $milestones = AboutMilestone::orderBy('updated_at', 'desc')->paginate(15);
+        $milestones = AboutMilestone::orderBy('order')->paginate(15);
 
         return view('admin.about-milestones.index', compact('milestones'));
     }

@@ -18,6 +18,8 @@
                 <th>Kategori</th>
                 <th>Penulis</th>
                 <th>Status</th>
+                <th>Dibuat</th>
+                <th>Tanggal Publish</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,6 +41,8 @@
                             {{ $blog->is_published ? 'Published' : 'Draft' }}
                         </span>
                     </td>
+                    <td>{{ $blog->created_at->format('d M Y H:i') }}</td>
+                    <td>{{ $blog->published_at?->format('d M Y') ?? '—' }}</td>
                     <td class="cms-actions">
                         <a href="{{ route('admin.blog.edit', $blog) }}" class="cms-btn cms-btn-sm">Edit</a>
                         <form method="POST" action="{{ route('admin.blog.destroy', $blog) }}" onsubmit="return confirm('Hapus blog ini?')">
@@ -48,7 +52,7 @@
                     </td>
                 </tr>
             @empty
-                <tr><td colspan="6" class="cms-empty">Belum ada blog.</td></tr>
+                <tr><td colspan="8" class="cms-empty">Belum ada blog.</td></tr>
             @endforelse
         </tbody>
     </table>
