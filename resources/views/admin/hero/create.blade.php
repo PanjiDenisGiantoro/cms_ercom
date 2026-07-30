@@ -32,10 +32,6 @@
             <textarea name="headline" class="cms-input ckeditor-minimal">{{ old('headline') }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
-            <label class="cms-label">Highlighted Word</label>
-            <textarea name="highlighted_word" class="cms-input ckeditor-minimal">{{ old('highlighted_word') }}</textarea>
-        </div>
-        <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Subheadline</label>
             <textarea name="subheadline" rows="3" class="cms-input ckeditor">{{ old('subheadline') }}</textarea>
         </div>

@@ -269,7 +269,6 @@
 </div>
 
 @stack('scripts')
-<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
 function positionSubmenu(group) {
     var button = group.querySelector('.admin-nav-toggle');
@@ -319,23 +318,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    var minimalToolbar = ['bold', 'italic', '|', 'undo', 'redo'];
-    var fullToolbar = ['heading', '|', 'bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', '|', 'blockQuote', '|', 'undo', 'redo'];
-
-    document.querySelectorAll('textarea.ckeditor, textarea.ckeditor-minimal').forEach(function (el) {
-        ClassicEditor.create(el, {
-            toolbar: el.classList.contains('ckeditor-minimal') ? minimalToolbar : fullToolbar
-        }).then(function (editor) {
-            var form = el.closest('form');
-            if (form) {
-                form.addEventListener('submit', function () {
-                    el.value = editor.getData();
-                });
-            }
-        }).catch(console.error);
-    });
-});
 </script>
 </body>
 </html>

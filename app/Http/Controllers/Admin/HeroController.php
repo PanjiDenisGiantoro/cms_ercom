@@ -90,7 +90,6 @@ class HeroController extends Controller
         return $request->validate([
             'type' => 'required|in:'.implode(',', HeroSetting::TYPES),
             'headline' => 'nullable|string|max:255',
-            'highlighted_word' => 'nullable|string|max:100',
             'subheadline' => 'nullable|string',
             'background_image' => 'nullable',
             'cta_text' => 'nullable|string|max:100',

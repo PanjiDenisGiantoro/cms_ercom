@@ -969,19 +969,7 @@ footer{
     <div class="hero-tag">PR &amp; Strategic Communication Agency</div>
     <div class="hero-h1">
       @php
-        $heroHighlight = $hero->highlighted_word ? strip_tags($hero->highlighted_word) : null;
-        if ($hero->headline) {
-            $heroHeadlineHtml = $hero->headline;
-            if ($heroHighlight) {
-                $heroHeadlineHtml = str_replace(
-                    $heroHighlight,
-                    '<span class="trust">'.$heroHighlight.'</span>',
-                    $heroHeadlineHtml
-                );
-            }
-        } else {
-            $heroHeadlineHtml = '<p>We are Building <span class="trust">Trust.</span><br>Driving Impact.</p>';
-        }
+        $heroHeadlineHtml = $hero->headline ?: '<p>We are Building <span class="trust">Trust.</span><br>Driving Impact.</p>';
       @endphp
       {!! $heroHeadlineHtml !!}
     </div>

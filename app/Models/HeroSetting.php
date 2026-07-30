@@ -13,7 +13,7 @@ class HeroSetting extends Model
     public const TYPES = ['home', 'about', 'highlight', 'contact', 'career', 'service', 'client', 'team'];
 
     protected $fillable = [
-        'type', 'headline', 'highlighted_word', 'subheadline',
+        'type', 'headline', 'subheadline',
         'background_image', 'cta_text', 'cta_url', 'order', 'is_active',
     ];
 
