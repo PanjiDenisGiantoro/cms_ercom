@@ -29,7 +29,7 @@
         <div class="cms-card-title">Teks Hero</div>
         <div class="cms-field">
             <label class="cms-label">Headline</label>
-            <textarea name="headline" class="cms-input ckeditor-minimal">{{ old('headline') }}</textarea>
+            <textarea name="headline" class="cms-input ckeditor">{{ old('headline') }}</textarea>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Subheadline</label>
