@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class BlogCategory extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'blog';
+
     protected $fillable = ['name', 'slug', 'order', 'is_active'];
 
     protected $casts = [

@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ServiceSubItem extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'services';
+
     protected $fillable = [
         'service_item_id', 'name', 'thumbnail', 'description', 'order', 'is_active',
     ];

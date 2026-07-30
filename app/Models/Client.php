@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class Client extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'client';
+
     protected $fillable = ['category_id', 'name', 'logo_image', 'website_url', 'order', 'is_active'];
 
     protected $casts = [

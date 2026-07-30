@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Partner extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'partners';
+
     protected $fillable = ['name', 'logo_image', 'website_url', 'order', 'is_active'];
 
     protected $casts = [

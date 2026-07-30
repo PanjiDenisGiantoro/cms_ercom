@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Stat extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'stats';
+
     protected $fillable = ['stat_number', 'stat_label', 'description', 'avatar_images', 'order', 'is_active'];
 
     protected $casts = [

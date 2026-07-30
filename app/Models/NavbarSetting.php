@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class NavbarSetting extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'navbar';
+
     protected $table = 'navbar_settings';
 
     protected $fillable = [

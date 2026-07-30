@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Highlight extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'highlight';
+
     protected $fillable = ['title', 'description', 'icon_image', 'order', 'is_active'];
 
     protected $casts = [

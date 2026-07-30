@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Testimonial extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'testimonials';
+
     protected $fillable = [
         'name', 'company_role', 'photo', 'testimonial_text', 'rating', 'order', 'is_active',
     ];

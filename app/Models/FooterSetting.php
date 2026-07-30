@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Model;
 
 class FooterSetting extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'footer';
+
     protected $table = 'footer_settings';
 
     protected $fillable = [

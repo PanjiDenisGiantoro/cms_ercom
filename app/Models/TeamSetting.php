@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Model;
 
 class TeamSetting extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'team';
+
     protected $table = 'team_settings';
 
     protected $fillable = ['headline', 'subtext'];

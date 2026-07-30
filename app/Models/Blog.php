@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,10 @@ use Illuminate\Support\Str;
 
 class Blog extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'blog';
+
     protected $fillable = [
         'blog_category_id', 'title', 'slug', 'cover_image',
         'excerpt', 'content', 'author', 'is_published', 'published_at',

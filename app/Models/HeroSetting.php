@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class HeroSetting extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'hero';
+
     protected $table = 'hero_settings';
 
     public const TYPES = ['home', 'about', 'highlight', 'contact', 'career', 'service', 'client', 'team'];

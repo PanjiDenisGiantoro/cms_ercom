@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,6 +11,10 @@ use Illuminate\Support\Str;
 
 class Portfolio extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'portfolio';
+
     protected $fillable = [
         'service_category_id', 'project_title', 'slug', 'cover_image',
         'description', 'client_name', 'project_url', 'project_date',

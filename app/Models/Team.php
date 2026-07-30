@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 class Team extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'team';
+
     protected $fillable = ['name', 'position', 'whatsapp', 'email', 'photo', 'order', 'is_active'];
 
     protected $casts = [

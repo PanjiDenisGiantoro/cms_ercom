@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Career extends Model
 {
+    use RevalidatesFrontendCache;
+
+    protected string $frontendCacheTag = 'career';
+
     protected $fillable = [
         'title', 'slug', 'employment_type', 'location',
         'description', 'order', 'is_active',
