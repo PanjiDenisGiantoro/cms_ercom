@@ -75,6 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
 
     Route::resource('services', Admin\ServiceCategoryController::class)->except('show');
     Route::resource('services.items', Admin\ServiceItemController::class)->except('show');
+    Route::patch('/services/{service}/items/{item}/toggle-selected', [Admin\ServiceItemController::class, 'toggleSelected'])->name('services.items.toggle-selected');
     Route::resource('services.items.sub-items', Admin\ServiceSubItemController::class)->except('show');
 
     Route::resource('portfolio', Admin\PortfolioController::class)->except('show');

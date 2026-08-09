@@ -11,6 +11,12 @@ use Illuminate\View\View;
 
 class ServiceItemController extends Controller
 {
+    /**
+     * Maximum number of items per service category that can be flagged as
+     * selected/featured for the frontend.
+     */
+    private const MAX_SELECTED = 4;
+
     public function index(ServiceCategory $service): View
     {
         $items = $service->items()->withCount('subItems')->orderBy('updated_at', 'desc')->paginate(15);
@@ -96,5 +102,24 @@ class ServiceItemController extends Controller
         $item->delete();
 
         return back()->with('success', 'Service item deleted.');
+    }
+
+    public function toggleSelected(ServiceCategory $service, ServiceItem $item): RedirectResponse
+    {
+        if ($item->is_selected) {
+            $item->update(['is_selected' => false]);
+
+            return back()->with('success', 'Item dibatalkan dari pilihan.');
+        }
+
+        $selectedCount = $service->items()->where('is_selected', true)->count();
+
+        if ($selectedCount >= self::MAX_SELECTED) {
+            return back()->with('error', 'Maksimal '.self::MAX_SELECTED.' item yang bisa dipilih untuk ditampilkan di frontend.');
+        }
+
+        $item->update(['is_selected' => true]);
+
+        return back()->with('success', 'Item dipilih untuk ditampilkan di frontend.');
     }
 }
