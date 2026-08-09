@@ -32,6 +32,8 @@ class PortfolioController extends Controller
             'project_title' => 'required|string|max:255',
             'service_category_id' => 'nullable|exists:service_categories,id',
             'cover_image' => 'nullable',
+            'video_file' => 'nullable',
+            'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'client_name' => 'nullable|string|max:255',
             'project_url' => 'nullable|url',
@@ -42,6 +44,12 @@ class PortfolioController extends Controller
 
         $data['slug'] = Str::slug($data['project_title']);
         $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'portfolio');
+
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'portfolio/videos')) {
+            $data['preview_video'] = $videoFile;
+        }
+
+        unset($data['video_file']);
 
         Portfolio::create($data);
 
@@ -61,6 +69,8 @@ class PortfolioController extends Controller
             'project_title' => 'required|string|max:255',
             'service_category_id' => 'nullable|exists:service_categories,id',
             'cover_image' => 'nullable',
+            'video_file' => 'nullable',
+            'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'client_name' => 'nullable|string|max:255',
             'project_url' => 'nullable|url',
@@ -70,6 +80,12 @@ class PortfolioController extends Controller
         ]);
 
         $this->applyUpload($data, $request, 'cover_image', 'portfolio');
+
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'portfolio/videos')) {
+            $data['preview_video'] = $videoFile;
+        }
+
+        unset($data['video_file']);
 
         $portfolio->update($data);
 

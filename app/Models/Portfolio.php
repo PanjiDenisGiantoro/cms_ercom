@@ -16,7 +16,7 @@ class Portfolio extends Model
     protected string $frontendCacheTag = 'portfolio';
 
     protected $fillable = [
-        'service_category_id', 'project_title', 'slug', 'cover_image',
+        'service_category_id', 'project_title', 'slug', 'cover_image', 'preview_video',
         'description', 'client_name', 'project_url', 'project_date',
         'is_published', 'is_featured',
     ];
