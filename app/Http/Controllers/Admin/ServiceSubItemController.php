@@ -29,6 +29,8 @@ class ServiceSubItemController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'thumbnail' => 'nullable',
+            'video_file' => 'nullable',
+            'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
@@ -36,6 +38,16 @@ class ServiceSubItemController extends Controller
 
         $data['service_item_id'] = $item->id;
         $data['thumbnail'] = $this->resolveUpload($request, 'thumbnail', 'services/sub-items');
+
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
+            $data['preview_video'] = $videoFile;
+        }
+
+        unset($data['video_file']);
+
+        if (empty($data['thumbnail'])) {
+            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? null);
+        }
 
         $item->subItems()->create($data);
 
@@ -52,12 +64,24 @@ class ServiceSubItemController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'thumbnail' => 'nullable',
+            'video_file' => 'nullable',
+            'preview_video' => 'nullable|url',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
         $this->applyUpload($data, $request, 'thumbnail', 'services/sub-items');
+
+        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
+            $data['preview_video'] = $videoFile;
+        }
+
+        unset($data['video_file']);
+
+        if (($data['thumbnail'] ?? $subItem->thumbnail) === null) {
+            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? $subItem->preview_video);
+        }
 
         $subItem->update($data);
 

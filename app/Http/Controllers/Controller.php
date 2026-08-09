@@ -77,6 +77,24 @@ abstract class Controller
     }
 
     /**
+     * Resolve a thumbnail image URL from a YouTube video link, for use as a
+     * fallback when no thumbnail was uploaded manually. Returns null for
+     * non-YouTube links (e.g. Vimeo, direct video URLs, uploaded files).
+     */
+    protected function resolveVideoThumbnail(?string $videoUrl): ?string
+    {
+        if (! $videoUrl) {
+            return null;
+        }
+
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/', $videoUrl, $matches)) {
+            return "https://img.youtube.com/vi/{$matches[1]}/hqdefault.jpg";
+        }
+
+        return null;
+    }
+
+    /**
      * Move a FilePond temp upload into its permanent directory. The value is
      * reduced to its basename before touching disk, so this only ever reads
      * files that live directly inside tmp-uploads/ regardless of what the

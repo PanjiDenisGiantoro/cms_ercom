@@ -46,6 +46,10 @@ class ServiceItemController extends Controller
 
         unset($data['video_file']);
 
+        if (empty($data['thumbnail'])) {
+            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? null);
+        }
+
         $service->items()->create($data);
 
         return redirect()->route('admin.services.items.index', $service)->with('success', 'Service item created.');
@@ -77,6 +81,10 @@ class ServiceItemController extends Controller
         }
 
         unset($data['video_file']);
+
+        if (($data['thumbnail'] ?? $item->thumbnail) === null) {
+            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? $item->preview_video);
+        }
 
         $item->update($data);
 

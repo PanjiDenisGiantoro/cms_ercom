@@ -13,7 +13,7 @@ class ServiceSubItem extends Model
     protected string $frontendCacheTag = 'services';
 
     protected $fillable = [
-        'service_item_id', 'name', 'thumbnail', 'description', 'order', 'is_active',
+        'service_item_id', 'name', 'thumbnail', 'preview_video', 'description', 'order', 'is_active',
     ];
 
     protected $casts = [

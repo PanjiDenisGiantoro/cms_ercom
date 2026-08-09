@@ -39,7 +39,7 @@
             <div class="cms-field">
                 <label class="cms-label">Foto / Thumbnail</label>
                 <input type="file" name="thumbnail" class="cms-input" accept="image/*" data-filepond
-                    @if($item->thumbnail) data-current-file="{{ Storage::url($item->thumbnail) }}" @endif>
+                    @if($item->thumbnail) data-current-file="{{ str_starts_with($item->thumbnail, 'http') ? $item->thumbnail : Storage::url($item->thumbnail) }}" @endif>
                 @error('thumbnail')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
 
