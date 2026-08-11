@@ -72,7 +72,7 @@
         </div>
 
         {{-- CTA --}}
-        <div class="cms-form-row" style="margin-top:14px">
+        <div class="cms-form-row" style="margin-top:14px; display:none">
             <div class="cms-field">
                 <label class="cms-label">CTA Text</label>
                 <input type="text" name="cta_text" value="{{ old('cta_text') }}" class="cms-input" placeholder="Lihat Selengkapnya">
