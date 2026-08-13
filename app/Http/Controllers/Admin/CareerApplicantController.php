@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CareerApplication;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CareerApplicantController extends Controller
 {
@@ -23,7 +23,7 @@ class CareerApplicantController extends Controller
         return view('admin.career-applicants.show', ['applicant' => $career_applicant]);
     }
 
-    public function download(CareerApplication $career_applicant): Response
+    public function download(CareerApplication $career_applicant): StreamedResponse
     {
         return Storage::disk('public')->download($career_applicant->cv);
     }

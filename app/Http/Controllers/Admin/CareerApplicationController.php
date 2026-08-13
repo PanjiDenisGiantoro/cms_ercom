@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Career;
 use App\Models\CareerApplication;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CareerApplicationController extends Controller
 {
@@ -19,7 +19,7 @@ class CareerApplicationController extends Controller
         return view('admin.careers.applications.index', compact('career', 'applications'));
     }
 
-    public function download(Career $career, CareerApplication $application): Response
+    public function download(Career $career, CareerApplication $application): StreamedResponse
     {
         return Storage::disk('public')->download($application->cv);
     }
