@@ -56,6 +56,8 @@ class ContactController extends Controller
             'phone' => 'nullable|string|max:50',
             'email' => 'nullable|email|max:255',
             'map_embed_url' => 'nullable|string',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);

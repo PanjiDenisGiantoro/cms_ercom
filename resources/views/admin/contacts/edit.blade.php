@@ -41,6 +41,22 @@
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
+                <label class="cms-label">Latitude</label>
+                <input type="text" inputmode="decimal" id="contact-lat" name="latitude" value="{{ old('latitude', $contact->latitude) }}" class="cms-input" placeholder="-6.2088000">
+                @error('latitude')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="cms-field">
+                <label class="cms-label">Longitude</label>
+                <input type="text" inputmode="decimal" id="contact-lng" name="longitude" value="{{ old('longitude', $contact->longitude) }}" class="cms-input" placeholder="106.8456000">
+                @error('longitude')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+        </div>
+        <div class="cms-field" style="margin-top:14px">
+            <label class="cms-label">Preview GMaps</label>
+            <iframe id="gmaps-preview" style="width:100%;height:280px;border:0;border-radius:8px" loading="lazy"></iframe>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', $contact->order) }}" class="cms-input" min="0">
             </div>
@@ -55,3 +71,25 @@
     </div>
 </form>
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+    const latInput = document.getElementById('contact-lat');
+    const lngInput = document.getElementById('contact-lng');
+    const preview = document.getElementById('gmaps-preview');
+
+    function updatePreview() {
+        const lat = parseFloat(latInput.value);
+        const lng = parseFloat(lngInput.value);
+        preview.src = (!isNaN(lat) && !isNaN(lng))
+            ? `https://www.google.com/maps?q=${lat},${lng}&output=embed`
+            : '';
+    }
+
+    latInput.addEventListener('input', updatePreview);
+    lngInput.addEventListener('input', updatePreview);
+    updatePreview();
+})();
+</script>
+@endpush

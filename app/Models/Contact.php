@@ -11,9 +11,11 @@ class Contact extends Model
 
     protected string $frontendCacheTag = 'contact';
 
-    protected $fillable = ['label', 'address', 'phone', 'email', 'map_embed_url', 'order', 'is_active'];
+    protected $fillable = ['label', 'address', 'phone', 'email', 'map_embed_url', 'latitude', 'longitude', 'order', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
 }
