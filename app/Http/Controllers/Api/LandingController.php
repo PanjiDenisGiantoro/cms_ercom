@@ -64,6 +64,10 @@ class LandingController extends Controller
             'cta_banner' => CtaBannerSetting::instance(),
             'footer' => FooterSetting::instance(),
             'seo' => SeoSetting::instance(),
+            'social' => [
+                'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
+                'social_media' => FooterSetting::instance()->social_media,
+            ],
         ]);
     }
 }

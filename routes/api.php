@@ -24,6 +24,7 @@ Route::prefix('v1')->group(function () {
         Route::get('/cta-banner', [Api\SectionController::class, 'ctaBanner']);
         Route::get('/footer', [Api\SectionController::class, 'footer']);
         Route::get('/seo', [Api\SectionController::class, 'seo']);
+        Route::get('/social', [Api\SectionController::class, 'social']);
         Route::get('/stats', [Api\SectionController::class, 'stats']);
         Route::get('/services', [Api\SectionController::class, 'services']);
         Route::get('/testimonials', [Api\SectionController::class, 'testimonials']);

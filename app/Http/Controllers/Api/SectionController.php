@@ -89,4 +89,12 @@ class SectionController extends Controller
     {
         return response()->json(SeoSetting::instance());
     }
+
+    public function social(): JsonResponse
+    {
+        return response()->json([
+            'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
+            'social_media' => FooterSetting::instance()->social_media,
+        ]);
+    }
 }
