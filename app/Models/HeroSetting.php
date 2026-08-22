@@ -15,7 +15,7 @@ class HeroSetting extends Model
 
     protected $table = 'hero_settings';
 
-    public const TYPES = ['home', 'about', 'highlight', 'contact', 'career', 'service', 'client', 'team'];
+    public const TYPES = ['home', 'about', 'highlight', 'career', 'service', 'client', 'team'];
 
     protected $fillable = [
         'type', 'headline', 'subheadline',
