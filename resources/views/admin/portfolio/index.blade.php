@@ -36,9 +36,6 @@
                         <span class="cms-badge {{ $portfolio->is_published ? 'cms-badge-green' : 'cms-badge-gray' }}">
                             {{ $portfolio->is_published ? 'Published' : 'Draft' }}
                         </span>
-                        @if($portfolio->is_featured)
-                            <span class="cms-badge cms-badge-yellow">Featured</span>
-                        @endif
                     </td>
                     <td>{{ $portfolio->created_at->format('d M Y H:i') }}</td>
                     <td class="cms-actions">
