@@ -57,6 +57,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::get('/footer', [Admin\FooterController::class, 'edit'])->name('footer.edit');
     Route::put('/footer', [Admin\FooterController::class, 'update'])->name('footer.update');
 
+    Route::get('/social', [Admin\SocialSettingController::class, 'edit'])->name('social.edit');
+    Route::put('/social', [Admin\SocialSettingController::class, 'update'])->name('social.update');
+
     Route::get('/seo', [Admin\SeoController::class, 'edit'])->name('seo.edit');
     Route::put('/seo', [Admin\SeoController::class, 'update'])->name('seo.update');
 
