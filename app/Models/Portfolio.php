@@ -27,11 +27,20 @@ class Portfolio extends Model
         'is_featured' => 'boolean',
     ];
 
-    protected $appends = ['cover_image_url'];
+    protected $appends = ['cover_image_url', 'preview_video_url'];
 
     protected function coverImageUrl(): Attribute
     {
         return Attribute::get(fn () => $this->cover_image ? Storage::url($this->cover_image) : null);
+    }
+
+    protected function previewVideoUrl(): Attribute
+    {
+        return Attribute::get(fn () => match (true) {
+            ! $this->preview_video => null,
+            str_starts_with($this->preview_video, 'http') => $this->preview_video,
+            default => Storage::url($this->preview_video),
+        });
     }
 
     protected static function boot(): void
