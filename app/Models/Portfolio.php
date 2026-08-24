@@ -18,13 +18,12 @@ class Portfolio extends Model
     protected $fillable = [
         'service_category_id', 'project_title', 'slug', 'cover_image', 'preview_video',
         'description', 'client_name', 'project_url', 'project_date',
-        'is_published', 'is_featured',
+        'is_published',
     ];
 
     protected $casts = [
         'project_date' => 'date',
         'is_published' => 'boolean',
-        'is_featured' => 'boolean',
     ];
 
     protected $appends = ['cover_image_url', 'preview_video_url'];

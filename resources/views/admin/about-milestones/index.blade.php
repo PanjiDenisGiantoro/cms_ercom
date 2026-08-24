@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'About - Section 3')
-@section('page-title', 'About - Section 3')
-@section('breadcrumb', 'Settings / About / Section 3')
+@section('title', 'About - Timeline')
+@section('page-title', 'About - Timeline')
+@section('breadcrumb', 'Settings / About / Timeline')
 
 @section('topbar-actions')
     <a href="{{ route('admin.about-section3.edit') }}" class="cms-btn">Pengaturan Section</a>

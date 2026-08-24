@@ -32,7 +32,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('hero', Admin\HeroController::class)->except('show');
 
     Route::resource('highlights', Admin\HighlightController::class)->except('show');
-    Route::resource('contacts', Admin\ContactController::class)->except('show');
+
+    Route::get('/contacts', [Admin\ContactController::class, 'edit'])->name('contacts.edit');
+    Route::put('/contacts', [Admin\ContactController::class, 'update'])->name('contacts.update');
 
     Route::get('/contact-messages', [Admin\ContactMessageController::class, 'index'])->name('contact-messages.index');
     Route::get('/contact-messages/{contact_message}', [Admin\ContactMessageController::class, 'show'])->name('contact-messages.show');
@@ -54,12 +56,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::get('/cta-banner', [Admin\CtaBannerController::class, 'edit'])->name('cta-banner.edit');
     Route::put('/cta-banner', [Admin\CtaBannerController::class, 'update'])->name('cta-banner.update');
 
-    Route::get('/footer', [Admin\FooterController::class, 'edit'])->name('footer.edit');
-    Route::put('/footer', [Admin\FooterController::class, 'update'])->name('footer.update');
-
-    Route::get('/social', [Admin\SocialSettingController::class, 'edit'])->name('social.edit');
-    Route::put('/social', [Admin\SocialSettingController::class, 'update'])->name('social.update');
-
     Route::get('/seo', [Admin\SeoController::class, 'edit'])->name('seo.edit');
     Route::put('/seo', [Admin\SeoController::class, 'update'])->name('seo.update');
 
@@ -67,9 +63,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('testimonials', Admin\TestimonialController::class)->except('show');
     Route::resource('partners', Admin\PartnerController::class)->except('show');
     Route::resource('team', Admin\TeamController::class)->except('show');
-
-    Route::get('/team-settings', [Admin\TeamSettingController::class, 'edit'])->name('team-settings.edit');
-    Route::put('/team-settings', [Admin\TeamSettingController::class, 'update'])->name('team-settings.update');
 
     Route::get('/service-settings', [Admin\ServiceSettingController::class, 'edit'])->name('service-settings.edit');
     Route::put('/service-settings', [Admin\ServiceSettingController::class, 'update'])->name('service-settings.update');

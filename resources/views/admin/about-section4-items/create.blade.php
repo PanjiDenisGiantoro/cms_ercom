@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'Tambah Item')
+@section('title', 'Tambah History')
 @section('page-title', 'Tambah Item')
-@section('breadcrumb', 'Settings / About / Section 4 / Tambah')
+@section('breadcrumb', 'Settings / About / History / Tambah')
 
 @section('topbar-actions')
     <a href="{{ route('admin.about-section4-items.index') }}" class="cms-btn">Kembali</a>
