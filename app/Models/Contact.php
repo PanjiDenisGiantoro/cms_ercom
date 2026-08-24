@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Models\Concerns\RevalidatesFrontendCache;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    use RevalidatesFrontendCache;
+    use HasFactory, RevalidatesFrontendCache;
 
     protected string $frontendCacheTag = 'contact';
 

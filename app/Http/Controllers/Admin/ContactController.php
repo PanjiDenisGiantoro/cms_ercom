@@ -24,7 +24,11 @@ class ContactController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        Contact::create($this->validated($request));
+        $contact = Contact::create($this->validated($request));
+
+        if ($contact->is_active) {
+            Contact::whereKeyNot($contact->id)->update(['is_active' => false]);
+        }
 
         return redirect()->route('admin.contacts.index')->with('success', 'Contact created.');
     }
@@ -37,6 +41,10 @@ class ContactController extends Controller
     public function update(Request $request, Contact $contact): RedirectResponse
     {
         $contact->update($this->validated($request));
+
+        if ($contact->is_active) {
+            Contact::whereKeyNot($contact->id)->update(['is_active' => false]);
+        }
 
         return redirect()->route('admin.contacts.index')->with('success', 'Contact updated.');
     }
