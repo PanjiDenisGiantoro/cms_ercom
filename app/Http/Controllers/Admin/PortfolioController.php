@@ -39,7 +39,6 @@ class PortfolioController extends Controller
             'project_url' => 'nullable|url',
             'project_date' => 'nullable|date',
             'is_published' => 'boolean',
-            'is_featured' => 'boolean',
         ]);
 
         $data['slug'] = Str::slug($data['project_title']);
@@ -76,7 +75,6 @@ class PortfolioController extends Controller
             'project_url' => 'nullable|url',
             'project_date' => 'nullable|date',
             'is_published' => 'boolean',
-            'is_featured' => 'boolean',
         ]);
 
         $this->applyUpload($data, $request, 'cover_image', 'portfolio');
