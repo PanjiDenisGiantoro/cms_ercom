@@ -54,7 +54,7 @@ class PartnerController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        $this->applyUpload($data, $request, 'logo_image', 'partners');
+        $this->applyUpload($data, $request, 'logo_image', 'partners', nullable: false);
 
         $partner->update($data);
 

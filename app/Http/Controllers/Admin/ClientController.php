@@ -45,7 +45,7 @@ class ClientController extends Controller
     public function update(Request $request, Client $client): RedirectResponse
     {
         $data = $this->validated($request, required: false);
-        $this->applyUpload($data, $request, 'logo_image', 'clients');
+        $this->applyUpload($data, $request, 'logo_image', 'clients', nullable: false);
 
         $client->update($data);
 

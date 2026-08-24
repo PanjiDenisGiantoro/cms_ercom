@@ -75,7 +75,24 @@ function initFilePondInputs() {
         }
 
         const currentFile = input.dataset.currentFile;
-        if (currentFile) {
+        if (currentFile && fieldName && !input.hasAttribute('multiple')) {
+            const removeInput = document.createElement('input');
+            removeInput.type = 'hidden';
+            removeInput.name = `${fieldName}_remove`;
+            removeInput.value = '0';
+            input.insertAdjacentElement('afterend', removeInput);
+
+            pond.addFile(currentFile, { type: 'local' }).catch(() => {});
+
+            pond.on('removefile', () => {
+                if (pond.getFiles().length === 0) {
+                    removeInput.value = '1';
+                }
+            });
+            pond.on('addfile', () => {
+                removeInput.value = '0';
+            });
+        } else if (currentFile) {
             let urls = [currentFile];
             if (currentFile.trim().startsWith('[')) {
                 try { urls = JSON.parse(currentFile); } catch (e) { urls = [currentFile]; }

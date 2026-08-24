@@ -23,16 +23,24 @@ abstract class Controller
     /**
      * Resolve an upload for an update() call and merge it into $data by
      * reference: sets the key to the newly stored path if a new file was
-     * provided, or removes the key entirely otherwise — so a stale raw
-     * value (unresolved temp path, unchanged FilePond preview URL, etc.)
-     * never gets persisted to the model.
+     * provided, clears it to null if the client explicitly removed the
+     * current file (see "{$field}_remove" in filepond-init.js) and the
+     * column is nullable, or removes the key entirely otherwise — so a
+     * stale raw value (unresolved temp path, unchanged FilePond preview
+     * URL, etc.) never gets persisted to the model.
+     *
+     * Pass $nullable = false for columns that don't allow NULL (e.g. a
+     * required logo) so an explicit removal is ignored instead of failing
+     * the update with a database error.
      */
-    protected function applyUpload(array &$data, Request $request, string $field, string $directory): void
+    protected function applyUpload(array &$data, Request $request, string $field, string $directory, bool $nullable = true): void
     {
         $path = $this->resolveUpload($request, $field, $directory);
 
         if ($path) {
             $data[$field] = $path;
+        } elseif ($nullable && $request->boolean($field.'_remove')) {
+            $data[$field] = null;
         } else {
             unset($data[$field]);
         }
