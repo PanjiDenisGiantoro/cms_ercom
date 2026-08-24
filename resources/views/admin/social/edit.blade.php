@@ -5,15 +5,15 @@
 
 @php
     $socialPlatforms = [
-        '📘' => 'Facebook',
-        '📷' => 'Instagram',
-        '𝕏' => 'X (Twitter)',
-        'in' => 'LinkedIn',
-        '▶' => 'YouTube',
-        '🎵' => 'TikTok',
-        '💬' => 'WhatsApp',
-        '✈' => 'Telegram',
-        '🧵' => 'Threads',
+        'fa-brands fa-facebook-f' => 'Facebook',
+        'fa-brands fa-instagram' => 'Instagram',
+        'fa-brands fa-x-twitter' => 'X (Twitter)',
+        'fa-brands fa-linkedin-in' => 'LinkedIn',
+        'fa-brands fa-youtube' => 'YouTube',
+        'fa-brands fa-tiktok' => 'TikTok',
+        'fa-brands fa-whatsapp' => 'WhatsApp',
+        'fa-brands fa-telegram' => 'Telegram',
+        'fa-brands fa-threads' => 'Threads',
     ];
 @endphp
 
@@ -40,12 +40,15 @@
                 <div class="cms-form-row" style="margin-top:{{ $i > 0 ? '12px' : '0' }};align-items:flex-end">
                     <div class="cms-field">
                         <label class="cms-label">Platform</label>
-                        <select name="social_media[{{ $i }}][icon]" class="cms-input" onchange="this.form.querySelector('[name=\'social_media[{{ $i }}][label]\']').value = this.options[this.selectedIndex].dataset.label ?? ''">
-                            <option value="">Pilih platform</option>
-                            @foreach($socialPlatforms as $icon => $label)
-                                <option value="{{ $icon }}" data-label="{{ $label }}" {{ ($item['icon'] ?? '') === $icon ? 'selected' : '' }}>{{ $icon }} {{ $label }}</option>
-                            @endforeach
-                        </select>
+                        <div style="display:flex;align-items:center;gap:10px">
+                            <i id="social-icon-preview-{{ $i }}" class="{{ $item['icon'] ?? '' }}" style="font-size:18px;width:22px;text-align:center;color:#2d3f55"></i>
+                            <select name="social_media[{{ $i }}][icon]" class="cms-input" onchange="this.form.querySelector('[name=\'social_media[{{ $i }}][label]\']').value = this.options[this.selectedIndex].dataset.label ?? ''; document.getElementById('social-icon-preview-{{ $i }}').className = this.value">
+                                <option value="">Pilih platform</option>
+                                @foreach($socialPlatforms as $icon => $label)
+                                    <option value="{{ $icon }}" data-label="{{ $label }}" {{ ($item['icon'] ?? '') === $icon ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <input type="hidden" name="social_media[{{ $i }}][label]" value="{{ $item['label'] ?? '' }}">
                     </div>
                     <div class="cms-field" style="flex-direction:row;gap:8px;align-items:flex-end">
@@ -78,15 +81,18 @@ function addSocialItem() {
 
     let options = '<option value="">Pilih platform</option>';
     for (const [icon, label] of Object.entries(socialPlatforms)) {
-        options += `<option value="${icon}" data-label="${label}">${icon} ${label}</option>`;
+        options += `<option value="${icon}" data-label="${label}">${label}</option>`;
     }
 
     row.innerHTML = `
         <div class="cms-field">
             <label class="cms-label">Platform</label>
-            <select name="social_media[${socialItemIndex}][icon]" class="cms-input" onchange="this.nextElementSibling.value = this.options[this.selectedIndex].dataset.label ?? ''">
-                ${options}
-            </select>
+            <div style="display:flex;align-items:center;gap:10px">
+                <i id="social-icon-preview-${socialItemIndex}" class="" style="font-size:18px;width:22px;text-align:center;color:#2d3f55"></i>
+                <select name="social_media[${socialItemIndex}][icon]" class="cms-input" onchange="this.form.querySelector('[name=\\'social_media[${socialItemIndex}][label]\\']').value = this.options[this.selectedIndex].dataset.label ?? ''; document.getElementById('social-icon-preview-${socialItemIndex}').className = this.value">
+                    ${options}
+                </select>
+            </div>
             <input type="hidden" name="social_media[${socialItemIndex}][label]" value="">
         </div>
         <div class="cms-field" style="flex-direction:row;gap:8px;align-items:flex-end">

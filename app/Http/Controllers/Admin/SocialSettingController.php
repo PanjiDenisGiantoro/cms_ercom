@@ -25,7 +25,7 @@ class SocialSettingController extends Controller
             'whatsapp_number' => 'nullable|string|max:20',
             'social_media' => 'nullable|array',
             'social_media.*.label' => 'nullable|string|max:50',
-            'social_media.*.icon' => 'nullable|string|max:10',
+            'social_media.*.icon' => 'nullable|string|max:40',
             'social_media.*.url' => 'nullable|url',
         ]);
 

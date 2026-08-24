@@ -16,6 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 @if($seo->ga_tracking_id)
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ $seo->ga_tracking_id }}"></script>
 <script>
@@ -742,7 +743,7 @@ footer{
   border:1px solid var(--border);background:transparent;
   color:var(--muted);cursor:pointer;
   display:flex;align-items:center;justify-content:center;
-  font-size:13px;transition:all .2s;
+  font-size:15px;transition:all .2s;
 }
 .fs-btn:hover{border-color:var(--teal);color:var(--teal)}
 .footer-col h4{
@@ -1558,12 +1559,12 @@ footer{
         <p class="footer-desc">PR &amp; Strategic Communication Agency that helps brands speak with clarity, trust, and lasting impact.</p>
         <div class="footer-socials">
           @forelse(($footer->social_media ?? []) as $social)
-            <a href="{{ $social['url'] ?? '#' }}" target="_blank" rel="noopener" class="fs-btn">{{ $social['icon'] ?? ($social['label'] ?? '🔗') }}</a>
+            <a href="{{ $social['url'] ?? '#' }}" target="_blank" rel="noopener" class="fs-btn"><i class="{{ $social['icon'] ?? 'fa-solid fa-link' }}"></i></a>
           @empty
-            <div class="fs-btn">𝕏</div>
-            <div class="fs-btn">in</div>
-            <div class="fs-btn">📷</div>
-            <div class="fs-btn">▶</div>
+            <div class="fs-btn"><i class="fa-brands fa-x-twitter"></i></div>
+            <div class="fs-btn"><i class="fa-brands fa-linkedin-in"></i></div>
+            <div class="fs-btn"><i class="fa-brands fa-instagram"></i></div>
+            <div class="fs-btn"><i class="fa-brands fa-youtube"></i></div>
           @endforelse
         </div>
       </div>
