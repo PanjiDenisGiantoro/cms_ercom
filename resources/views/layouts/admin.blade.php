@@ -66,19 +66,19 @@
                     <div class="admin-nav-submenu">
                         <a href="{{ route('admin.about.edit') }}"
                            class="admin-nav-sublink {{ request()->routeIs('admin.about.edit') ? 'active' : '' }}">
-                            Pengaturan
+                            Sub Heading
                         </a>
                         <a href="{{ route('admin.about-sections.index') }}"
                            class="admin-nav-sublink {{ request()->routeIs('admin.about-sections.*') ? 'active' : '' }}">
-                            Section 2
+                            What Drives ER
                         </a>
                         <a href="{{ route('admin.about-milestones.index') }}"
                            class="admin-nav-sublink {{ request()->routeIs('admin.about-section3.*', 'admin.about-milestones.*') ? 'active' : '' }}">
-                            Section 3
+                            Timeline
                         </a>
                         <a href="{{ route('admin.about-section4-items.index') }}"
                            class="admin-nav-sublink {{ request()->routeIs('admin.about-section4-items.*', 'admin.about-section4-pages.*') ? 'active' : '' }}">
-                            Section 4
+                            History
                         </a>
                     </div>
                 </div>
