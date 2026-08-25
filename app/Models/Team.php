@@ -13,16 +13,21 @@ class Team extends Model
 
     protected string $frontendCacheTag = 'team';
 
-    protected $fillable = ['name', 'position', 'whatsapp', 'email', 'photo', 'order', 'is_active'];
+    protected $fillable = ['name', 'position', 'whatsapp', 'email', 'photo', 'photo_silhouette', 'order', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    protected $appends = ['photo_url'];
+    protected $appends = ['photo_url', 'photo_silhouette_url'];
 
     protected function photoUrl(): Attribute
     {
         return Attribute::get(fn () => $this->photo ? Storage::url($this->photo) : null);
+    }
+
+    protected function photoSilhouetteUrl(): Attribute
+    {
+        return Attribute::get(fn () => $this->photo_silhouette ? Storage::url($this->photo_silhouette) : null);
     }
 }

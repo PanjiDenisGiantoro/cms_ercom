@@ -40,6 +40,12 @@
                 <input type="file" name="photo" class="cms-input" accept="image/*" data-filepond>
             </div>
             <div class="cms-field">
+                <label class="cms-label">Foto Siluet (PNG transparan)</label>
+                <input type="file" name="photo_silhouette" class="cms-input" accept="image/png" data-filepond>
+            </div>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', 0) }}" class="cms-input" min="0">
             </div>

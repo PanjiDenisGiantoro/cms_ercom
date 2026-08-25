@@ -41,6 +41,13 @@
                     @if($team->photo) data-current-file="{{ Storage::url($team->photo) }}" @endif>
             </div>
             <div class="cms-field">
+                <label class="cms-label">Foto Siluet (PNG transparan)</label>
+                <input type="file" name="photo_silhouette" class="cms-input" accept="image/png" data-filepond
+                    @if($team->photo_silhouette) data-current-file="{{ Storage::url($team->photo_silhouette) }}" @endif>
+            </div>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', $team->order) }}" class="cms-input" min="0">
             </div>

@@ -26,6 +26,7 @@ class TeamController extends Controller
     {
         $data = $this->validated($request);
         $data['photo'] = $this->resolveUpload($request, 'photo', 'team');
+        $data['photo_silhouette'] = $this->resolveUpload($request, 'photo_silhouette', 'team');
 
         Team::create($data);
 
@@ -41,6 +42,7 @@ class TeamController extends Controller
     {
         $data = $this->validated($request);
         $this->applyUpload($data, $request, 'photo', 'team');
+        $this->applyUpload($data, $request, 'photo_silhouette', 'team');
 
         $team->update($data);
 
@@ -62,6 +64,7 @@ class TeamController extends Controller
             'whatsapp' => 'nullable|string|max:30',
             'email' => 'nullable|email|max:255',
             'photo' => 'nullable',
+            'photo_silhouette' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
