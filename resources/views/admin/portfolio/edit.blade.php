@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <div style="display:flex;gap:24px;margin-top:16px">
+        <div style="margin-top:16px">
             <label class="cms-toggle-label">
                 <input type="hidden" name="is_published" value="0">
                 <input type="checkbox" name="is_published" value="1" {{ old('is_published', $portfolio->is_published) ? 'checked' : '' }}>

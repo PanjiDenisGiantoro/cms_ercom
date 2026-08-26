@@ -24,7 +24,6 @@ use App\Models\SeoSetting;
 use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
-use App\Models\TeamSetting;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 
@@ -44,7 +43,7 @@ class LandingController extends Controller
             'stats' => Stat::where('is_active', true)->orderBy('order')->get(),
             'testimonial' => Testimonial::where('is_active', true)->orderBy('order')->first(),
             'partners' => Partner::where('is_active', true)->orderBy('order')->get(),
-            'team_setting' => TeamSetting::instance(),
+            'team_setting' => HeroSetting::instance('team'),
             'team_members' => Team::where('is_active', true)->orderBy('order')->get(),
             'service_setting' => ServiceSetting::instance(),
             'portfolios' => Portfolio::with('category')

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'About - Section 2')
-@section('page-title', 'About - Section 2')
-@section('breadcrumb', 'Settings / About / Section 2')
+@section('title', 'About - What Drives ER')
+@section('page-title', 'About - What Drives ER')
+@section('breadcrumb', 'Settings / About / What Drives ER')
 
 @section('topbar-actions')
     <a href="{{ route('admin.about-sections.create') }}" class="cms-btn cms-btn-primary">+ Tambah</a>

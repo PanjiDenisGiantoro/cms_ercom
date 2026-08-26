@@ -4,70 +4,61 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
+use App\Models\FooterSetting;
+use App\Models\NavbarSetting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ContactController extends Controller
 {
-    public function index(): View
+    public function edit(): View
     {
-        $contacts = Contact::orderBy('updated_at', 'desc')->paginate(15);
+        $contact = Contact::firstOrCreate(['id' => 1], ['label' => 'Kantor Pusat']);
+        $navbar = NavbarSetting::instance();
+        $footer = FooterSetting::instance();
 
-        return view('admin.contacts.index', compact('contacts'));
+        return view('admin.contacts.edit', compact('contact', 'navbar', 'footer'));
     }
 
-    public function create(): View
+    public function update(Request $request): RedirectResponse
     {
-        return view('admin.contacts.create');
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        $contact = Contact::create($this->validated($request));
-
-        if ($contact->is_active) {
-            Contact::whereKeyNot($contact->id)->update(['is_active' => false]);
-        }
-
-        return redirect()->route('admin.contacts.index')->with('success', 'Contact created.');
-    }
-
-    public function edit(Contact $contact): View
-    {
-        return view('admin.contacts.edit', compact('contact'));
-    }
-
-    public function update(Request $request, Contact $contact): RedirectResponse
-    {
-        $contact->update($this->validated($request));
-
-        if ($contact->is_active) {
-            Contact::whereKeyNot($contact->id)->update(['is_active' => false]);
-        }
-
-        return redirect()->route('admin.contacts.index')->with('success', 'Contact updated.');
-    }
-
-    public function destroy(Contact $contact): RedirectResponse
-    {
-        $contact->delete();
-
-        return back()->with('success', 'Contact deleted.');
-    }
-
-    private function validated(Request $request): array
-    {
-        return $request->validate([
-            'label' => 'required|string|max:255',
+        $data = $request->validate([
+            'label' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
             'email' => 'nullable|email|max:255',
             'map_embed_url' => 'nullable|string',
             'latitude' => 'nullable|numeric|between:-90,90',
             'longitude' => 'nullable|numeric|between:-180,180',
-            'order' => 'integer|min:0',
-            'is_active' => 'boolean',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'social_media' => 'nullable|array',
+            'social_media.*.label' => 'nullable|string|max:50',
+            'social_media.*.icon' => 'nullable|string|max:10',
+            'social_media.*.url' => 'nullable|url',
+            'copyright_text' => 'nullable|string|max:255',
         ]);
+
+        Contact::updateOrCreate(['id' => 1], [
+            'label' => $data['label'] ?? 'Kantor Pusat',
+            'address' => $data['address'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'email' => $data['email'] ?? null,
+            'map_embed_url' => $data['map_embed_url'] ?? null,
+            'latitude' => $data['latitude'] ?? null,
+            'longitude' => $data['longitude'] ?? null,
+            'is_active' => true,
+        ]);
+
+        NavbarSetting::instance()->update([
+            'whatsapp_number' => $data['whatsapp_number'] ?? null,
+        ]);
+
+        FooterSetting::instance()->update([
+            'social_media' => $data['social_media'] ?? [],
+            'copyright_text' => $data['copyright_text'] ?? null,
+        ]);
+
+        return back()->with('success', 'Contact settings updated.');
     }
 }

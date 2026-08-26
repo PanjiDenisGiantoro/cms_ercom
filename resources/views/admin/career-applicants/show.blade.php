@@ -40,4 +40,24 @@
         <div>{{ $applicant->created_at->format('d M Y H:i') }}</div>
     </div>
 </div>
+
+@if($applicant->cv)
+<div class="cms-card" style="margin-top:16px">
+    <div class="cms-card-title">Preview CV</div>
+    @php
+        $cvUrl = Storage::disk('public')->url($applicant->cv);
+        $ext = strtolower(pathinfo($applicant->cv, PATHINFO_EXTENSION));
+    @endphp
+    @if($ext === 'pdf')
+        <iframe src="{{ $cvUrl }}" style="width:100%;height:600px;border:1px solid #e2e8f0;border-radius:8px;" frameborder="0"></iframe>
+    @elseif(in_array($ext, ['jpg', 'jpeg', 'png', 'webp']))
+        <img src="{{ $cvUrl }}" style="max-width:100%;border-radius:8px;" alt="CV Preview">
+    @else
+        <div style="padding:16px;background:#f8fafc;border-radius:8px;text-align:center;color:#64748b">
+            <p>Preview tidak tersedia untuk file <strong>.{{ $ext }}</strong></p>
+            <a href="{{ route('admin.career-applicants.download', $applicant) }}" class="cms-btn cms-btn-primary" style="margin-top:8px">Download CV</a>
+        </div>
+    @endif
+</div>
+@endif
 @endsection

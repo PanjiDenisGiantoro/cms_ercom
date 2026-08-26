@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AboutSetting;
+use App\Models\Contact;
 use App\Models\CtaBannerSetting;
 use App\Models\FooterSetting;
 use App\Models\HeroSetting;
@@ -13,7 +14,6 @@ use App\Models\SeoSetting;
 use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
-use App\Models\TeamSetting;
 use App\Models\Testimonial;
 use Illuminate\View\View;
 
@@ -28,12 +28,13 @@ class PreviewController extends Controller
             'stats' => Stat::where('is_active', true)->orderBy('order')->get(),
             'testimonial' => Testimonial::where('is_active', true)->orderBy('order')->first(),
             'partners' => Partner::where('is_active', true)->orderBy('order')->get(),
-            'teamSetting' => TeamSetting::instance(),
+            'teamSetting' => HeroSetting::instance('team'),
             'teamMembers' => Team::where('is_active', true)->orderBy('order')->get(),
             'serviceSetting' => ServiceSetting::instance(),
             'portfolios' => Portfolio::with('category')->where('is_published', true)->latest()->take(3)->get(),
             'ctaBanner' => CtaBannerSetting::instance(),
             'footer' => FooterSetting::instance(),
+            'contact' => Contact::first(),
             'seo' => SeoSetting::instance(),
         ]);
     }

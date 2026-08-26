@@ -14,7 +14,6 @@ use App\Models\ServiceCategory;
 use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
-use App\Models\TeamSetting;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 
@@ -75,7 +74,7 @@ class SectionController extends Controller
     public function team(): JsonResponse
     {
         return response()->json([
-            'settings' => TeamSetting::instance(),
+            'settings' => \App\Models\HeroSetting::instance('team'),
             'members' => Team::where('is_active', true)->orderBy('order')->get(),
         ]);
     }

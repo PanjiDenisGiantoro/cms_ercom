@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'Edit Section')
-@section('page-title', 'Edit Section')
-@section('breadcrumb', 'Settings / About / Section 2 / Edit')
+@section('title', 'Edit What Drives ER')
+@section('page-title', 'Edit Item')
+@section('breadcrumb', 'Settings / About / What Drives ER / Edit')
 
 @section('topbar-actions')
     <a href="{{ route('admin.about-sections.index') }}" class="cms-btn">Kembali</a>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
-@section('title', 'About - Section 4 - Page')
-@section('page-title', 'About - Section 4 - Page')
-@section('breadcrumb', 'Settings / About / Section 4 / Page')
+@section('title', 'About - History')
+@section('page-title', 'About - History (Page)')
+@section('breadcrumb', 'Settings / About / History')
 
 @section('topbar-actions')
     <a href="{{ route('admin.about-section4-items.index') }}" class="cms-btn">Kembali</a>
