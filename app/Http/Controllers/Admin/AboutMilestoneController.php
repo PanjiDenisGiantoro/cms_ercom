@@ -26,7 +26,7 @@ class AboutMilestoneController extends Controller
     {
         AboutMilestone::create($this->validated($request));
 
-        return redirect()->route('admin.about-milestones.index')->with('success', 'Milestone created.');
+        return redirect()->route('admin.about-milestones.index')->with('success', 'Timeline created.');
     }
 
     public function edit(AboutMilestone $about_milestone): View
@@ -38,14 +38,14 @@ class AboutMilestoneController extends Controller
     {
         $about_milestone->update($this->validated($request));
 
-        return redirect()->route('admin.about-milestones.index')->with('success', 'Milestone updated.');
+        return redirect()->route('admin.about-milestones.index')->with('success', 'Timeline updated.');
     }
 
     public function destroy(AboutMilestone $about_milestone): RedirectResponse
     {
         $about_milestone->delete();
 
-        return back()->with('success', 'Milestone deleted.');
+        return back()->with('success', 'Timeline deleted.');
     }
 
     private function validated(Request $request): array

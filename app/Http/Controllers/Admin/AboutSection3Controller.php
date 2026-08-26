@@ -26,6 +26,6 @@ class AboutSection3Controller extends Controller
 
         AboutSection3Setting::instance()->update($data);
 
-        return back()->with('success', 'Section 3 updated.');
+        return back()->with('success', 'Heading Timeline updated.');
     }
 }

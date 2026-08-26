@@ -4,7 +4,6 @@
 @section('breadcrumb', 'Social Proof / Team')
 
 @section('topbar-actions')
-    <a href="{{ route('admin.team-settings.edit') }}" class="cms-btn">Config</a>
     <a href="{{ route('admin.team.create') }}" class="cms-btn cms-btn-primary">+ Tambah</a>
 @endsection
 

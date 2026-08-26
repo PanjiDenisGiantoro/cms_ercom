@@ -24,7 +24,7 @@ class ContactController extends Controller
     public function update(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'label' => 'nullable|string|max:255',
+            'label' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
             'phone' => 'nullable|string|max:50',
             'email' => 'nullable|email|max:255',
