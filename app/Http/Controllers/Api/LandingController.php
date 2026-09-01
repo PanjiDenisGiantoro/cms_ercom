@@ -44,6 +44,7 @@ class LandingController extends Controller
             'testimonial' => Testimonial::where('is_active', true)->orderBy('order')->first(),
             'partners' => Partner::where('is_active', true)->orderBy('order')->get(),
             'team_setting' => HeroSetting::instance('team'),
+            'team_banners' => \App\Models\TeamBanner::where('is_active', true)->orderBy('order')->get(),
             'team_members' => Team::where('is_active', true)->orderBy('order')->get(),
             'service_setting' => ServiceSetting::instance(),
             'portfolios' => Portfolio::with('category')
@@ -66,6 +67,7 @@ class LandingController extends Controller
             'social' => [
                 'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
                 'social_media' => FooterSetting::instance()->social_media,
+                'copyright_text' => FooterSetting::instance()->copyright_text,
             ],
         ]);
     }

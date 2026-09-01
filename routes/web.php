@@ -63,6 +63,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('testimonials', Admin\TestimonialController::class)->except('show');
     Route::resource('partners', Admin\PartnerController::class)->except('show');
     Route::resource('team', Admin\TeamController::class)->except('show');
+    Route::resource('team-banners', Admin\TeamBannerController::class)->except('show');
 
     Route::get('/service-settings', [Admin\ServiceSettingController::class, 'edit'])->name('service-settings.edit');
     Route::put('/service-settings', [Admin\ServiceSettingController::class, 'update'])->name('service-settings.update');
@@ -71,6 +72,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin|editor']
     Route::resource('services.items', Admin\ServiceItemController::class)->except('show');
     Route::patch('/services/{service}/items/{item}/toggle-selected', [Admin\ServiceItemController::class, 'toggleSelected'])->name('services.items.toggle-selected');
     Route::resource('services.items.sub-items', Admin\ServiceSubItemController::class)->except('show');
+    Route::resource('service-media', Admin\ServiceMediaController::class)->except('show');
 
     Route::resource('portfolio', Admin\PortfolioController::class)->except('show');
 

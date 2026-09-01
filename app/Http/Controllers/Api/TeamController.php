@@ -13,6 +13,7 @@ class TeamController extends Controller
     {
         return response()->json([
             'settings' => HeroSetting::instance('team'),
+            'banners' => \App\Models\TeamBanner::where('is_active', true)->orderBy('order')->get(),
             'data' => Team::where('is_active', true)->orderBy('order')->get(),
         ]);
     }

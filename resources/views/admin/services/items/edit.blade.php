@@ -9,72 +9,36 @@
 @endsection
 
 @section('content')
-@php
-    $isVideoFile = $item->preview_video && !str_starts_with($item->preview_video, 'http');
-    $isVideoLink = $item->preview_video && str_starts_with($item->preview_video, 'http');
-    $defaultTab  = $isVideoFile ? 'upload' : 'link';
-@endphp
-
 <form id="form" method="POST" action="{{ route('admin.services.items.update', [$service, $item]) }}" enctype="multipart/form-data">
     @csrf @method('PUT')
     <div class="cms-card">
 
-        {{-- Nama & Order --}}
+        {{-- Nama & Subtitle --}}
         <div class="cms-form-row">
             <div class="cms-field">
-                <label class="cms-label">Nama Item <span class="cms-required">*</span></label>
+                <label class="cms-label">Nama Item (Judul) <span class="cms-required">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $item->name) }}" class="cms-input">
                 @error('name')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+            <div class="cms-field">
+                <label class="cms-label">Subtitle</label>
+                <input type="text" name="subtitle" value="{{ old('subtitle', $item->subtitle) }}" class="cms-input">
+                @error('subtitle')<span class="cms-error">{{ $message }}</span>@enderror
+            </div>
+        </div>
+
+        {{-- Cover & Order --}}
+        <div class="cms-form-row" style="margin-top:18px">
+            <div class="cms-field">
+                <label class="cms-label">Cover Image</label>
+                <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond
+                    @if($item->cover_image) data-current-file="{{ Storage::url($item->cover_image) }}" @endif>
+                @error('cover_image')<span class="cms-error">{{ $message }}</span>@enderror
             </div>
             <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', $item->order) }}" class="cms-input" min="0">
             </div>
-        </div>
-
-        {{-- Foto & Video --}}
-        <div class="cms-form-row" style="margin-top:18px">
-
-            {{-- Foto --}}
-            <div class="cms-field">
-                <label class="cms-label">Foto / Thumbnail</label>
-                <input type="file" name="thumbnail" class="cms-input" accept="image/*" data-filepond
-                    @if($item->thumbnail) data-current-file="{{ str_starts_with($item->thumbnail, 'http') ? $item->thumbnail : Storage::url($item->thumbnail) }}" @endif>
-                @error('thumbnail')<span class="cms-error">{{ $message }}</span>@enderror
-            </div>
-
-            {{-- Video --}}
-            <div class="cms-field">
-                <label class="cms-label">Preview Video</label>
-                <div style="display:flex;gap:0;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden;margin-bottom:12px">
-                    <button type="button" id="tab-upload" onclick="switchVideoTab('upload')"
-                        style="flex:1;padding:8px;font-size:12px;font-weight:600;background:{{ $defaultTab==='upload' ? '#1a2332' : '#f8fafc' }};color:{{ $defaultTab==='upload' ? '#fff' : '#64748b' }};border:none;cursor:pointer">
-                        Upload File
-                    </button>
-                    <button type="button" id="tab-link" onclick="switchVideoTab('link')"
-                        style="flex:1;padding:8px;font-size:12px;font-weight:600;background:{{ $defaultTab==='link' ? '#1a2332' : '#f8fafc' }};color:{{ $defaultTab==='link' ? '#fff' : '#64748b' }};border:none;cursor:pointer">
-                        Link URL
-                    </button>
-                </div>
-
-                <div id="panel-upload" style="display:{{ $defaultTab==='upload' ? 'block' : 'none' }}">
-                    @if($isVideoFile)
-                        <div style="margin-bottom:8px;padding:10px 12px;background:#f0fdf4;border-radius:8px;font-size:12px;color:#166534">
-                            File saat ini: <strong>{{ basename($item->preview_video) }}</strong>
-                        </div>
-                    @endif
-                    <input type="file" name="video_file" class="cms-input" accept="video/mp4,video/mov,video/avi,video/webm" data-filepond>
-                    @error('video_file')<span class="cms-error">{{ $message }}</span>@enderror
-                </div>
-
-                <div id="panel-link" style="display:{{ $defaultTab==='link' ? 'block' : 'none' }}">
-                    <input type="url" name="preview_video" value="{{ old('preview_video', $isVideoLink ? $item->preview_video : '') }}" class="cms-input"
-                        placeholder="https://youtube.com/watch?v=... atau https://vimeo.com/...">
-                    <div style="font-size:11px;color:#94a3b8;margin-top:4px">YouTube, Vimeo, atau URL video langsung</div>
-                    @error('preview_video')<span class="cms-error">{{ $message }}</span>@enderror
-                </div>
-            </div>
-
         </div>
 
         {{-- Deskripsi --}}
@@ -83,15 +47,15 @@
             <textarea name="description" rows="4" class="cms-input ckeditor">{{ old('description', $item->description) }}</textarea>
         </div>
 
-        {{-- CTA --}}
-        <div class="cms-form-row" style="margin-top:14px">
+        {{-- CTA (Hidden) --}}
+        <div class="cms-form-row" style="margin-top:14px; display:none">
             <div class="cms-field">
                 <label class="cms-label">CTA Text</label>
-                <input type="text" name="cta_text" value="{{ old('cta_text', $item->cta_text) }}" class="cms-input">
+                <input type="text" name="cta_text" value="{{ old('cta_text', $item->cta_text) }}" class="cms-input" placeholder="Lihat Selengkapnya">
             </div>
             <div class="cms-field">
                 <label class="cms-label">CTA URL</label>
-                <input type="url" name="cta_url" value="{{ old('cta_url', $item->cta_url) }}" class="cms-input">
+                <input type="url" name="cta_url" value="{{ old('cta_url', $item->cta_url) }}" class="cms-input" placeholder="https://...">
             </div>
         </div>
 
@@ -106,24 +70,10 @@
 
     </div>
 </form>
-@endsection
 
-@push('scripts')
-<script>
-function switchVideoTab(tab) {
-    const isUpload = tab === 'upload';
-    document.getElementById('panel-upload').style.display = isUpload ? 'block' : 'none';
-    document.getElementById('panel-link').style.display   = isUpload ? 'none'  : 'block';
-    document.getElementById('tab-upload').style.background = isUpload ? '#1a2332' : '#f8fafc';
-    document.getElementById('tab-upload').style.color      = isUpload ? '#fff'    : '#64748b';
-    document.getElementById('tab-link').style.background   = isUpload ? '#f8fafc' : '#1a2332';
-    document.getElementById('tab-link').style.color        = isUpload ? '#64748b' : '#fff';
-    if (isUpload) {
-        document.querySelector('[name="preview_video"]').value = '';
-    } else {
-        const pond = window.filePondInstances && window.filePondInstances['video_file'];
-        if (pond) pond.removeFiles(); else document.querySelector('[name="video_file"]').value = '';
-    }
-}
-</script>
-@endpush
+<div class="cms-card" style="margin-top:24px;">
+    <h3 style="font-size:18px; font-weight:600; margin-bottom:8px;">Galeri & Media</h3>
+    <p style="margin-bottom:16px;color:#666;font-size:14px;">Kelola foto/video khusus untuk item ini.</p>
+    <a href="{{ route('admin.service-media.index', ['type' => 'item', 'id' => $item->id]) }}" class="cms-btn cms-btn-primary">Kelola Media ({{ $item->media()->count() }})</a>
+</div>
+@endsection

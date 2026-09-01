@@ -14,9 +14,14 @@ class ServiceItem extends Model
     protected string $frontendCacheTag = 'services';
 
     protected $fillable = [
-        'service_category_id', 'name', 'thumbnail', 'preview_video',
+        'service_category_id', 'name', 'subtitle', 'cover_image', 'thumbnail', 'preview_video',
         'description', 'cta_text', 'cta_url', 'order', 'is_active', 'is_selected',
     ];
+
+    public function media(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ServiceMedia::class, 'mediable')->orderBy('order');
+    }
 
     protected $casts = [
         'is_active' => 'boolean',

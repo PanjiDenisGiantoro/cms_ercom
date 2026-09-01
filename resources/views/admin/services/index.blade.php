@@ -41,6 +41,7 @@
                         </td>
                         <td>{{ $category->created_at->format('d M Y H:i') }}</td>
                         <td class="cms-actions">
+                            <a href="{{ route('admin.service-media.index', ['type' => 'category', 'id' => $category->id]) }}" class="cms-btn cms-btn-sm" style="background:#f1f5f9;color:#475569;border-color:#cbd5e1">Media</a>
                             <a href="{{ route('admin.services.items.index', $category) }}"
                                 class="cms-btn cms-btn-sm cms-badge-blue"
                                 style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe">Items</a>

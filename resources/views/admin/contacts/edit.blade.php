@@ -25,67 +25,44 @@
 <form id="contact-form" method="POST" action="{{ route('admin.contacts.update') }}">
     @csrf @method('PUT')
 
-    {{-- Contact Info --}}
+    @foreach($contacts as $id => $contact)
+    @php $titleSuffix = $id == 1 ? 'Workshop' : 'Head Office'; @endphp
+    {{-- Contact Info {{ $titleSuffix }} --}}
     <div class="cms-card">
-        <div class="cms-card-title">Informasi Contact</div>
+        <div class="cms-card-title">Contact Information {{ $titleSuffix }}</div>
         <div class="cms-field">
             <label class="cms-label">Label</label>
-            <input type="text" name="label" value="{{ old('label', $contact->label) }}" class="cms-input" placeholder="Kantor Pusat">
+            <input type="text" name="contacts[{{ $id }}][label]" value="{{ old('contacts.'.$id.'.label', $contact->label) }}" class="cms-input" placeholder="Kantor Pusat">
         </div>
         <div class="cms-form-row" style="margin-top:14px">
             <div class="cms-field">
                 <label class="cms-label">Alamat</label>
-                <input type="text" name="address" value="{{ old('address', $contact->address) }}" class="cms-input" placeholder="Jl. Sudirman No. 123">
+                <input type="text" name="contacts[{{ $id }}][address]" value="{{ old('contacts.'.$id.'.address', $contact->address) }}" class="cms-input" placeholder="Jl. Sudirman No. 123">
             </div>
             <div class="cms-field">
                 <label class="cms-label">Phone</label>
-                <input type="text" name="phone" value="{{ old('phone', $contact->phone) }}" class="cms-input" placeholder="+62 21 1234567">
+                <input type="text" name="contacts[{{ $id }}][phone]" value="{{ old('contacts.'.$id.'.phone', $contact->phone) }}" class="cms-input" placeholder="+62 21 1234567">
             </div>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Email</label>
-            <input type="email" name="email" value="{{ old('email', $contact->email) }}" class="cms-input" placeholder="info@ercommunication.id">
+            <input type="email" name="contacts[{{ $id }}][email]" value="{{ old('contacts.'.$id.'.email', $contact->email) }}" class="cms-input" placeholder="info@ercommunication.id">
         </div>
-    </div>
-
-    {{-- Maps --}}
-    <div class="cms-card">
-        <div class="cms-card-title">Google Maps</div>
-        <div class="cms-field">
+        <div class="cms-field" style="margin-top:14px">
             <label class="cms-label">Map Embed URL</label>
-            <input type="text" name="map_embed_url" id="embed-input" value="{{ old('map_embed_url', $contact->map_embed_url) }}" class="cms-input" placeholder="https://www.google.com/maps/embed?..." oninput="updateEmbedPreview()">
+            <input type="text" name="contacts[{{ $id }}][map_embed_url]" id="embed-input-{{ $id }}" value="{{ old('contacts.'.$id.'.map_embed_url', $contact->map_embed_url) }}" class="cms-input" placeholder="https://www.google.com/maps/embed?..." oninput="updateEmbedPreview({{ $id }})">
         </div>
-        <div id="embed-preview" style="margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;display:{{ $contact->map_embed_url ? 'block' : 'none' }}">
+        <div id="embed-preview-{{ $id }}" style="margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;display:{{ $contact->map_embed_url ? 'block' : 'none' }}">
             <iframe
-                id="embed-iframe"
+                id="embed-iframe-{{ $id }}"
                 src="{{ $contact->map_embed_url }}"
                 style="width:100%;height:300px;border:none;"
                 allowfullscreen
                 loading="lazy"
             ></iframe>
         </div>
-        <div class="cms-form-row" style="margin-top:14px">
-            <div class="cms-field">
-                <label class="cms-label">Latitude</label>
-                <input type="text" name="latitude" id="lat-input" value="{{ old('latitude', $contact->latitude) }}" class="cms-input" placeholder="-6.2088" oninput="updateMapPreview()">
-                @error('latitude')<span class="cms-error">{{ $message }}</span>@enderror
-            </div>
-            <div class="cms-field">
-                <label class="cms-label">Longitude</label>
-                <input type="text" name="longitude" id="lng-input" value="{{ old('longitude', $contact->longitude) }}" class="cms-input" placeholder="106.8456" oninput="updateMapPreview()">
-                @error('longitude')<span class="cms-error">{{ $message }}</span>@enderror
-            </div>
-        </div>
-        <div id="map-preview" style="margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0;display:{{ ($contact->latitude && $contact->longitude) ? 'block' : 'none' }}">
-            <iframe
-                id="map-iframe"
-                src="{{ ($contact->latitude && $contact->longitude) ? 'https://maps.google.com/maps?q='.$contact->latitude.','.$contact->longitude.'&z=15&output=embed' : '' }}"
-                style="width:100%;height:300px;border:none;"
-                allowfullscreen
-                loading="lazy"
-            ></iframe>
-        </div>
     </div>
+    @endforeach
 
     {{-- WhatsApp --}}
     <div class="cms-card">
@@ -175,24 +152,10 @@ function addSocialItem() {
     socialItemIndex++;
 }
 
-function updateMapPreview() {
-    const lat = document.getElementById('lat-input').value;
-    const lng = document.getElementById('lng-input').value;
-    const preview = document.getElementById('map-preview');
-    const iframe = document.getElementById('map-iframe');
-
-    if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
-        iframe.src = `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
-        preview.style.display = 'block';
-    } else {
-        preview.style.display = 'none';
-    }
-}
-
-function updateEmbedPreview() {
-    const url = document.getElementById('embed-input').value;
-    const preview = document.getElementById('embed-preview');
-    const iframe = document.getElementById('embed-iframe');
+function updateEmbedPreview(id) {
+    const url = document.getElementById('embed-input-' + id).value;
+    const preview = document.getElementById('embed-preview-' + id);
+    const iframe = document.getElementById('embed-iframe-' + id);
     
     if (url && url.startsWith('http')) {
         iframe.src = url;

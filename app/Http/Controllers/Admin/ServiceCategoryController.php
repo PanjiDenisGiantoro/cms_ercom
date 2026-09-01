@@ -26,6 +26,7 @@ class ServiceCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'cover_image' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
@@ -47,6 +48,7 @@ class ServiceCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'cover_image' => 'nullable',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',

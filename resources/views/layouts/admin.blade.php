@@ -250,14 +250,31 @@
                         </div>
                     </div>
                     <!-- Team -->
-                    <a href="{{ route('admin.team.index') }}"
-                        class="admin-nav-link {{ request()->routeIs('admin.team.*') ? 'active' : '' }}">
-                        <svg viewBox="0 0 24 24" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-                            <circle cx="12" cy="7" r="4" />
-                        </svg>
-                        Team
-                    </a>
+                    <div
+                        class="admin-nav-group {{ request()->routeIs('admin.team.*', 'admin.team-banners.*') ? 'open' : '' }}">
+                        <button type="button"
+                            class="admin-nav-link admin-nav-toggle {{ request()->routeIs('admin.team.*', 'admin.team-banners.*') ? 'active' : '' }}"
+                            onclick="toggleNavGroup(this)">
+                            <svg viewBox="0 0 24 24" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                            Team
+                            <svg class="admin-nav-caret" viewBox="0 0 24 24" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9" />
+                            </svg>
+                        </button>
+                        <div class="admin-nav-submenu">
+                            <a href="{{ route('admin.team.index') }}"
+                                class="admin-nav-sublink {{ request()->routeIs('admin.team.*') ? 'active' : '' }}">
+                                Anggota
+                            </a>
+                            <a href="{{ route('admin.team-banners.index') }}"
+                                class="admin-nav-sublink {{ request()->routeIs('admin.team-banners.*') ? 'active' : '' }}">
+                                Banner
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- System --}}

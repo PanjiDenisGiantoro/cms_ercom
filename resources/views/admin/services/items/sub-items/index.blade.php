@@ -28,8 +28,9 @@
                     <td>{{ $subItem->order }}</td>
                     <td><span class="cms-badge {{ $subItem->is_active ? 'cms-badge-green' : 'cms-badge-gray' }}">{{ $subItem->is_active ? 'Aktif' : 'Non-aktif' }}</span></td>
                     <td>{{ $subItem->created_at->format('d M Y H:i') }}</td>
-                    <td class="cms-actions">
-                        <a href="{{ route('admin.services.items.sub-items.edit', [$service, $item, $subItem]) }}" class="cms-btn cms-btn-sm">Edit</a>
+                        <td class="cms-actions">
+                            <a href="{{ route('admin.service-media.index', ['type' => 'subitem', 'id' => $subItem->id]) }}" class="cms-btn cms-btn-sm" style="background:#f1f5f9;color:#475569;border-color:#cbd5e1">Media</a>
+                            <a href="{{ route('admin.services.items.sub-items.edit', [$service, $item, $subItem]) }}" class="cms-btn cms-btn-sm">Edit</a>
                         <form method="POST" action="{{ route('admin.services.items.sub-items.destroy', [$service, $item, $subItem]) }}" onsubmit="return confirm('Hapus?')">
                             @csrf @method('DELETE')
                             <button type="submit" class="cms-btn cms-btn-sm cms-btn-danger">Hapus</button>

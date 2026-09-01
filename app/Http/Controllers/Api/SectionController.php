@@ -45,10 +45,11 @@ class SectionController extends Controller
     {
         return response()->json([
             'settings' => ServiceSetting::instance(),
-            'categories' => ServiceCategory::with(['items.subItems'])
-                ->where('is_active', true)
-                ->orderBy('order')
-                ->get(),
+            'categories' => ServiceCategory::with([
+                'media' => fn ($q) => $q->orderBy('order'),
+                'items' => fn ($q) => $q->where('is_active', true)->orderBy('order')->with(['media' => fn ($q) => $q->orderBy('order')]),
+                'items.subItems' => fn ($q) => $q->where('is_active', true)->orderBy('order')->with(['media' => fn ($q) => $q->orderBy('order')]),
+            ])->where('is_active', true)->orderBy('order')->get(),
         ]);
     }
 
@@ -75,6 +76,7 @@ class SectionController extends Controller
     {
         return response()->json([
             'settings' => \App\Models\HeroSetting::instance('team'),
+            'banners' => \App\Models\TeamBanner::where('is_active', true)->orderBy('order')->get(),
             'members' => Team::where('is_active', true)->orderBy('order')->get(),
         ]);
     }
@@ -94,6 +96,7 @@ class SectionController extends Controller
         return response()->json([
             'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
             'social_media' => FooterSetting::instance()->social_media,
+            'copyright_text' => FooterSetting::instance()->copyright_text,
         ]);
     }
 }

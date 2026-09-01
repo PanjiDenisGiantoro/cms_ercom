@@ -14,18 +14,24 @@
     <div class="cms-card">
         <div class="cms-form-row">
             <div class="cms-field">
-                <label class="cms-label">Nama Kategori <span class="cms-required">*</span></label>
+                <label class="cms-label">Nama Kategori (Judul) <span class="cms-required">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $service->name) }}" class="cms-input">
+            </div>
+            <div class="cms-field">
+                <label class="cms-label">Subtitle</label>
+                <input type="text" name="subtitle" value="{{ old('subtitle', $service->subtitle) }}" class="cms-input">
+            </div>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
+                <label class="cms-label">Cover Image</label>
+                <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond
+                    @if($service->cover_image) data-current-file="{{ Storage::url($service->cover_image) }}" @endif>
             </div>
             <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', $service->order) }}" class="cms-input" min="0">
             </div>
-        </div>
-        <div class="cms-field" style="margin-top:14px">
-            <label class="cms-label">Cover Image</label>
-            <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond
-                @if($service->cover_image) data-current-file="{{ Storage::url($service->cover_image) }}" @endif>
         </div>
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">
@@ -36,4 +42,10 @@
         </div>
     </div>
 </form>
+
+<div class="cms-card" style="margin-top:24px;">
+    <h3 style="font-size:18px; font-weight:600; margin-bottom:8px;">Galeri & Media</h3>
+    <p style="margin-bottom:16px;color:#666;font-size:14px;">Kelola foto/video khusus untuk kategori ini.</p>
+    <a href="{{ route('admin.service-media.index', ['type' => 'category', 'id' => $service->id]) }}" class="cms-btn cms-btn-primary">Kelola Media ({{ $service->media()->count() }})</a>
+</div>
 @endsection

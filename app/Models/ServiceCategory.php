@@ -13,7 +13,12 @@ class ServiceCategory extends Model
 
     protected string $frontendCacheTag = 'services';
 
-    protected $fillable = ['name', 'slug', 'cover_image', 'order', 'is_active'];
+    protected $fillable = ['name', 'subtitle', 'slug', 'cover_image', 'order', 'is_active'];
+
+    public function media(): \Illuminate\Database\Eloquent\Relations\MorphMany
+    {
+        return $this->morphMany(ServiceMedia::class, 'mediable')->orderBy('order');
+    }
 
     protected $casts = [
         'is_active' => 'boolean',

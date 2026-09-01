@@ -14,23 +14,25 @@ class ContactController extends Controller
 {
     public function edit(): View
     {
-        $contact = Contact::firstOrCreate(['id' => 1], ['label' => 'Kantor Pusat']);
+        $contacts = collect([
+            1 => Contact::firstOrCreate(['id' => 1], ['label' => 'Workshop']),
+            2 => Contact::firstOrCreate(['id' => 2], ['label' => 'Head Office'])
+        ]);
         $navbar = NavbarSetting::instance();
         $footer = FooterSetting::instance();
 
-        return view('admin.contacts.edit', compact('contact', 'navbar', 'footer'));
+        return view('admin.contacts.edit', compact('contacts', 'navbar', 'footer'));
     }
 
     public function update(Request $request): RedirectResponse
     {
         $data = $request->validate([
-            'label' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:50',
-            'email' => 'nullable|email|max:255',
-            'map_embed_url' => 'nullable|string',
-            'latitude' => 'nullable|numeric|between:-90,90',
-            'longitude' => 'nullable|numeric|between:-180,180',
+            'contacts' => 'required|array',
+            'contacts.*.label' => 'required|string|max:255',
+            'contacts.*.address' => 'nullable|string|max:255',
+            'contacts.*.phone' => 'nullable|string|max:50',
+            'contacts.*.email' => 'nullable|email|max:255',
+            'contacts.*.map_embed_url' => 'nullable|string',
             'whatsapp_number' => 'nullable|string|max:20',
             'social_media' => 'nullable|array',
             'social_media.*.label' => 'nullable|string|max:50',
@@ -39,16 +41,17 @@ class ContactController extends Controller
             'copyright_text' => 'nullable|string|max:255',
         ]);
 
-        Contact::updateOrCreate(['id' => 1], [
-            'label' => $data['label'] ?? 'Kantor Pusat',
-            'address' => $data['address'] ?? null,
-            'phone' => $data['phone'] ?? null,
-            'email' => $data['email'] ?? null,
-            'map_embed_url' => $data['map_embed_url'] ?? null,
-            'latitude' => $data['latitude'] ?? null,
-            'longitude' => $data['longitude'] ?? null,
-            'is_active' => true,
-        ]);
+        foreach ($data['contacts'] as $id => $contactData) {
+            Contact::updateOrCreate(['id' => $id], [
+                'label' => $contactData['label'] ?? 'Kantor',
+                'address' => $contactData['address'] ?? null,
+                'phone' => $contactData['phone'] ?? null,
+                'email' => $contactData['email'] ?? null,
+                'map_embed_url' => $contactData['map_embed_url'] ?? null,
+                'order' => $id,
+                'is_active' => true,
+            ]);
+        }
 
         NavbarSetting::instance()->update([
             'whatsapp_number' => $data['whatsapp_number'] ?? null,

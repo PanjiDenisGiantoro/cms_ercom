@@ -14,18 +14,25 @@
     <div class="cms-card">
         <div class="cms-form-row">
             <div class="cms-field">
-                <label class="cms-label">Nama Kategori <span class="cms-required">*</span></label>
-                <input type="text" name="name" value="{{ old('name') }}" class="cms-input" placeholder="Branding, Digital Marketing, ...">
+                <label class="cms-label">Nama Kategori (Judul) <span class="cms-required">*</span></label>
+                <input type="text" name="name" value="{{ old('name') }}" class="cms-input">
+            </div>
+            <div class="cms-field">
+                <label class="cms-label">Subtitle</label>
+                <input type="text" name="subtitle" value="{{ old('subtitle') }}" class="cms-input">
+            </div>
+        </div>
+        <div class="cms-form-row" style="margin-top:14px">
+            <div class="cms-field">
+                <label class="cms-label">Cover Image</label>
+                <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond>
             </div>
             <div class="cms-field">
                 <label class="cms-label">Order</label>
                 <input type="number" name="order" value="{{ old('order', 0) }}" class="cms-input" min="0">
             </div>
         </div>
-        <div class="cms-field" style="margin-top:14px">
-            <label class="cms-label">Cover Image</label>
-            <input type="file" name="cover_image" class="cms-input" accept="image/*" data-filepond>
-        </div>
+
         <div class="cms-field" style="margin-top:14px">
             <label class="cms-toggle-label">
                 <input type="hidden" name="is_active" value="0">

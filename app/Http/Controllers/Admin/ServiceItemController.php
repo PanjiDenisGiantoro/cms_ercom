@@ -33,9 +33,8 @@ class ServiceItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable',
-            'video_file' => 'nullable',
-            'preview_video' => 'nullable|url',
+            'subtitle' => 'nullable|string|max:255',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'cta_text' => 'nullable|string|max:100',
             'cta_url' => 'nullable|url',
@@ -44,17 +43,7 @@ class ServiceItemController extends Controller
         ]);
 
         $data['service_category_id'] = $service->id;
-        $data['thumbnail'] = $this->resolveUpload($request, 'thumbnail', 'services/items');
-
-        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
-            $data['preview_video'] = $videoFile;
-        }
-
-        unset($data['video_file']);
-
-        if (empty($data['thumbnail'])) {
-            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? null);
-        }
+        $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'services/items');
 
         $service->items()->create($data);
 
@@ -70,9 +59,8 @@ class ServiceItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable',
-            'video_file' => 'nullable',
-            'preview_video' => 'nullable|url',
+            'subtitle' => 'nullable|string|max:255',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'cta_text' => 'nullable|string|max:100',
             'cta_url' => 'nullable|url',
@@ -80,17 +68,7 @@ class ServiceItemController extends Controller
             'is_active' => 'boolean',
         ]);
 
-        $this->applyUpload($data, $request, 'thumbnail', 'services/items');
-
-        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
-            $data['preview_video'] = $videoFile;
-        }
-
-        unset($data['video_file']);
-
-        if (($data['thumbnail'] ?? $item->thumbnail) === null) {
-            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? $item->preview_video);
-        }
+        $this->applyUpload($data, $request, 'cover_image', 'services/items');
 
         $item->update($data);
 

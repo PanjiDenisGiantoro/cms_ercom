@@ -28,26 +28,15 @@ class ServiceSubItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable',
-            'video_file' => 'nullable',
-            'preview_video' => 'nullable|url',
+            'subtitle' => 'nullable|string|max:255',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
         $data['service_item_id'] = $item->id;
-        $data['thumbnail'] = $this->resolveUpload($request, 'thumbnail', 'services/sub-items');
-
-        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
-            $data['preview_video'] = $videoFile;
-        }
-
-        unset($data['video_file']);
-
-        if (empty($data['thumbnail'])) {
-            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? null);
-        }
+        $data['cover_image'] = $this->resolveUpload($request, 'cover_image', 'services/sub-items');
 
         $item->subItems()->create($data);
 
@@ -63,25 +52,14 @@ class ServiceSubItemController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
-            'thumbnail' => 'nullable',
-            'video_file' => 'nullable',
-            'preview_video' => 'nullable|url',
+            'subtitle' => 'nullable|string|max:255',
+            'cover_image' => 'nullable',
             'description' => 'nullable|string',
             'order' => 'integer|min:0',
             'is_active' => 'boolean',
         ]);
 
-        $this->applyUpload($data, $request, 'thumbnail', 'services/sub-items');
-
-        if ($videoFile = $this->resolveUpload($request, 'video_file', 'services/videos')) {
-            $data['preview_video'] = $videoFile;
-        }
-
-        unset($data['video_file']);
-
-        if (($data['thumbnail'] ?? $subItem->thumbnail) === null) {
-            $data['thumbnail'] = $this->resolveVideoThumbnail($data['preview_video'] ?? $subItem->preview_video);
-        }
+        $this->applyUpload($data, $request, 'cover_image', 'services/sub-items');
 
         $subItem->update($data);
 

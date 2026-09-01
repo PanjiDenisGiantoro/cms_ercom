@@ -43,9 +43,10 @@
                         </form>
                     </td>
                     <td>{{ $item->created_at->format('d M Y H:i') }}</td>
-                    <td class="cms-actions">
-                        <a href="{{ route('admin.services.items.sub-items.index', [$service, $item]) }}" class="cms-btn cms-btn-sm" style="background:#f5f3ff;color:#7c3aed;border-color:#ddd6fe">Sub-items</a>
-                        <a href="{{ route('admin.services.items.edit', [$service, $item]) }}" class="cms-btn cms-btn-sm">Edit</a>
+                        <td class="cms-actions">
+                            <a href="{{ route('admin.service-media.index', ['type' => 'item', 'id' => $item->id]) }}" class="cms-btn cms-btn-sm" style="background:#f1f5f9;color:#475569;border-color:#cbd5e1">Media</a>
+                            <a href="{{ route('admin.services.items.sub-items.index', [$service, $item]) }}" class="cms-btn cms-btn-sm" style="background:#f5f3ff;color:#7c3aed;border-color:#ddd6fe">Sub-items</a>
+                            <a href="{{ route('admin.services.items.edit', [$service, $item]) }}" class="cms-btn cms-btn-sm">Edit</a>
                         <form method="POST" action="{{ route('admin.services.items.destroy', [$service, $item]) }}" onsubmit="return confirm('Hapus?')">
                             @csrf @method('DELETE')
                             <button type="submit" class="cms-btn cms-btn-sm cms-btn-danger">Hapus</button>
