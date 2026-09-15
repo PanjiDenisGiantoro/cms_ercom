@@ -15,7 +15,7 @@ class HeroController extends Controller
         $type = $request->get('type');
 
         $heroes = HeroSetting::query()
-            ->when($type, fn ($query) => $query->where('type', $type))
+            ->when($type, fn($query) => $query->where('type', $type))
             ->orderBy('type')
             ->orderBy('updated_at', 'desc')
             ->paginate(15)
@@ -40,10 +40,6 @@ class HeroController extends Controller
 
         $hero = HeroSetting::create($data);
 
-        if ($hero->is_active && $hero->type !== 'home') {
-            $this->deactivateSiblings($hero);
-        }
-
         return redirect()->route('admin.hero.index')->with('success', 'Hero created.');
     }
 
@@ -59,23 +55,7 @@ class HeroController extends Controller
 
         $hero->update($data);
 
-        if ($hero->is_active && $hero->type !== 'home') {
-            $this->deactivateSiblings($hero);
-        }
-
         return redirect()->route('admin.hero.index')->with('success', 'Hero updated.');
-    }
-
-    /**
-     * Only one Hero can be active per type (except "home") — activating one
-     * deactivates any other active hero of the same type.
-     */
-    private function deactivateSiblings(HeroSetting $hero): void
-    {
-        HeroSetting::where('type', $hero->type)
-            ->where('id', '!=', $hero->id)
-            ->where('is_active', true)
-            ->update(['is_active' => false]);
     }
 
     public function destroy(HeroSetting $hero): RedirectResponse
@@ -88,7 +68,7 @@ class HeroController extends Controller
     private function validated(Request $request): array
     {
         return $request->validate([
-            'type' => 'required|in:'.implode(',', HeroSetting::TYPES),
+            'type' => 'required|in:' . implode(',', HeroSetting::TYPES),
             'headline' => 'nullable|string|max:255',
             'subheadline' => 'nullable|string',
             'background_image' => 'nullable',

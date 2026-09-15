@@ -39,7 +39,7 @@ class HeroSetting extends Model
     }
 
     /**
-     * Return all active heroes for the given type (used for home banners).
+     * Return all active heroes for the given type.
      *
      * @return Collection<int, static>
      */

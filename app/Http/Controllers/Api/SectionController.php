@@ -27,11 +27,7 @@ class SectionController extends Controller
 
     public function hero(string $type = 'home'): JsonResponse
     {
-        if ($type === 'home') {
-            return response()->json(HeroSetting::activeByType('home'));
-        }
-
-        return response()->json(HeroSetting::instance($type));
+        return response()->json(HeroSetting::activeByType($type));
     }
 
     public function stats(): JsonResponse
