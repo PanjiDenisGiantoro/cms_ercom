@@ -72,6 +72,11 @@
             <input type="text" name="whatsapp_number" value="{{ old('whatsapp_number', $navbar->whatsapp_number) }}" class="cms-input" placeholder="6281234567890">
             <div style="font-size:11px;color:#94a3b8;margin-top:4px">Format: kode negara + nomor, tanpa + atau spasi. Contoh: 6281234567890</div>
         </div>
+        <div class="cms-field" style="margin-top:14px">
+            <label class="cms-label">Pesan Default WhatsApp</label>
+            <textarea name="whatsapp_default_message" rows="3" class="cms-input" placeholder="Halo, saya ingin bertanya mengenai layanan ER Communication...">{{ old('whatsapp_default_message', $navbar->whatsapp_default_message) }}</textarea>
+            <div style="font-size:11px;color:#94a3b8;margin-top:4px">Pesan ini akan otomatis terisi saat pengunjung mengklik tombol WhatsApp di website.</div>
+        </div>
     </div>
 
     {{-- Social Media --}}

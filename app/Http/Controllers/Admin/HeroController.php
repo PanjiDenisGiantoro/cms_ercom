@@ -40,7 +40,7 @@ class HeroController extends Controller
 
         $hero = HeroSetting::create($data);
 
-        if ($hero->is_active) {
+        if ($hero->is_active && $hero->type !== 'home') {
             $this->deactivateSiblings($hero);
         }
 
@@ -59,7 +59,7 @@ class HeroController extends Controller
 
         $hero->update($data);
 
-        if ($hero->is_active) {
+        if ($hero->is_active && $hero->type !== 'home') {
             $this->deactivateSiblings($hero);
         }
 
@@ -67,8 +67,8 @@ class HeroController extends Controller
     }
 
     /**
-     * Only one Hero can be active per type — activating one deactivates any
-     * other active hero of the same type.
+     * Only one Hero can be active per type (except "home") — activating one
+     * deactivates any other active hero of the same type.
      */
     private function deactivateSiblings(HeroSetting $hero): void
     {

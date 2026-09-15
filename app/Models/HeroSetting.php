@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\RevalidatesFrontendCache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -28,10 +29,26 @@ class HeroSetting extends Model
 
     protected $appends = ['background_image_url'];
 
+    /**
+     * Return a single active hero for the given type (legacy behaviour).
+     */
     public static function instance(string $type = 'home'): static
     {
         return static::where('type', $type)->where('is_active', true)->first()
             ?? static::firstOrCreate(['type' => $type]);
+    }
+
+    /**
+     * Return all active heroes for the given type (used for home banners).
+     *
+     * @return Collection<int, static>
+     */
+    public static function activeByType(string $type = 'home'): Collection
+    {
+        return static::where('type', $type)
+            ->where('is_active', true)
+            ->orderBy('updated_at', 'desc')
+            ->get();
     }
 
     protected function backgroundImageUrl(): Attribute

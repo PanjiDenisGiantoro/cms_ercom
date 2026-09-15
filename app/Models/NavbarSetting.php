@@ -17,7 +17,7 @@ class NavbarSetting extends Model
 
     protected $fillable = [
         'logo_light', 'logo_dark', 'menu_items',
-        'cta_text', 'cta_url', 'whatsapp_number', 'sticky_on_scroll',
+        'cta_text', 'cta_url', 'whatsapp_number', 'whatsapp_default_message', 'sticky_on_scroll',
     ];
 
     protected $casts = [

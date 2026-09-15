@@ -4,7 +4,7 @@
 @section('breadcrumb', 'Content / Services')
 
 @section('topbar-actions')
-    <!-- <a href="{{ route('admin.service-settings.edit') }}" class="cms-btn">Header Section</a> -->
+    <a href="{{ route('admin.service-settings.edit') }}" class="cms-btn">Heading</a>
     <a href="{{ route('admin.services.create') }}" class="cms-btn cms-btn-primary">+ Tambah Kategori</a>
 @endsection
 

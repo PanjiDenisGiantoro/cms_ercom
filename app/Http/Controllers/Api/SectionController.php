@@ -14,6 +14,7 @@ use App\Models\ServiceCategory;
 use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
+use App\Models\TeamBanner;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 
@@ -26,6 +27,10 @@ class SectionController extends Controller
 
     public function hero(string $type = 'home'): JsonResponse
     {
+        if ($type === 'home') {
+            return response()->json(HeroSetting::activeByType('home'));
+        }
+
         return response()->json(HeroSetting::instance($type));
     }
 
@@ -75,15 +80,21 @@ class SectionController extends Controller
     public function team(): JsonResponse
     {
         return response()->json([
-            'settings' => \App\Models\HeroSetting::instance('team'),
-            'banners' => \App\Models\TeamBanner::where('is_active', true)->orderBy('order')->get(),
+            'settings' => HeroSetting::instance('team'),
+            'banners' => TeamBanner::where('is_active', true)->orderBy('order')->get(),
             'members' => Team::where('is_active', true)->orderBy('order')->get(),
         ]);
     }
 
     public function footer(): JsonResponse
     {
-        return response()->json(FooterSetting::instance());
+        $navbar = NavbarSetting::instance();
+        $footer = FooterSetting::instance();
+
+        return response()->json(array_merge($footer->toArray(), [
+            'whatsapp_number' => $navbar->whatsapp_number,
+            'whatsapp_default_message' => $navbar->whatsapp_default_message,
+        ]));
     }
 
     public function seo(): JsonResponse
@@ -93,8 +104,11 @@ class SectionController extends Controller
 
     public function social(): JsonResponse
     {
+        $navbar = NavbarSetting::instance();
+
         return response()->json([
-            'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
+            'whatsapp_number' => $navbar->whatsapp_number,
+            'whatsapp_default_message' => $navbar->whatsapp_default_message,
             'social_media' => FooterSetting::instance()->social_media,
             'copyright_text' => FooterSetting::instance()->copyright_text,
         ]);

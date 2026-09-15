@@ -24,6 +24,7 @@ use App\Models\SeoSetting;
 use App\Models\ServiceSetting;
 use App\Models\Stat;
 use App\Models\Team;
+use App\Models\TeamBanner;
 use App\Models\Testimonial;
 use Illuminate\Http\JsonResponse;
 
@@ -33,7 +34,7 @@ class LandingController extends Controller
     {
         return response()->json([
             'navbar' => NavbarSetting::instance(),
-            'hero' => HeroSetting::instance(),
+            'hero' => HeroSetting::activeByType('home'),
             'about' => AboutSetting::instance(),
             'about_sections' => AboutSection::where('is_active', true)->orderBy('order')->get(),
             'about_section3_setting' => AboutSection3Setting::instance(),
@@ -44,7 +45,7 @@ class LandingController extends Controller
             'testimonial' => Testimonial::where('is_active', true)->orderBy('order')->first(),
             'partners' => Partner::where('is_active', true)->orderBy('order')->get(),
             'team_setting' => HeroSetting::instance('team'),
-            'team_banners' => \App\Models\TeamBanner::where('is_active', true)->orderBy('order')->get(),
+            'team_banners' => TeamBanner::where('is_active', true)->orderBy('order')->get(),
             'team_members' => Team::where('is_active', true)->orderBy('order')->get(),
             'service_setting' => ServiceSetting::instance(),
             'portfolios' => Portfolio::with('category')
@@ -66,6 +67,7 @@ class LandingController extends Controller
             'seo' => SeoSetting::instance(),
             'social' => [
                 'whatsapp_number' => NavbarSetting::instance()->whatsapp_number,
+                'whatsapp_default_message' => NavbarSetting::instance()->whatsapp_default_message,
                 'social_media' => FooterSetting::instance()->social_media,
                 'copyright_text' => FooterSetting::instance()->copyright_text,
             ],

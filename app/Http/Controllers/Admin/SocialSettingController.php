@@ -23,6 +23,7 @@ class SocialSettingController extends Controller
     {
         $data = $request->validate([
             'whatsapp_number' => 'nullable|string|max:20',
+            'whatsapp_default_message' => 'nullable|string|max:500',
             'social_media' => 'nullable|array',
             'social_media.*.label' => 'nullable|string|max:50',
             'social_media.*.icon' => 'nullable|string|max:40',
@@ -31,6 +32,7 @@ class SocialSettingController extends Controller
 
         NavbarSetting::instance()->update([
             'whatsapp_number' => $data['whatsapp_number'] ?? null,
+            'whatsapp_default_message' => $data['whatsapp_default_message'] ?? null,
         ]);
 
         FooterSetting::instance()->update([
