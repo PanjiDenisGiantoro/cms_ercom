@@ -57,6 +57,7 @@
                 <label class="cms-label">Background Image</label>
                 <input type="file" name="background_image" class="cms-input" accept="image/*,video/mp4,video/quicktime" data-filepond
                     @if($hero->background_image) data-current-file="{{ Storage::url($hero->background_image) }}" @endif>
+                <small class="cms-hint">Format didukung: JPG, PNG, WEBP (untuk Gambar) / MP4, MOV (untuk Video).</small>
             </div>
             <div class="cms-field" style="margin-top:14px">
                 <label class="cms-toggle-label">
