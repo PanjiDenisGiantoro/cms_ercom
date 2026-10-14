@@ -19,15 +19,20 @@ class HeroSetting extends Model
     public const TYPES = ['home', 'about', 'highlight', 'career', 'service', 'client', 'team'];
 
     protected $fillable = [
-        'type', 'headline', 'subheadline',
-        'background_image', 'cta_text', 'cta_url', 'is_active',
+        'type',
+        'headline',
+        'subheadline',
+        'background_image',
+        'cta_text',
+        'cta_url',
+        'is_active',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    protected $appends = ['background_image_url'];
+    protected $appends = ['background_image_url', 'background_media_type'];
 
     /**
      * Return a single active hero for the given type (legacy behaviour).
@@ -53,6 +58,19 @@ class HeroSetting extends Model
 
     protected function backgroundImageUrl(): Attribute
     {
-        return Attribute::get(fn () => $this->background_image ? Storage::url($this->background_image) : null);
+        return Attribute::get(fn() => $this->background_image ? Storage::url($this->background_image) : null);
+    }
+
+    protected function backgroundMediaType(): Attribute
+    {
+        return Attribute::get(function () {
+            if (!$this->background_image) {
+                return null;
+            }
+
+            $extension = strtolower(pathinfo($this->background_image, PATHINFO_EXTENSION));
+
+            return in_array($extension, ['mp4', 'mov', 'webm', 'ogg']) ? 'video' : 'image';
+        });
     }
 }
